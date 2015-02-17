@@ -10,15 +10,18 @@ unsigned char buffer[128];
 
 void setup(void)
 {
+	pinMode(7, OUTPUT);
 	Serial.begin(9600);
 	printf_begin();
 
 	radio.begin();
-	radio.setRetries(15, 15);
-
 	radio.openReadingPipe(0, address);
 	radio.setAutoAck(false);
-	//radio.setCRCLength(RF24_CRC_8);
+	radio.setCRCLength(RF24_CRC_8);
+	//radio.disableCRC();
+	radio.setDataRate(RF24_250KBPS);
+	//use fixed length payload, because packet usually loss when send only 1 payload
+	radio.enableDynamicPayloads();
 	radio.startListening();
 
 	radio.printDetails();
@@ -28,20 +31,27 @@ void loop(void)
 {
 	if (radio.available())
 	{
-		bool done = false;
-		while (!done)
+		bool isLastPacket = false;
+		while (!isLastPacket)
 		{
 			uint8_t payloadSize = radio.getDynamicPayloadSize();
 			Serial.print("got a payload, size is: ");
-			Serial.println(payloadSize);
-			done = radio.read(buffer, payloadSize);
+			Serial.print(payloadSize);
+			isLastPacket = radio.read(buffer, payloadSize);
 
-			Serial.print("data: ");
+			Serial.print("\tdata: ");
 			printBuffer(payloadSize);
 			Serial.println();
 
+			for (int i=0; i<payloadSize; ++i)
+			{
+				digitalWrite(7, HIGH);
+				delay(40);
+				digitalWrite(7, LOW);
+				delay(50);
+			}
 		}
-		delay(20);
+		
 	}
 }
 

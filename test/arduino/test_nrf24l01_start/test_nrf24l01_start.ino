@@ -74,6 +74,8 @@ void setup(void)
   // optionally, increase the delay between retries & # of retries
   radio.setRetries(15,15);
   radio.setAutoAck(false);
+  radio.setCRCLength(RF24_CRC_8);
+  radio.setDataRate(RF24_250KBPS);
 
   // optionally, reduce the payload size.  seems to
   // improve reliability
