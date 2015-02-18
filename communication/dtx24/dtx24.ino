@@ -14,8 +14,7 @@ const uint64_t address = 0xF0F0F0F0E1LL;
 unsigned char buffer[128];
 void setup(void)
 {
-	Serial.begin(115200);
-	Serial.println("Hello World");
+	Serial.begin(9600);
 	printf_begin();
 	radio.begin();
 	radio.setRetries(0,0);

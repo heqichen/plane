@@ -11,7 +11,7 @@ unsigned char buffer[128];
 void setup(void)
 {
 	pinMode(7, OUTPUT);
-	Serial.begin(115200);
+	Serial.begin(9600);
 	printf_begin();
 
 	radio.begin();
