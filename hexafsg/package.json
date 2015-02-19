@@ -1,0 +1,13 @@
+{
+  "name": "HEXAFSP",
+  "version": "0.0.1",
+  "description": "test",
+  "author": "HE Qichen",
+  "dependencies": {
+    "q" : "~1.0.1",
+    "serialport": "1.4.x",
+    "async": "~0.9.0",
+    "socket.io":	"1.3.2",
+    "express":	"4.11.1"
+  }
+}
