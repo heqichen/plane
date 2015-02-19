@@ -11,6 +11,15 @@
 			<node></node>
 		</chunk> 
 		-->
+<!--
+	Some useful nodes
+	1. engine start switch:	controls/switches/starter
+	2. brake
+		controls/gear/brake-parking
+		controls/gear/brake-left
+		controls/gear/brake-right
+-->
+
 
 		<input>
 			<binary_mode>true</binary_mode>
@@ -40,8 +49,13 @@
 		</input>
 
 		<output>
+			<!--
 			<binary_mode>true</binary_mode>
 			<binary_footer>magic,0x4c56414d</binary_footer>
+			-->
+			
+			<line_separator>newline</line_separator>
+			<var_separator>,</var_separator>
 
 			<!-- ##### GPS ##### -->
 			<chunk>
