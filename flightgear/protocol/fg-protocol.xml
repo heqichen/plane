@@ -22,61 +22,116 @@
 
 
 		<input>
-			<binary_mode>true</binary_mode>
+			<line_separator>\n</line_separator>
+			<var_separator>,</var_separator>
+			<binary_mode>false</binary_mode>
 
+			
 			<!-- ##### Flight Controls -->
 			<chunk>
 				<name>aileron</name>
 				<type>double</type>
 				<node>/controls/flight/aileron</node>
+				<format>%f</format>
 			</chunk> 
 			<chunk>
 				<name>elevator</name>
 				<type>double</type>
 				<node>/controls/flight/elevator</node>
-			</chunk> 
-			<chunk>
-				<name>rudder</name>
-				<type>double</type>
-				<node>/controls/flight/rudder</node>
+				<format>%f</format>
 			</chunk> 
 			<chunk>
 				<name>throttle</name>
 				<type>double</type>
 				<node>/controls/engines/engine[0]/throttle</node>
+				<format>%f</format>
+			</chunk> 
+			<chunk>
+				<name>rudder</name>
+				<type>double</type>
+				<node>/controls/flight/rudder</node>
+				<format>%f</format>
+			</chunk> 
+			<chunk>
+				<name>starter</name>
+				<type>double</type>
+				<node>controls/switches/starter</node>
+				<format>%f</format>
+			</chunk>
+ 			<chunk>
+				<name>parking</name>
+				<type>double</type>
+				<node>controls/gear/brake-parking</node>
+				<format>%f</format>
 			</chunk> 
 
 		</input>
 
 		<output>
-			<!--
-			<binary_mode>true</binary_mode>
-			<binary_footer>magic,0x4c56414d</binary_footer>
-			-->
-			
-			<line_separator>newline</line_separator>
+			<line_separator>\n</line_separator>
 			<var_separator>,</var_separator>
+			
+			<!-- ##### Flight Controls -->
+			<chunk>
+				<name>aileron</name>
+				<type>double</type>
+				<node>/controls/flight/aileron</node>
+				<format>%f</format>
+			</chunk> 
+			<chunk>
+				<name>elevator</name>
+				<type>double</type>
+				<node>/controls/flight/elevator</node>
+				<format>%f</format>
+			</chunk> 
+			<chunk>
+				<name>throttle</name>
+				<type>double</type>
+				<node>/controls/engines/engine[0]/throttle</node>
+				<format>%f</format>
+			</chunk> 
+			<chunk>
+				<name>rudder</name>
+				<type>double</type>
+				<node>/controls/flight/rudder</node>
+				<format>%f</format>
+			</chunk> 
+			<chunk>
+				<name>starter</name>
+				<type>double</type>
+				<node>controls/switches/starter</node>
+				<format>%f</format>
+			</chunk> 			<chunk>
+				<name>parking</name>
+				<type>double</type>
+				<node>controls/gear/brake-parking</node>
+				<format>%f</format>
+			</chunk> 
 
 			<!-- ##### GPS ##### -->
 			<chunk>
 				<name>latitude</name>
 				<type>double</type>
 				<node>/position/latitude-deg</node>
+				<format>%f</format>
 			</chunk> 
 			<chunk>
 				<name>longitude</name>
 				<type>double</type>
 				<node>/position/longitude-deg</node>
+				<format>%f</format>
 			</chunk> 
 			<chunk>
 				<name>altitude</name>
 				<type>double</type>
 				<node>/position/altitude-ft</node>
+				<format>%f</format>
 			</chunk> 
 			<chunk>
 				<name>heading</name>
 				<type>double</type>
 				<node>/orientation/heading-deg</node>
+				<format>%f</format>
 			</chunk>
 
 			<!-- ground course = atan(ve/vn), speed = sqrt((ve*ve) + (vn*vn)) -->
@@ -84,11 +139,13 @@
 				<name>speed - north</name>
 				<type>double</type>
 				<node>/velocities/speed-north-fps</node>
+				<format>%f</format>
 			</chunk> 
 			<chunk>
 				<name>speed - east</name>
 				<type>double</type>
 				<node>/velocities/speed-east-fps</node>
+				<format>%f</format>
 			</chunk> 
 
 
@@ -97,32 +154,38 @@
 				<name>x-accel</name>
 				<type>double</type>
 				<node>/accelerations/pilot/x-accel-fps_sec</node>
+				<format>%f</format>
 			</chunk>
 			<chunk>
 				<name>y-accel</name>
 				<type>double</type>
 				<node>/accelerations/pilot/y-accel-fps_sec</node>
+				<format>%f</format>
 			</chunk>
 			<chunk>
 				<name>z-accel</name>
 				<type>double</type>
 				<node>/accelerations/pilot/z-accel-fps_sec</node>
+				<format>%f</format>
 			</chunk>
 
 			<chunk>
 				<name>roll-rate</name>
 				<type>double</type>
 				<node>/orientation/roll-rate-degps</node>
+				<format>%f</format>
 			</chunk> 
 			<chunk>
 				<name>pitch-rate</name>
 				<type>double</type>
 				<node>/orientation/pitch-rate-degps</node>
+				<format>%f</format>
 			</chunk> 
 			<chunk>
 				<name>yaw-rate</name>
 				<type>double</type>
 				<node>/orientation/yaw-rate-degps</node>
+				<format>%f</format>
 			</chunk> 
 
 
