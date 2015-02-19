@@ -56,13 +56,13 @@
 				<name>starter</name>
 				<type>double</type>
 				<node>controls/switches/starter</node>
-				<format>%f</format>
+				<format>%d</format>
 			</chunk>
  			<chunk>
 				<name>parking</name>
 				<type>double</type>
 				<node>controls/gear/brake-parking</node>
-				<format>%f</format>
+				<format>%d}</format>
 			</chunk> 
 
 		</input>
