@@ -2,20 +2,26 @@ IDIR = ./
 CC=gcc
 CFLAGS=-I$(IDIR)
 
-OBJS = chicken.o
+OBJS = chicken.o device_manager.o device/radio.o
 
 LIBS=
 
 TARGET = chicken
 
-
-$(ODIR)/%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+SUB_DIR = device
 
 $(TARGET): $(OBJS)
+	@for dir in $(SUB_DIR); do\
+		make -C $$dir;\
+	done
 	gcc -o $@ $^ $(CFLAGS) $(LIBS)
 
-.PHONY: clean
+$%.o: %.cpp
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+
+
+.PHONY: all clean
 clean:
 	rm -f *.cpp~
 	rm -f *.h~
@@ -23,3 +29,7 @@ clean:
 	rm -f Makefile~
 	rm -f *.o
 	rm -f $(TARGET)
+
+	for dir in $(SUB_DIR); do\
+		make -C $$dir;\
+	done
