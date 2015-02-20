@@ -76,36 +76,36 @@
 				<name>aileron</name>
 				<type>double</type>
 				<node>/controls/flight/aileron</node>
-				<format>{aileron:"%f"</format>
+				<format>{"aileron":"%f"</format>
 			</chunk> 
 			<chunk>
 				<name>elevator</name>
 				<type>double</type>
 				<node>/controls/flight/elevator</node>
-				<format>elevator:"%f"</format>
+				<format>"elevator":"%f"</format>
 			</chunk> 
 			<chunk>
 				<name>throttle</name>
 				<type>double</type>
 				<node>/controls/engines/engine[0]/throttle</node>
-				<format>throttle:"%f"</format>
+				<format>"throttle":"%f"</format>
 			</chunk> 
 			<chunk>
 				<name>rudder</name>
 				<type>double</type>
 				<node>/controls/flight/rudder</node>
-				<format>rudder:"%f"</format>
+				<format>"rudder":"%f"</format>
 			</chunk> 
 			<chunk>
 				<name>starter</name>
 				<type>double</type>
 				<node>controls/switches/starter</node>
-				<format>starter:"%f"</format>
+				<format>"starter":"%f"</format>
 			</chunk> 			<chunk>
 				<name>parking</name>
 				<type>double</type>
 				<node>controls/gear/brake-parking</node>
-				<format>brake:"%f"</format>
+				<format>"brake":"%f"</format>
 			</chunk> 
 
 			<!-- ##### GPS ##### -->
@@ -113,25 +113,25 @@
 				<name>latitude</name>
 				<type>double</type>
 				<node>/position/latitude-deg</node>
-				<format>latitude:"%f"</format>
+				<format>"latitude":"%f"</format>
 			</chunk> 
 			<chunk>
 				<name>longitude</name>
 				<type>double</type>
 				<node>/position/longitude-deg</node>
-				<format>longtitude:"%f"</format>
+				<format>"longtitude":"%f"</format>
 			</chunk> 
 			<chunk>
 				<name>altitude</name>
 				<type>double</type>
 				<node>/position/altitude-ft</node>
-				<format>altitude:"%f"</format>
+				<format>"altitude":"%f"</format>
 			</chunk> 
 			<chunk>
 				<name>heading</name>
 				<type>double</type>
 				<node>/orientation/heading-deg</node>
-				<format>heading:"%f"</format>
+				<format>"heading":"%f"</format>
 			</chunk>
 
 			<!-- ground course = atan(ve/vn), speed = sqrt((ve*ve) + (vn*vn)) -->
@@ -139,13 +139,13 @@
 				<name>speed - north</name>
 				<type>double</type>
 				<node>/velocities/speed-north-fps</node>
-				<format>ground-north:"%f"</format>
+				<format>"ground-north":"%f"</format>
 			</chunk> 
 			<chunk>
 				<name>speed - east</name>
 				<type>double</type>
 				<node>/velocities/speed-east-fps</node>
-				<format>ground-ease:"%f"</format>
+				<format>"ground-ease":"%f"</format>
 			</chunk> 
 
 
@@ -154,41 +154,62 @@
 				<name>x-accel</name>
 				<type>double</type>
 				<node>/accelerations/pilot/x-accel-fps_sec</node>
-				<format>accel_x:"%f"</format>
+				<format>"accel_x":"%f"</format>
 			</chunk>
 			<chunk>
 				<name>y-accel</name>
 				<type>double</type>
 				<node>/accelerations/pilot/y-accel-fps_sec</node>
-				<format>accel_y:"%f"</format>
+				<format>"accel_y":"%f"</format>
 			</chunk>
 			<chunk>
 				<name>z-accel</name>
 				<type>double</type>
 				<node>/accelerations/pilot/z-accel-fps_sec</node>
-				<format>accel_z:"%f"</format>
+				<format>"accel_z":"%f"</format>
 			</chunk>
 
 			<chunk>
 				<name>roll-rate</name>
 				<type>double</type>
 				<node>/orientation/roll-rate-degps</node>
-				<format>gyro_roll:"%f"</format>
+				<format>"gyro_roll":"%f"</format>
 			</chunk> 
 			<chunk>
 				<name>pitch-rate</name>
 				<type>double</type>
 				<node>/orientation/pitch-rate-degps</node>
-				<format>gyro_pitch:"%f"</format>
+				<format>"gyro_pitch":"%f"</format>
 			</chunk> 
 			<chunk>
 				<name>yaw-rate</name>
 				<type>double</type>
 				<node>/orientation/yaw-rate-degps</node>
-				<format>gyro_yaw:"%f"}</format>
-			</chunk> 
-
-
+				<format>"gyro_yaw":"%f"</format>
+			</chunk>
+			
+			<chunk>
+				<name>roll</name>
+				<type>double</type>
+				<node>/orientation/roll-deg</node>
+				<format>"roll":"%f"</format>
+			</chunk>
+			
+			<chunk>
+				<name>pitch</name>
+				<type>double</type>
+				<node>/orientation/pitch-deg</node>
+				<format>"pitch":"%f"</format>
+			</chunk>
+			
+			<chunk>
+				<name>heading</name>
+				<type>double</type>
+				<node>/orientation/heading-deg</node>
+				<format>"heading":"%f"}</format>
+			</chunk>
+			
+			
 		</output>
 
 	</generic>

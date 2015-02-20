@@ -7,6 +7,7 @@ var http = require("http");
 var url = require("url");
 var socketIo = require("socket.io");
 var express = require("express");
+var net = require("net");
 
 var NAUTRAL_ANGLE = [88, 94, 84, 90, 86, 90];
 fsp.rotatePlatform(10, 0, 0);
@@ -84,7 +85,7 @@ var startHttpServer = function()
 		}
 	});
 
-	server.listen(8080);
+	server.listen(8088);
 }
 
 var expressApp = express();
@@ -119,3 +120,52 @@ expressHttp.listen(3000, function() {
 	console.log("listening on 3000");
 });
 
+/*
+
+{aileron:"0.000000",elevator:"0.000000",throttle:"0.000000",rudder:"0.000000",starter:"0.000000",brake:"0.000000",
+latitude:"37.606856",longtitude:"-122.380687",altitude:"5.805171",heading:"27.748087",
+ground-north:"0.000025",ground-ease:"0.000008",
+accel_x:"1.591935",accel_y:"-0.047026",accel_z:"-32.111560",gyro_roll:"-0.000059",gyro_pitch:"-0.000333",gyro_yaw:"-0.000003"}
+
+*/
+
+var tcpServer = net.createServer(function(conn) {
+	conn.on('data', function(data) {
+		//console.log(data.toString('ascii'));
+		var flightInfo = JSON.parse(data.toString('ascii'));
+		var r = flightInfo.roll;
+		var p = flightInfo.pitch;
+		var h = flightInfo.heading;
+
+		if (r > 10) {
+			r = 10;
+		} else {
+			if (r < -10) {
+				r = -10;
+			}
+		}
+		r = -r;
+
+		if (p > 10) {
+			p = 10;
+		} else {
+			if (p < -10) {
+				p = -10;
+			}
+		}
+		p = -p;
+
+		h = 0;
+
+		var motion = {
+			pitch : p,
+			roll : r, 
+			heading: h,
+		};
+		movePlatform(motion);
+
+		console.log("roll: " + r + "\tpitch: " + p + "\theading: " + h);
+	});
+});
+
+tcpServer.listen(8080);
