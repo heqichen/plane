@@ -8,5 +8,5 @@ DeviceManager::DeviceManager()
 
 Radio *DeviceManager::getRadio(void)
 {
-
+	return (Radio*)(void*)0;
 }

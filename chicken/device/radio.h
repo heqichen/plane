@@ -1,11 +1,15 @@
 #ifndef __RADIO_H__
 #define __RADIO_H__
 
-class Radio
+#include "i_device.h"
+
+class Radio : public IDevice
 {
 	public:
 		Radio();
 		void write(char *str);
+		virtual void init();
+
 };
 
 #endif

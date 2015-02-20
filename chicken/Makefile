@@ -1,8 +1,8 @@
 IDIR = ./
-CC=gcc
+CC=g++
 CFLAGS=-I$(IDIR)
 
-OBJS = chicken.o device_manager.o device/radio.o
+OBJS = chicken.o device_manager.o device/radio.o device/i_device.o
 
 LIBS=
 
@@ -10,18 +10,23 @@ TARGET = chicken
 
 SUB_DIR = device
 
+all:	RETRIVE_SUB_DIR $(TARGET)
+
 $(TARGET): $(OBJS)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+
+RETRIVE_SUB_DIR:
 	@for dir in $(SUB_DIR); do\
 		make -C $$dir;\
 	done
-	gcc -o $@ $^ $(CFLAGS) $(LIBS)
+
 
 $%.o: %.cpp
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 
 
-.PHONY: all clean
+.PHONY: all clean RETRIVE_SUB_DIR
 clean:
 	rm -f *.cpp~
 	rm -f *.h~

@@ -1,13 +1,17 @@
 IDIR = ../
-CC=gcc
+CC=g++
 CFLAGS=-I$(IDIR)
 
-OBJS = radio.o
+OBJS = radio.o i_device.o
 
 LIBS=
 
-radio.o:	radio.cpp radio.h
+all:	$(OBJS)
+
+radio.o:	radio.cpp radio.h i_device.h
+i_device.o:	i_device.cpp i_device.h
 	$(CC) -c -o $@ $< $(CFLAGS)
+
 
 .PHONY: clean
 clean:
