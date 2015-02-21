@@ -3,6 +3,7 @@
 #include "./device/driver/io/io.h"
 
 #include <iostream>
+#include <utils/util.h>
 using namespace std;
 
 void setupSystem(void);
@@ -21,6 +22,11 @@ void setupSystem(void)
 	Radio *radio = devManager.getRadio();
 	radio->print("hello world\r\n");
 	Imu *imu = devManager.getImu();
-	int a;
-	cin>>a;
+
+	while (true)
+	{
+		sleep(1);
+		ImuAttitude a = imu->getAttitude();
+		cout<<"pitch: " << a.pitch<<"\troll: " << a.roll<<"\theading:"<<a.heading<<endl;
+	}
 }

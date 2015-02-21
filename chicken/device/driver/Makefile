@@ -1,6 +1,7 @@
 IDIR = ../
 CC=g++
 CFLAGS=-I$(IDIR)
+COMPILE.cc = $(CC) -c -g $(CFLAGS)
 
 OBJS = serial_radio_driver.o bmx055_driver.o
 
@@ -10,7 +11,7 @@ all:	$(OBJS)
 
 serial_radio_driver.o:	serial_radio_driver.cpp serial_radio_driver.h
 bmx055_driver.o:	bmx055_driver.cpp bmx055_driver.h
-	$(CC) -c -o $@ $< $(CFLAGS)
+
 
 
 .PHONY: clean

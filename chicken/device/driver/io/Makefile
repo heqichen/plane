@@ -1,6 +1,7 @@
 IDIR = ../../
 CC=g++
 CFLAGS=-I$(IDIR)
+COMPILE.cc = $(CC) -c -g $(CFLAGS)
 
 OBJS = io.o serial_handler.o iic_handler.o
 
@@ -11,7 +12,7 @@ all:	$(OBJS)
 io.o:		io.cpp io.h
 serial_handler.o:	serial_handler.cpp serial_handler.h
 iic_handler.o:	iic_handler.cpp iic_handler.h
-	$(CC) -c -o $@ $< $(CFLAGS)
+
 
 
 .PHONY: clean

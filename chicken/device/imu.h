@@ -11,6 +11,15 @@
 #define NULL 0
 #endif
 
+struct ImuAttitude
+{
+	double pitch;
+	double roll;
+	double heading;
+
+	ImuAttitude():pitch(0.0),roll(0.0),heading(0.0){}
+};
+
 class Imu	:	public IDevice
 {
 	public:
@@ -18,6 +27,8 @@ class Imu	:	public IDevice
 		~Imu();
 		virtual void init();
 		void update();
+
+		ImuAttitude getAttitude();
 	private:
 		Bmx055Driver *mBmx055;
 		pthread_t mDataUpdatePThread;

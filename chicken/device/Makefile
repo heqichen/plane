@@ -1,6 +1,7 @@
 IDIR = ../
 CC=g++
 CFLAGS=-I$(IDIR)
+COMPILE.cc = $(CC) -c -g $(CFLAGS)
 
 OBJS = radio.o i_device.o imu.o
 
@@ -11,7 +12,6 @@ all:	$(OBJS)
 radio.o:	radio.cpp radio.h i_device.h
 i_device.o:	i_device.cpp i_device.h i_device.h
 imu.o:	imu.cpp imu.h
-	$(CC) -c -o $@ $< $(CFLAGS)
 
 
 .PHONY: clean

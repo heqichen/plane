@@ -1,6 +1,7 @@
 IDIR = ../
 CC=g++
 CFLAGS=-I$(IDIR)
+COMPILE.cc = $(CC) -c -g $(CFLAGS)
 
 OBJS = filter.o fol_filter.o util.o
 
@@ -11,7 +12,6 @@ all:	$(OBJS)
 filter.o:	filter.cpp filter.h
 fol_filter.o:	fol_filter.cpp fol_filter.h
 util.o:	util.cpp util.h
-	$(CC) -c -o $@ $< $(CFLAGS)
 
 
 .PHONY: clean

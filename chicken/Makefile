@@ -2,7 +2,7 @@ IDIR = ./
 CC=g++
 CFLAGS=-I$(IDIR)
 LIBS=-lpthread
-COMPILE.cc = $(CC) -c $(CFLAGS)
+COMPILE.cc = $(CC) -c -g $(CFLAGS)
 output = -c -o $@ $<
 
 
