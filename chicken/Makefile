@@ -2,13 +2,15 @@ IDIR = ./
 CC=g++
 CFLAGS=-I$(IDIR)
 
-OBJS = chicken.o device_manager.o device/radio.o device/i_device.o
+IO_OBJS = device/driver/io/io.o device/driver/io/serial_handler.o
+
+OBJS = chicken.o device_manager.o device/radio.o device/i_device.o device/driver/serial_radio_driver.o $(IO_OBJS)
 
 LIBS=
 
 TARGET = chicken
 
-SUB_DIR = device
+SUB_DIR = ./device ./device/driver
 
 all:	RETRIVE_SUB_DIR $(TARGET)
 
@@ -36,5 +38,5 @@ clean:
 	rm -f $(TARGET)
 
 	for dir in $(SUB_DIR); do\
-		make -C $$dir;\
+		make -C $$dir clean;\
 	done

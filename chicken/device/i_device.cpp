@@ -3,21 +3,20 @@
 #include "device_types.h"
 
 IDevice::IDevice()
-	:	mDeviceType(DEVICE_TYPE_UNDEFINED)
+	:	mDeviceType(DEVICE_TYPE_UNDEFINED),
+		mIo	(NULL)
+
 {
 
 }
 
-IDevice::IDevice(int deviceType)
-	:	mDeviceType(deviceType)
+IDevice::IDevice(Io *io, int deviceType)
+	:	mIo	(io),
+		mDeviceType(deviceType)
 {
 
 }
 
-int IDevice::getDeviceType()
-{
-	return mDeviceType;
-}
 
 IDevice::~IDevice()
 {}
