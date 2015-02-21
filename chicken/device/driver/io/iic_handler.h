@@ -15,8 +15,8 @@ class IicHandler
 
 		bool writeByte(const uint8_t deviceAddr, const uint8_t regAddr, const uint8_t value);
 
-		uint8_t readU8(const uint8_t deviceAddr, const uint8_t regAddr, bool &readOk);
-		uint8_t readU8(const uint8_t deviceAddr, const uint8_t regAddr);
+		bool readU8(const uint8_t deviceAddr, const uint8_t regAddr, uint8_t &value);
+		bool readS8(const uint8_t deviceAddr, const uint8_t regAddr, int8_t &value);
 	private:
 		char *mPortName;
 		int mI2cFile;

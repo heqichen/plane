@@ -92,36 +92,38 @@ bool IicHandler::writeByte(const uint8_t deviceAddr, const uint8_t regAddr, cons
 	
 }
 
-uint8_t IicHandler::readU8(const uint8_t deviceAddr, const uint8_t regAddr, bool &readOk)
+bool IicHandler::readU8(const uint8_t deviceAddr, const uint8_t regAddr, uint8_t &value)
 {
-	uint8_t result = 0x00;
-	int numRead = 0;
-	bool opResult = false;
+	bool iicOk = false;
 	pthread_mutex_lock(&mMutex);
-	
 	if (sendRegAddr(deviceAddr, regAddr))
 	{
+		int numRead = 0;
 		numRead = read(mI2cFile, mBuffer, 1);
 		if (numRead == 1)
 		{
-			result = mBuffer[0];
-			opResult = true;
+			value = mBuffer[0];
+			iicOk = true;
 		}
 	}
-
-	readOk = opResult;
-	
 	pthread_mutex_unlock(&mMutex);
-	return result;
+	return iicOk;
 }
 
-uint8_t IicHandler::readU8(const uint8_t deviceAddr, const uint8_t regAddr)
+bool IicHandler::readS8(const uint8_t deviceAddr, const uint8_t regAddr, int8_t &value)
 {
-	bool iicOk;
-	uint8_t result = readU8(deviceAddr, regAddr, iicOk);
-	if (!iicOk)
+	bool iicOk = false;
+	pthread_mutex_lock(&mMutex);
+	if (sendRegAddr(deviceAddr, regAddr))
 	{
-		result = 0x00;
+		int numRead = 0;
+		numRead = read(mI2cFile, mBuffer, 1);
+		if (numRead == 1)
+		{
+			value = (int8_t)mBuffer[0];
+			iicOk = true;
+		}
 	}
-	return result;
+	pthread_mutex_unlock(&mMutex);
+	return iicOk;
 }
