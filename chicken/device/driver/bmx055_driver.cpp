@@ -39,15 +39,31 @@ Bmx055Driver::Bmx055Driver(Io *io)
 
 void Bmx055Driver::wakeupMag()
 {
-	mIicHandler->writeByte(MAG_ADDR, MAG_POWER_ADDR, 0x81);
+	bool writeResult = mIicHandler->writeByte(MAG_ADDR, MAG_POWER_ADDR, 0x81);
+	if (writeResult)
+	{
+		cout<<"mag good"<<endl;
+	}
+	else
+	{
+		cout<<"mag bad"<<endl;
+	}
 }
 
-void Bmx055Driver::resetAcc()
+void Bmx055Driver::resetAcc(void)
 {
-	//TODO
+	//soft reset acc meter
+	mIicHandler->writeByte(ACC_ADDR, ACC_SOFTRESET_ADDR, 0xB6);
+	//set range to += 16g
+	//datasheet page 57.
+	mIicHandler->writeByte(ACC_ADDR, ACC_RANGE_ADDR, 0b00001100);
 }
 
-void Bmx055Driver::resetGyro()
+void Bmx055Driver::resetGyro(void)
 {
-	//TODO
+	//soft reset gyro
+	mIicHandler->writeByte(GYRO_ADDR, GYRO_SOFTRESET_ADDR, 0xB6);
+	//set range to +=1000degree/s
+	//datasheet page 99.
+	mIicHandler->writeByte(GYRO_ADDR, GYRO_RANGE_ADDR, 0b0000001);
 }

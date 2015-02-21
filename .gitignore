@@ -1,4 +1,4 @@
-chicken
+chicken/chicken
 
 *.xml~
 node_modules/
