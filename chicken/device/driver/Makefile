@@ -2,13 +2,14 @@ IDIR = ../
 CC=g++
 CFLAGS=-I$(IDIR)
 
-OBJS = serial_radio_driver.o
+OBJS = serial_radio_driver.o bmx055_driver.o
 
 LIBS=
 
 all:	$(OBJS)
 
 serial_radio_driver.o:	serial_radio_driver.cpp serial_radio_driver.h
+bmx055_driver.o:	bmx055_driver.cpp bmx055_driver.h
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 

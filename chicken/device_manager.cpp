@@ -9,6 +9,19 @@ DeviceManager::DeviceManager(Io *io)
 
 }
 
+Imu *DeviceManager::getImu(void)
+{
+	IDevice *imuDev = findFirstDeviceByType(DEVICE_TYPE_IMU);
+	if (NULL == imuDev)
+	{
+		imuDev = new Imu(mIo);
+		imuDev->init();
+		mRunningDevices[mNumRunningDevices] = imuDev;
+		++mNumRunningDevices;
+	}
+	return (Imu*)imuDev;
+}
+
 Radio *DeviceManager::getRadio(void)
 {
 	IDevice *radioDev = findFirstDeviceByType(DEVICE_TYPE_RADIO);

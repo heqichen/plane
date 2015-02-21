@@ -16,5 +16,6 @@ void setupSystem(void)
 	Io *io = new Io();
 	DeviceManager devManager(io);
 	Radio *radio = devManager.getRadio();
-	radio->print("hello world");
+	radio->print("hello world\r\n");
+	Imu *imu = devManager.getImu();
 }

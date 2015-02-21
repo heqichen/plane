@@ -2,9 +2,10 @@ IDIR = ./
 CC=g++
 CFLAGS=-I$(IDIR)
 
-IO_OBJS = device/driver/io/io.o device/driver/io/serial_handler.o
+IO_OBJS = device/driver/io/io.o device/driver/io/serial_handler.o device/driver/io/iic_handler.o
+DRIVER_OBJS = device/driver/serial_radio_driver.o device/driver/bmx055_driver.o
 DEVICE_OBJS = device/radio.o device/i_device.o device/imu.o
-OBJS = chicken.o device_manager.o device/driver/serial_radio_driver.o $(DEVICE_OBJS) $(IO_OBJS)
+OBJS = chicken.o device_manager.o $(DRIVER_OBJS) $(DEVICE_OBJS) $(IO_OBJS)
 
 LIBS=
 
