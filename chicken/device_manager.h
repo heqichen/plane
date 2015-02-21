@@ -16,7 +16,7 @@ class DeviceManager
 {
 	public:
 		DeviceManager(Io *io);
-
+		~DeviceManager();
 		Radio *getRadio(void);
 		Imu *getImu(void);
 	private:

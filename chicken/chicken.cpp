@@ -2,6 +2,9 @@
 #include "./device/radio.h"
 #include "./device/driver/io/io.h"
 
+#include <iostream>
+using namespace std;
+
 void setupSystem(void);
 
 int main(int argc, char *argv[])
@@ -18,4 +21,6 @@ void setupSystem(void)
 	Radio *radio = devManager.getRadio();
 	radio->print("hello world\r\n");
 	Imu *imu = devManager.getImu();
+	int a;
+	cin>>a;
 }

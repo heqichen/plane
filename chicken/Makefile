@@ -1,31 +1,33 @@
 IDIR = ./
 CC=g++
 CFLAGS=-I$(IDIR)
+LIBS=-lpthread
+COMPILE.cc = $(CC) -c $(CFLAGS)
+output = -c -o $@ $<
 
+
+UTILS_OBJS = utils/filter.o utils/fol_filter.o utils/util.o
 IO_OBJS = device/driver/io/io.o device/driver/io/serial_handler.o device/driver/io/iic_handler.o
 DRIVER_OBJS = device/driver/serial_radio_driver.o device/driver/bmx055_driver.o
 DEVICE_OBJS = device/radio.o device/i_device.o device/imu.o
-OBJS = chicken.o device_manager.o $(DRIVER_OBJS) $(DEVICE_OBJS) $(IO_OBJS)
-
-LIBS=
+OBJS = chicken.o device_manager.o $(UTILS_OBJS) $(DRIVER_OBJS) $(DEVICE_OBJS) $(IO_OBJS)
 
 TARGET = chicken
 
-SUB_DIR = ./device ./device/driver ./device/driver/io
+SUB_DIR = ./utils ./device ./device/driver ./device/driver/io
 
 all:	RETRIVE_SUB_DIR $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+	$(CC) -o $@ $(OBJS) $(LIBS) 
 
 RETRIVE_SUB_DIR:
-	@for dir in $(SUB_DIR); do\
+	for dir in $(SUB_DIR); do\
 		make -C $$dir;\
 	done
 
-
-$%.o: %.cpp
-	$(CC) -c -o $@ $< $(CFLAGS)
+chicken.o:	chicken.cpp
+device_manager.o:	device_manager.cpp device_manager.h
 
 
 

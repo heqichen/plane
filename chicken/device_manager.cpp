@@ -1,12 +1,24 @@
 #include "device_manager.h"
 #include "./device/device_types.h"
 
+#include <iostream>
+using namespace std;
 
 DeviceManager::DeviceManager(Io *io)
 	:	mIo	(io),
 		mNumRunningDevices	(0)
 {
 
+}
+
+DeviceManager::~DeviceManager()
+{
+	cout<<"shutting down device manager"<<endl;
+	int i;
+	for (i=0; i<mNumRunningDevices; ++i)
+	{
+		delete mRunningDevices[i];
+	}
 }
 
 Imu *DeviceManager::getImu(void)
@@ -16,6 +28,7 @@ Imu *DeviceManager::getImu(void)
 	{
 		imuDev = new Imu(mIo);
 		imuDev->init();
+		cout<<"imu inited"<<endl;
 		mRunningDevices[mNumRunningDevices] = imuDev;
 		++mNumRunningDevices;
 	}

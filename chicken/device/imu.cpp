@@ -2,27 +2,62 @@
 
 #include "driver/io/io.h"
 #include "device_types.h"
-#include "driver/bmx055_driver.h"
+#include <utils/util.h>
 
 #include <iostream>
 using namespace std;
 
+#define UPDATE_INTERVAL	20	//20millis per time
+
+bool isImuRunning;
+
+void *imuDataUpdatingThread(void *imuPtr)
+{
+	Imu *imu = (Imu*)imuPtr;
+	unsigned long currentTime;
+	unsigned long lastTime;
+
+	while (isImuRunning)
+	{
+		imu->update();
+		
+		currentTime = millis();
+		lastTime = currentTime;
+		
+		while (true)
+		{
+			if (millis() % UPDATE_INTERVAL == 0 )
+			{
+				break;
+			}
+			usleep(300UL);
+		}
+	}
+}
+
+
 Imu::Imu(Io *io)
 	:	IDevice	(io, DEVICE_TYPE_IMU)
 {
+	Bmx055Driver *mBmx055 = new Bmx055Driver(mIo);
+}
 
-}void Imu::init()
+Imu::~Imu()
 {
-	Bmx055Driver *bmx055 = new Bmx055Driver(mIo);
-
-	int i;
-	for (i=0; i<1000; ++i)
+	if (isImuRunning)
 	{
-		RawGyroValue gyro;
-		RawAccValue acc;
-		bmx055->readGyro(gyro);
-		bmx055->readAcc(acc);
-		//cout<<gyro.x<<"\t"<<gyro.y<<"\t"<<gyro.z<<endl;
-		cout<<acc.x<<"\t"<<acc.y<<"\t"<<acc.z<<endl;
+		isImuRunning = false;
 	}
+	pthread_join(mDataUpdatePThread, NULL);
+}
+
+void Imu::init()
+{
+	isImuRunning = true;
+	pthread_create(&mDataUpdatePThread, NULL, &imuDataUpdatingThread, this);
+}
+
+void Imu::update()
+{
+	cout<<"ok"<<endl;
 }
