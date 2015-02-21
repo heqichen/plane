@@ -14,11 +14,19 @@ Bmx055Driver::Bmx055Driver(Io *io)
 	{
 		cout<<"acc good"<<endl;
 	}
+	else
+	{
+		cout<<"acc bad"<<endl;
+	}
 
 	chipId = iicHandler->readU8(GYRO_ADDR, GYRO_CHIPID_ADDR, iicOk);
 	if (iicOk && 0x0F == chipId)
 	{
 		cout<<"gyro good"<<endl;
+	}
+	else
+	{
+		cout<<"gyro bad"<<endl;
 	}
 	
 	wakeupMag();

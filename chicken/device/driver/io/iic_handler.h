@@ -4,6 +4,8 @@
 #include <pthread.h>
 #include <stdint.h>
 
+#define IIC_BUFFER_LENGTH	256
+
 class IicHandler
 {
 	public:
@@ -16,7 +18,10 @@ class IicHandler
 	private:
 		char *mPortName;
 		int mTtyFile;
+		uint8_t mCurrentDeviceAddr;
 		pthread_mutex_t mMutex;
+		uint8_t mBuffer[IIC_BUFFER_LENGTH];
+		bool sendRegAddr(const uint8_t deviceAddr, const uint8_t regAddr);
 };
 
 #endif
