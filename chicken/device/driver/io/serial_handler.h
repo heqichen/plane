@@ -3,6 +3,9 @@
 
 #include <pthread.h>
 
+
+#include <stdint.h>
+
 class SerialHandler
 {
 	public:
@@ -11,7 +14,7 @@ class SerialHandler
 
 		const char *getPortName() const;
 
-		void send(char *buf, int len);
+		void send(uint8_t *buf, int len);
 	private:
 		char *mPortName;
 		int mTtyFile;

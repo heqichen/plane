@@ -6,7 +6,7 @@ SerialRadioDriver::SerialRadioDriver(Io *io)
 	mSerialHandler = io->getSerialHandler("/dev/ttyO1");
 }
 
-void SerialRadioDriver::send(char *buf, int len)
+void SerialRadioDriver::send(uint8_t *buf, int len)
 {
 	mSerialHandler->send(buf, len);
 }

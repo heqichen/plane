@@ -17,7 +17,12 @@ Radio::Radio(Io *io)
 void Radio::print(char *str)
 {
 	cout<<"ready to send to driver : " << str<<endl;
-	mSerialRadioDriver->send(str, strlen(str));
+	mSerialRadioDriver->send((uint8_t*)str, strlen(str));
+}
+
+void Radio::write(uint8_t *buf, int len)
+{
+	mSerialRadioDriver->send(buf, len);
 }
 
 void Radio::init()
