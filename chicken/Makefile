@@ -3,14 +3,14 @@ CC=g++
 CFLAGS=-I$(IDIR)
 
 IO_OBJS = device/driver/io/io.o device/driver/io/serial_handler.o
-
-OBJS = chicken.o device_manager.o device/radio.o device/i_device.o device/driver/serial_radio_driver.o $(IO_OBJS)
+DEVICE_OBJS = device/radio.o device/i_device.o device/imu.o
+OBJS = chicken.o device_manager.o device/driver/serial_radio_driver.o $(DEVICE_OBJS) $(IO_OBJS)
 
 LIBS=
 
 TARGET = chicken
 
-SUB_DIR = ./device ./device/driver
+SUB_DIR = ./device ./device/driver ./device/driver/io
 
 all:	RETRIVE_SUB_DIR $(TARGET)
 
