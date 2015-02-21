@@ -40,17 +40,27 @@ struct RawGyroValue
 	RawGyroValue() : x(0),y(0),z(0) {}
 };
 
+struct RawAccValue
+{
+	int x;
+	int y;
+	int z;
+	RawAccValue() : x(0),y(0),z(0) {}
+};
+
 class Bmx055Driver
 {
 	public:
 		Bmx055Driver(Io *io);
 		bool readGyro(RawGyroValue &value);
+		bool readAcc(RawAccValue &value);
 	private:
 		IicHandler *mIicHandler;
 		void wakeupMag();
 		void resetAcc();
 		void resetGyro();
 		bool readGyroAxis(uint8_t msbAddr, uint8_t lsbAddr, int &value);
+		bool readAccAxis(uint8_t msbAddr, uint8_t lsbAddr, int &value);
 };
 
 #endif

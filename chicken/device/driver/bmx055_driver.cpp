@@ -108,4 +108,40 @@ bool Bmx055Driver::readGyro(RawGyroValue &value)
 	return readOk;
 }
 
+bool Bmx055Driver::readAccAxis(uint8_t msbAddr, uint8_t lsbAddr, int &value)
+{
+	bool iicOk = true;
+	int8_t msb;
+	uint8_t lsb;
+	int result;
 
+	iicOk &= mIicHandler->readU8(ACC_ADDR, lsbAddr, lsb);
+	iicOk &= mIicHandler->readS8(ACC_ADDR, msbAddr, msb);
+
+	result = msb;
+	result <<= 8;
+	result |= lsb;
+	result >>= 4;
+	
+	value = result;
+		
+	return iicOk;
+}
+
+bool Bmx055Driver::readAcc(RawAccValue &value)
+{
+	bool readOk = true;
+	int axisValue = value.x;
+	readOk &= readAccAxis(ACC_X_MSB_ADDR, ACC_X_LSB_ADDR, axisValue);
+	value.x = axisValue;
+
+	axisValue = value.y;
+	readOk &= readAccAxis(ACC_Y_MSB_ADDR, ACC_Y_LSB_ADDR, axisValue);
+	value.y = axisValue;
+
+	axisValue = value.z;
+	readOk &= readAccAxis(ACC_Z_MSB_ADDR, ACC_Z_LSB_ADDR, axisValue);
+	value.z = axisValue;
+
+	return readOk;
+}
