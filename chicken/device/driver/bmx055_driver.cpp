@@ -4,12 +4,13 @@
 using namespace std;
 
 Bmx055Driver::Bmx055Driver(Io *io)
+	:	mIicHandler	(NULL)
 {
-	IicHandler *iicHandler = io->getIicHandler("/dev/i2c-1");
+	mIicHandler = io->getIicHandler("/dev/i2c-1");
 
 	bool iicOk;
 	uint8_t chipId;
-	chipId = iicHandler->readU8(ACC_ADDR, ACC_CHIPID_ADDR, iicOk);
+	chipId = mIicHandler->readU8(ACC_ADDR, ACC_CHIPID_ADDR, iicOk);
 	if (iicOk && 0xFA == chipId)
 	{
 		cout<<"acc good"<<endl;
@@ -19,7 +20,7 @@ Bmx055Driver::Bmx055Driver(Io *io)
 		cout<<"acc bad"<<endl;
 	}
 
-	chipId = iicHandler->readU8(GYRO_ADDR, GYRO_CHIPID_ADDR, iicOk);
+	chipId = mIicHandler->readU8(GYRO_ADDR, GYRO_CHIPID_ADDR, iicOk);
 	if (iicOk && 0x0F == chipId)
 	{
 		cout<<"gyro good"<<endl;
@@ -38,7 +39,7 @@ Bmx055Driver::Bmx055Driver(Io *io)
 
 void Bmx055Driver::wakeupMag()
 {
-	//TODO
+	mIicHandler->writeByte(MAG_ADDR, MAG_POWER_ADDR, 0x81);
 }
 
 void Bmx055Driver::resetAcc()

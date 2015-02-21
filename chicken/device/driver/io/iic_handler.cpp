@@ -14,22 +14,22 @@
 #include <pthread.h>
 
 IicHandler::IicHandler(const char *portName)
-	:	mTtyFile			(0),
+	:	mI2cFile			(0),
 		mCurrentDeviceAddr	(0x00)
 {
 	int portNameLen = strlen(portName);
 	mPortName = new char[portNameLen+1];
 	strncpy(mPortName, portName, portNameLen);
-	mTtyFile = open(mPortName, O_RDWR);
+	mI2cFile = open(mPortName, O_RDWR);
 	pthread_mutex_init(&mMutex, NULL);
 }
 
 IicHandler::~IicHandler()
 {
 	delete [] mPortName;
-	if (mTtyFile > 0)
+	if (mI2cFile > 0)
 	{
-		close(mTtyFile);
+		close(mI2cFile);
 	}
 	pthread_mutex_destroy(&mMutex);
 }
@@ -46,12 +46,12 @@ bool IicHandler::sendRegAddr(const uint8_t deviceAddr, const uint8_t regAddr)
 	if (deviceAddr != mCurrentDeviceAddr)
 	{
 		mCurrentDeviceAddr = deviceAddr;
-		ioctl(mTtyFile, I2C_SLAVE, mCurrentDeviceAddr);
+		ioctl(mI2cFile, I2C_SLAVE, mCurrentDeviceAddr);
 	}
 	
 	mBuffer[0] = regAddr;
 	
-	int numRead = write(mTtyFile, mBuffer, 1);
+	int numRead = write(mI2cFile, mBuffer, 1);
 	
 	if (numRead < 1)
 	{
@@ -63,6 +63,35 @@ bool IicHandler::sendRegAddr(const uint8_t deviceAddr, const uint8_t regAddr)
 	}
 }
 
+bool IicHandler::writeByte(const uint8_t deviceAddr, const uint8_t regAddr, const uint8_t value)
+{
+	int numRead = 0;
+	
+	pthread_mutex_lock(&mMutex);
+	
+	if (deviceAddr != mCurrentDeviceAddr)
+	{
+		mCurrentDeviceAddr = deviceAddr;
+		ioctl(mI2cFile, I2C_SLAVE, mCurrentDeviceAddr);
+	}
+	
+	mBuffer[0] = regAddr;
+	mBuffer[1] = value;
+	numRead = write(mI2cFile, mBuffer, 2);
+	
+	pthread_mutex_unlock(&mMutex);
+	
+	if (numRead < 2)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+	
+}
+
 uint8_t IicHandler::readU8(const uint8_t deviceAddr, const uint8_t regAddr, bool &readOk)
 {
 	uint8_t result = 0x00;
@@ -72,7 +101,7 @@ uint8_t IicHandler::readU8(const uint8_t deviceAddr, const uint8_t regAddr, bool
 	
 	if (sendRegAddr(deviceAddr, regAddr))
 	{
-		numRead = read(mTtyFile, mBuffer, 1);
+		numRead = read(mI2cFile, mBuffer, 1);
 		if (numRead == 1)
 		{
 			result = mBuffer[0];

@@ -3,6 +3,10 @@
 
 #include "io/io.h"
 
+#ifndef NULL
+#define NULL	0
+#endif
+
 #define ACC_ADDR			0x18
 #define ACC_CHIPID_ADDR		0x00	//should read out 0xFA
 #define ACC_SOFTRESET_ADDR	0x14
@@ -33,6 +37,7 @@ class Bmx055Driver
 	public:
 		Bmx055Driver(Io *io);
 	private:
+		IicHandler *mIicHandler;
 		void wakeupMag();
 		void resetAcc();
 		void resetGyro();
