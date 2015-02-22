@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<PropertyList>
+	<generic>
+		<input>
+			<line_separator>\n</line_separator>
+			<var_separator>,</var_separator>
+			<binary_mode>false</binary_mode>
+			<chunk>
+				<name>altitude</name>
+				<type>double</type>
+				<node>/position/altitude-ft</node>
+				<format>%f</format>
+			</chunk>
+			<chunk>
+				<name>pitch</name>
+				<type>double</type>
+				<node>/orientation/pitch-deg</node>
+				<format>%f</format>
+			</chunk>
+			<chunk>
+				<name>roll</name>
+				<type>double</type>
+				<node>/orientation/roll-deg</node>
+				<format>%f</format>
+			</chunk>
+			<chunk>
+				<name>heading</name>
+				<type>double</type>
+				<node>/orientation/heading-deg</node>
+				<format>%f</format>
+			</chunk>
+		</input>
+		<output>
+		</output>
+	</generic>
+</PropertyList>
