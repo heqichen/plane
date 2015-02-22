@@ -1,7 +1,5 @@
 #!/bin/bash
 
-mkdir log
-
 echo BB-UART1 > /sys/devices/bone_capemgr.*/slots
 echo BB-UART2 > /sys/devices/bone_capemgr.*/slots
 
