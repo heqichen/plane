@@ -26,15 +26,16 @@ void setupSystem(void)
 
 	while (true)
 	{
-		sleep(1);
+		usleep(100000UL);
 		ImuAttitude a = imu->getAttitude();
-		cout<<"pitch: " << a.pitch<<"\troll: " << a.roll<<"\theading:"<<a.heading<<endl;
+		//cout<<"pitch: " << a.pitch<<"\troll: " << a.roll<<"\theading:"<<a.heading<<endl;
 
 		uint8_t buf[MAVLINK_MAX_PACKET_LEN];
 		mavlink_message_t msg;
 		mavlink_system_t mavlink_system;
 		mavlink_system.sysid = 250;
-		mavlink_system.compid = MAV_COMP_ID_ALL;     ///< The component sending the message is the IMU, it could be also a Linux process
+		//mavlink_system.compid = MAV_COMP_ID_ALL;     ///< The component sending the message is the IMU, it could be also a Linux process
+		mavlink_system.compid = 0;
 		mavlink_system.type = MAV_TYPE_FIXED_WING;   ///< This system is an airplane / fixed wing
 
 		mavlink_attitude_t attitude;
