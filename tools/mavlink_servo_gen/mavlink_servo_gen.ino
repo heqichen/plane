@@ -78,13 +78,13 @@ void loop()
 
 		mavlink_rc_channels_override_t rcChannels;
 		rcChannels.chan1_raw = map(analogRead(INPUT_PIN[0]), 0, 1023, 1000, 2000);
-		rcChannels.chan2_raw = map(analogRead(INPUT_PIN[0]), 0, 1023, 1000, 2000);
-		rcChannels.chan3_raw = map(analogRead(INPUT_PIN[0]), 0, 1023, 1000, 2000);
-		rcChannels.chan4_raw = map(analogRead(INPUT_PIN[0]), 0, 1023, 1000, 2000);
-		rcChannels.chan5_raw = map(analogRead(INPUT_PIN[0]), 0, 1023, 1000, 2000);
-		rcChannels.chan6_raw = map(analogRead(INPUT_PIN[0]), 0, 1023, 1000, 2000);
-		rcChannels.chan7_raw = map(analogRead(INPUT_PIN[0]), 0, 1023, 1000, 2000);
-		rcChannels.chan8_raw = map(analogRead(INPUT_PIN[0]), 0, 1023, 1000, 2000);
+		rcChannels.chan2_raw = map(analogRead(INPUT_PIN[1]), 0, 1023, 1000, 2000);
+		rcChannels.chan3_raw = map(analogRead(INPUT_PIN[2]), 0, 1023, 1000, 2000);
+		rcChannels.chan4_raw = map(analogRead(INPUT_PIN[3]), 0, 1023, 1000, 2000);
+		rcChannels.chan5_raw = map(analogRead(INPUT_PIN[4]), 0, 1023, 1000, 2000);
+		rcChannels.chan6_raw = map(analogRead(INPUT_PIN[5]), 0, 1023, 1000, 2000);
+		rcChannels.chan7_raw = map(analogRead(INPUT_PIN[6]), 0, 1023, 1000, 2000);
+		rcChannels.chan8_raw = map(analogRead(INPUT_PIN[7]), 0, 1023, 1000, 2000);
 		rcChannels.target_system = system_type;
 		rcChannels.target_component = autopilot_type;
 
