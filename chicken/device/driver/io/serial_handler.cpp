@@ -32,14 +32,10 @@ SerialHandler::~SerialHandler()
 	pthread_mutex_destroy(&mMutex);
 }
 
-void SerialHandler::send(char *buf, int len)
+void SerialHandler::send(uint8_t *buf, int len)
 {
 	pthread_mutex_lock(&mMutex);
-
 	write(mTtyFile, buf, len);
-
-	cout<<"send: "<<buf<<endl;
-
 	pthread_mutex_unlock(&mMutex);
 }
 

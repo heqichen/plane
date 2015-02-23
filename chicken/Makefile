@@ -1,6 +1,6 @@
 IDIR = ./
 CC=g++
-CFLAGS=-I$(IDIR)
+CFLAGS=-I$(IDIR) -I../mavlink/common
 LIBS=-lpthread
 COMPILE.cc = $(CC) -c -g $(CFLAGS)
 output = -c -o $@ $<
