@@ -20,6 +20,15 @@
 // PREPROCESSOR DIRECTIVES
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+//HE Qichen Feb 23 2015
+// Pin Mapping
+// PWM Input :	D0 - D7
+// PPM Output:	D10
+// LED 	: D8
+// MUX	: D9
+// Rx = D0 Tx=D1
+
+
 #include "Arduino.h"
 #include "ppm_encoder.h"
 #include <util/delay.h>
