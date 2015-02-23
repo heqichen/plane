@@ -13,7 +13,6 @@ void setup()
 
 void loop()
 {
-	
 	int i;
 	for (i=0; i<6; ++i)
 	{
