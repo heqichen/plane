@@ -1,6 +1,8 @@
 #include "device_manager.h"
 #include "./device/radio.h"
 #include "./device/driver/io/io.h"
+#include "./device/imu.h"
+#include "./device/servo_controller.h"
 #include <mavlink.h>
 
 #include <iostream>
@@ -23,8 +25,9 @@ void setupSystem(void)
 	Io *io = new Io();
 	DeviceManager devManager(io);
 	Radio *radio = devManager.getRadio();
-	radio->print("hello world\r\n");
 	Imu *imu = devManager.getImu();
+	ServoController *sc = devManager.getServoController();
+	
 
 	while (true)
 	{
