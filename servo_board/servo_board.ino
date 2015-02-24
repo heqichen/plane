@@ -3,9 +3,10 @@
 
 #include "def.h"
 #include "rx.h"
-
+#include "output.h"
 
 Servo s[8];
+
 void setup()
 {
 	Serial.begin(9600);
@@ -23,10 +24,11 @@ void loop()
 	for (i=0; i<6; ++i)
 	{
 		uint16_t value = readRawRC(i);
-		//Serial.print(value);
-		//Serial.print("\t");
-		s[i].writeMicroseconds(value);
+		Serial.print(value);
+		Serial.print("\t");
+		outputValue[i] = value;
 	}
-	//Serial.println();
-	delay(20);
+	updateOutput();
+	Serial.println();
+	delay(200);
 }

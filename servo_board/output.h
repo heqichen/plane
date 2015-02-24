@@ -1,12 +1,15 @@
-#ifndef OUTPUT_H_
-#define OUTPUT_H_
+#ifndef __OUTPUT_H__
+#define __OUTPUT_H__
 
 #include "Arduino.h"
+#include <Servo.h>
 
-extern uint8_t PWM_PIN[8];
 
-void initOutput();
-void mixTable();
-void writeServos();
+extern uint16_t outputValue[8];
+extern Servo s[8];
 
-#endif /* OUTPUT_H_ */
+void updateOutput();
+
+
+
+#endif
