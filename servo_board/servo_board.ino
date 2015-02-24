@@ -4,6 +4,7 @@
 #include "def.h"
 #include "rx.h"
 #include "output.h"
+#include "mavlink_decoder.h"
 
 Servo s[8];
 
@@ -16,19 +17,39 @@ void setup()
 	{
 		s[i].attach(i+2);
 	}
+
+	initMavlink();
 }
 
 void loop()
 {
 	int i;
-	for (i=0; i<6; ++i)
+	decodeMavlink();
+	if (millis() - lastMavlinkTime < 500)
 	{
-		uint16_t value = readRawRC(i);
-		Serial.print(value);
-		Serial.print("\t");
-		outputValue[i] = value;
+		for (i=0; i<8; ++i)
+		{
+			outputValue[i] = mavlinkValue[i];
+		}
+	}
+	else
+	{
+		for (i=0; i<8; ++i)
+		{
+			outputValue[i] = readRawRC(i);
+		}
 	}
 	updateOutput();
+
+
+	for (i=0; i<6; ++i)
+	{
+		Serial.print(outputValue[i]);
+		Serial.print("\t");
+	}
 	Serial.println();
-	delay(200);
+	delay(20);
 }
+
+
+
