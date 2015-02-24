@@ -5,6 +5,8 @@
 
 #include <iostream>
 #include <utils/util.h>
+#include <unistd.h>
+
 using namespace std;
 
 void setupSystem(void);

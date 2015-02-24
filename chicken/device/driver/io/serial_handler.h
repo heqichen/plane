@@ -14,7 +14,7 @@ class SerialHandler
 
 		const char *getPortName() const;
 
-		void send(uint8_t *buf, int len);
+		void send(const uint8_t *buf, int len);
 	private:
 		char *mPortName;
 		int mTtyFile;

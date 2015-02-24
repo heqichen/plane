@@ -13,8 +13,8 @@ class Radio : public IDevice
 {
 	public:
 		Radio(Io *io);
-		void print(char *str);
-		void write(uint8_t *buf, int len);
+		void print(const char *str);
+		void write(const uint8_t *buf, int len);
 		virtual void init();
 	private:
 		SerialRadioDriver *mSerialRadioDriver;

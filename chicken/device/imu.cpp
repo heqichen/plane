@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <unistd.h>
 using namespace std;
 
 #define UPDATE_INTERVAL	20	//20millis per time

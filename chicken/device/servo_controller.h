@@ -2,6 +2,21 @@
 #define __SERVO_CONTROLLER_H__
 
 #include "i_device.h"
+#include "driver/io/io.h"
 
+
+#ifndef NULL
+#define NULL 0
+#endif
+
+class ServoController : public IDevice
+{
+	public:
+		ServoController(Io *io);
+		~ServoController();
+		virtual void init();
+	private:
+
+};
 
 #endif
