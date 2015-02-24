@@ -6,7 +6,7 @@
 
 
 volatile uint16_t rcValue[RC_CHANS] = {1502, 1502, 1502, 1502, 1502, 1502, 1502, 1502}; // interval [1000;2000]
-static uint8_t rcChannel[RC_CHANS]  = {ROLLPIN, PITCHPIN, YAWPIN, THROTTLEPIN, AUX1PIN,AUX2PIN,AUX3PIN,AUX4PIN};
+//static uint8_t rcChannel[RC_CHANS]  = {ROLLPIN, PITCHPIN, YAWPIN, THROTTLEPIN, AUX1PIN,AUX2PIN,AUX3PIN,AUX4PIN};
 static uint8_t PCInt_RX_Pins[PCINT_PIN_COUNT] = {PCINT_RX_BITS}; // if this slowes the PCINT readings we can switch to a define for each pcint bit
 
 
@@ -99,7 +99,8 @@ uint16_t readRawRC(uint8_t chan)
 
 	uint8_t oldSREG;
 	oldSREG = SREG; cli(); // Let's disable interrupts
-	data = rcValue[rcChannel[chan]]; // Let's copy the data Atomically
+	//data = rcValue[rcChannel[chan]]; // Let's copy the data Atomically
+	data = rcValue[chan];
 	SREG = oldSREG;        // Let's restore interrupt state
 
 	return data; // We return the value correctly copied when the IRQ's where disabled

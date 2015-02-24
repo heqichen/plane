@@ -4,7 +4,7 @@
 #include "def.h"
 #include "rx.h"
 #include "output.h"
-#include "mavlink_decoder.h"
+#include "mavlink_io.h"
 
 Servo s[8];
 
@@ -36,18 +36,22 @@ void loop()
 	{
 		for (i=0; i<8; ++i)
 		{
-			outputValue[i] = readRawRC(i);
+			//outputValue[i] = readRawRC(i);
+			outputValue[i] = rcValue[i];
 		}
 	}
-	updateOutput();
+	writePwm();
+	writeMavlink();
 
-
+	/*
 	for (i=0; i<6; ++i)
 	{
 		Serial.print(outputValue[i]);
 		Serial.print("\t");
 	}
 	Serial.println();
+	*/
+
 	delay(20);
 }
 

@@ -2,7 +2,7 @@
 
 uint16_t outputValue[8];
 
-void updateOutput()
+void writePwm()
 {
 	int i;
 	for (i=0; i<8; ++i)
