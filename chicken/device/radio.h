@@ -13,6 +13,7 @@ class Radio : public IDevice
 {
 	public:
 		Radio(Io *io);
+		~Radio();
 		void print(const char *str);
 		void write(const uint8_t *buf, int len);
 		virtual void init();

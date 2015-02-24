@@ -5,4 +5,5 @@
 #define DEVICE_TYPE_RADIO				0x01
 #define DEVICE_TYPE_IMU					0x02
 #define DEVICE_TYPE_SERVO_CONTROLLER	0x03
+
 #endif

@@ -39,6 +39,15 @@ void SerialHandler::send(const uint8_t *buf, int len)
 	pthread_mutex_unlock(&mMutex);
 }
 
+
+int SerialHandler::blockRead(uint8_t *buffer, int maxLen)
+{
+	pthread_mutex_lock(&mMutex);
+	int lenRead = read(mTtyFile, buffer, maxLen);
+	pthread_mutex_unlock(&mMutex);
+	return lenRead;
+}
+
 const char *SerialHandler::getPortName() const
 {
 	return mPortName;

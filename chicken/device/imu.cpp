@@ -16,16 +16,11 @@ bool isImuRunning;
 void *imuDataUpdatingThread(void *imuPtr)
 {
 	Imu *imu = (Imu*)imuPtr;
-	unsigned long currentTime;
-	unsigned long lastTime;
 
 	while (isImuRunning)
 	{
 		imu->update();
-		
-		currentTime = millis();
-		lastTime = currentTime;
-		
+		usleep(1000UL);
 		while (true)
 		{
 			if (millis() % UPDATE_INTERVAL == 0 )

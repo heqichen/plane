@@ -6,7 +6,7 @@ COMPILE.cc = $(CC) -c -g $(CFLAGS)
 output = -c -o $@ $<
 
 
-UTILS_OBJS = utils/filter.o utils/fol_filter.o utils/util.o
+UTILS_OBJS = utils/filter.o utils/fol_filter.o utils/util.o utils/mavlink_wtf.o
 IO_OBJS = device/driver/io/io.o device/driver/io/serial_handler.o device/driver/io/iic_handler.o
 DRIVER_OBJS = device/driver/serial_radio_driver.o device/driver/bmx055_driver.o device/driver/serial_servo_driver.o
 DEVICE_OBJS = device/radio.o device/i_device.o device/imu.o device/servo_controller.o

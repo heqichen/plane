@@ -3,7 +3,7 @@
 
 #include "i_device.h"
 #include "driver/io/io.h"
-
+#include "driver/serial_servo_driver.h"
 
 #ifndef NULL
 #define NULL 0
@@ -16,7 +16,7 @@ class ServoController : public IDevice
 		~ServoController();
 		virtual void init();
 	private:
-
+		SerialServoDriver *mSerialServoDriver;
 };
 
 #endif
