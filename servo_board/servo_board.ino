@@ -6,12 +6,17 @@
 #include "output.h"
 #include "mavlink_io.h"
 
-#define INTERVAL_SEND_MAVLINK	30UL
+#define INTERVAL_SEND_MAVLINK	20UL
 unsigned long lastSendMavlinkTime;
 #define INTERVAL_SEND_PWM		15UL
 unsigned long lastSendPwmTime;
 
 Servo s[8];
+
+bool isStartCal;
+bool isCalEnd;
+unsigned long startTime;
+unsigned long endTime;
 
 void setup()
 {
@@ -26,7 +31,11 @@ void setup()
 	initMavlink();
 	lastSendMavlinkTime = 0UL;
 	lastSendPwmTime = 0UL;
+	isStartCal = false;
+	isCalEnd = false;
 }
+
+
 
 void loop()
 {
@@ -38,6 +47,15 @@ void loop()
 			outputValue[i] = mavlinkValue[i];
 		}
 		writePwm();
+		if (isStartCal && mavlinkValue[2]>1800 & !isCalEnd)
+		{
+			endTime = millis();
+			Serial.print("end at ");
+			Serial.println(endTime);
+			Serial.print("total time: ");
+			Serial.println(endTime - startTime);
+			isCalEnd = true;
+		}
 	}
 	if (millis() - lastMavlinkTime < 500UL)
 	{
@@ -52,7 +70,15 @@ void loop()
 		{
 			//outputValue[i] = readRawRC(i);
 			outputValue[i] = rcValue[i];
+
 		}
+	}
+	if (!isStartCal && rcValue[2] > 1800)
+	{
+		startTime = millis();
+		isStartCal = true;
+		Serial.print("start cal at ");
+		Serial.println(startTime);
 	}
 
 	if (millis() - lastSendPwmTime > INTERVAL_SEND_PWM)
