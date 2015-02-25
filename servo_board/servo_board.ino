@@ -13,7 +13,7 @@ unsigned long lastSendPwmTime;
 
 Servo s[8];
 
-bool isStartCal;
+bool isCalStart;
 bool isCalEnd;
 unsigned long startTime;
 unsigned long endTime;
@@ -31,8 +31,6 @@ void setup()
 	initMavlink();
 	lastSendMavlinkTime = 0UL;
 	lastSendPwmTime = 0UL;
-	isStartCal = false;
-	isCalEnd = false;
 }
 
 
@@ -47,15 +45,6 @@ void loop()
 			outputValue[i] = mavlinkValue[i];
 		}
 		writePwm();
-		if (isStartCal && mavlinkValue[2]>1800 & !isCalEnd)
-		{
-			endTime = millis();
-			Serial.print("end at ");
-			Serial.println(endTime);
-			Serial.print("total time: ");
-			Serial.println(endTime - startTime);
-			isCalEnd = true;
-		}
 	}
 	if (millis() - lastMavlinkTime < 500UL)
 	{
@@ -73,22 +62,18 @@ void loop()
 
 		}
 	}
-	if (!isStartCal && rcValue[2] > 1800)
-	{
-		startTime = millis();
-		isStartCal = true;
-		Serial.print("start cal at ");
-		Serial.println(startTime);
-	}
 
 	if (millis() - lastSendPwmTime > INTERVAL_SEND_PWM)
 	{
 		writePwm();
 		lastSendPwmTime = millis();
 	}
+
+
 	if (millis() - lastSendMavlinkTime > INTERVAL_SEND_MAVLINK)
 	{
 		writeMavlink();
+
 		lastSendMavlinkTime = millis();
 	}
 

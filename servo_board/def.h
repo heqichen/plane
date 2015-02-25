@@ -1,7 +1,6 @@
 #ifndef DEF_H_
 #define DEF_H_
 
-
 //RX PIN assignment inside the port //for PORTK
 #define THROTTLEPIN                0  //PIN 62 =  PIN A8
 #define ROLLPIN                    1  //PIN 63 =  PIN A9

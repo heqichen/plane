@@ -63,7 +63,6 @@ bool decodeMavlink()
 					mavlinkValue[7] = rc_channels_override->chan8_raw;
 					
 					lastMavlinkTime = millis();
-
 					isOutputUpdated = true;
  					break;
  				}

@@ -5,7 +5,7 @@
 #include <Servo.h>
 
 
-extern uint16_t outputValue[8];
+extern volatile uint16_t outputValue[8];
 extern Servo s[8];
 
 void writePwm();
