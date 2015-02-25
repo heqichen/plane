@@ -34,8 +34,10 @@ void writeMavlink()
 	Serial1.write(buf, len);
 }
 
-void decodeMavlink()
+bool decodeMavlink()
 { 
+
+	bool isOutputUpdated = false;
 	mavlink_message_t msg; 
 	mavlink_status_t status;
 	
@@ -61,6 +63,8 @@ void decodeMavlink()
 					mavlinkValue[7] = rc_channels_override->chan8_raw;
 					
 					lastMavlinkTime = millis();
+
+					isOutputUpdated = true;
  					break;
  				}
 				default:
@@ -73,4 +77,5 @@ void decodeMavlink()
 		} 
 		// And get the next one
 	}
+	return isOutputUpdated;
 }
