@@ -11,13 +11,11 @@ using namespace std;
 
 #define UPDATE_INTERVAL	20	//20millis per time
 
-bool isImuRunning;
-
 void *imuDataUpdatingThread(void *imuPtr)
 {
 	Imu *imu = (Imu*)imuPtr;
 
-	while (isImuRunning)
+	while (imu->isImuRunning())
 	{
 		imu->update();
 		usleep(1000UL);
@@ -42,6 +40,7 @@ void *imuDataUpdatingThread(void *imuPtr)
 
 Imu::Imu(Io *io)
 	:	IDevice	(io, DEVICE_TYPE_IMU),
+		mIsImuRunning	(false),
 		m_rawAccX	(0),
 		m_rawAccY	(0),
 		m_rawAccZ	(1.0),
@@ -80,9 +79,9 @@ Imu::Imu(Io *io)
 
 Imu::~Imu()
 {
-	if (isImuRunning)
+	if (mIsImuRunning)
 	{
-		isImuRunning = false;
+		mIsImuRunning = false;
 	}
 	pthread_join(mDataUpdatePThread, NULL);
 	delete mBmx055;
@@ -95,7 +94,7 @@ Imu::~Imu()
 
 void Imu::init()
 {
-	isImuRunning = true;
+	mIsImuRunning = true;
 	pthread_create(&mDataUpdatePThread, NULL, &imuDataUpdatingThread, this);
 }
 
