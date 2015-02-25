@@ -12,11 +12,14 @@
 #define DEFAULT_SERVO_VALUE		1500
 #define DEFAULT_THROTTLE_VALUE	900
 
+#define MAVLINK_TARGET_SYSTEM	250
+#define MAVLINK_COMPONENT_ID	0
+
 #ifndef NULL
 #define NULL 0
 #endif
 
-struct RawServoSignal
+struct ServoSignal
 {
 	int aileron;
 	int elevator;
@@ -27,7 +30,7 @@ struct RawServoSignal
 	int aux1;
 	int aux2;
 	public:
-		RawServoSignal(int ch1, int ch2, int ch3, int ch4, int ch5, int ch6, int ch7, int ch8)
+		ServoSignal(int ch1, int ch2, int ch3, int ch4, int ch5, int ch6, int ch7, int ch8)
 			:	aileron		(ch1),
 				elevator	(ch2),
 				throttle	(ch3),
@@ -47,10 +50,10 @@ class SerialServoDriver
 		void fetchServos();
 		void writeServos();
 
-
 		inline bool isReadingThreadRunning() const{return mIsReadThreadRunning;}
 		inline bool isWritingThreadRunning() const{return mIsWriteThreadRunning;}
-		inline RawServoSignal getRawServoSignal() const {return mRawServoSignal;}
+		inline ServoSignal getRawServoSignal() const {return mRawServoSignal;}
+		inline void setOverrideServoSignal(const ServoSignal &overrideServoSignal) {mOverrideServoSignal=overrideServoSignal;}
 	private:
 		SerialHandler *mSerialHandler;
 		bool mIsReadThreadRunning;
@@ -63,7 +66,8 @@ class SerialServoDriver
 		mavlink_message_t mMavlinkMsg; 
 		mavlink_status_t mMavlinkStatus;
 
-		RawServoSignal mRawServoSignal;
+		ServoSignal mRawServoSignal;
+		ServoSignal mOverrideServoSignal;
 };
 
 #endif

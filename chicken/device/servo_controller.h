@@ -15,7 +15,7 @@ class ServoController : public IDevice
 		ServoController(Io *io);
 		~ServoController();
 		virtual void init();
-		RawServoSignal getRawServoSignal();
+		ServoSignal getRawServoSignal();
 	private:
 		SerialServoDriver *mSerialServoDriver;
 };

@@ -65,7 +65,7 @@ void setupSystem(void)
 
 		//test read servo
 		usleep(200000UL);
-		RawServoSignal rawRc = sc->getRawServoSignal();
-		cout<<"throttle: "<<rawRc.throttle<<endl;
+		ServoSignal rawRc = sc->getRawServoSignal();
+		//cout<<"throttle: "<<rawRc.throttle<<endl;
 	}
 }

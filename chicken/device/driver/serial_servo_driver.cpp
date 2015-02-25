@@ -60,6 +60,14 @@ SerialServoDriver::SerialServoDriver(Io *io)
 								 DEFAULT_SERVO_VALUE,
 								 DEFAULT_SERVO_VALUE,
 								 DEFAULT_SERVO_VALUE,
+								 DEFAULT_SERVO_VALUE),
+		mOverrideServoSignal	(DEFAULT_SERVO_VALUE,
+								 DEFAULT_SERVO_VALUE,
+								 DEFAULT_THROTTLE_VALUE,
+								 DEFAULT_SERVO_VALUE,
+								 DEFAULT_SERVO_VALUE,
+								 DEFAULT_SERVO_VALUE,
+								 DEFAULT_SERVO_VALUE,
 								 DEFAULT_SERVO_VALUE)
 {
 	mSerialHandler = io->getSerialHandler("/dev/ttyO2");
@@ -80,7 +88,25 @@ SerialServoDriver::~SerialServoDriver()
 
 void SerialServoDriver::writeServos()
 {
+	int systemId = 250;
+	int componentId = 0;
+	mavlink_message_t msg;
+	uint8_t buf[MAVLINK_MAX_PACKET_LEN];
 
+	mavlink_msg_rc_channels_override_pack
+		(MAVLINK_TARGET_SYSTEM, MAVLINK_COMPONENT_ID, &msg,
+		MAVLINK_TARGET_SYSTEM, MAVLINK_COMPONENT_ID,
+		mOverrideServoSignal.aileron,
+		mOverrideServoSignal.elevator,
+		mOverrideServoSignal.throttle,
+		mOverrideServoSignal.rudder,
+		mOverrideServoSignal.flap,
+		mOverrideServoSignal.status,
+		mOverrideServoSignal.aux1,
+		mOverrideServoSignal.aux2);
+	uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
+
+	mSerialHandler->send(buf, len);
 }
 
 void SerialServoDriver::fetchServos()
