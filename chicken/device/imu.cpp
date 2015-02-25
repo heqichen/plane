@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <unistd.h>
 using namespace std;
 
 #define UPDATE_INTERVAL	20	//20millis per time
@@ -15,16 +16,11 @@ bool isImuRunning;
 void *imuDataUpdatingThread(void *imuPtr)
 {
 	Imu *imu = (Imu*)imuPtr;
-	unsigned long currentTime;
-	unsigned long lastTime;
 
 	while (isImuRunning)
 	{
 		imu->update();
-		
-		currentTime = millis();
-		lastTime = currentTime;
-		
+		usleep(1000UL);
 		while (true)
 		{
 			if (millis() % UPDATE_INTERVAL == 0 )

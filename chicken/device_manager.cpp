@@ -50,6 +50,19 @@ Radio *DeviceManager::getRadio(void)
 	return (Radio*)radioDev;
 }
 
+ServoController *DeviceManager::getServoController(void)
+{
+	IDevice *scDev = findFirstDeviceByType(DEVICE_TYPE_SERVO_CONTROLLER);
+	if (NULL == scDev)
+	{
+		scDev = new ServoController(mIo);
+		scDev->init();
+		mRunningDevices[mNumRunningDevices] = scDev;
+		++mNumRunningDevices;
+	}
+	return (ServoController*) scDev;
+}
+
 IDevice *DeviceManager::findFirstDeviceByType(int deviceType)
 {
 	int i;

@@ -1,10 +1,14 @@
 #include "device_manager.h"
 #include "./device/radio.h"
 #include "./device/driver/io/io.h"
+#include "./device/imu.h"
+#include "./device/servo_controller.h"
 #include <mavlink.h>
 
 #include <iostream>
 #include <utils/util.h>
+#include <unistd.h>
+
 using namespace std;
 
 void setupSystem(void);
@@ -21,11 +25,15 @@ void setupSystem(void)
 	Io *io = new Io();
 	DeviceManager devManager(io);
 	Radio *radio = devManager.getRadio();
-	radio->print("hello world\r\n");
 	Imu *imu = devManager.getImu();
+	ServoController *sc = devManager.getServoController();
+	
 
 	while (true)
 	{
+		/*
+		//test send attitude
+
 		usleep(100000UL);
 		ImuAttitude a = imu->getAttitude();
 		//cout<<"pitch: " << a.pitch<<"\troll: " << a.roll<<"\theading:"<<a.heading<<endl;
@@ -53,5 +61,23 @@ void setupSystem(void)
 			&attitude);
 		uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
 		radio->write(buf, len);
+		*/
+
+		//test read servo
+		usleep(200000UL);
+		ServoSignal rawRc = sc->getRawServoSignal();
+		if (rawRc.status > 1500)
+		{
+			sc->startWriteServoSignal();
+			ServoSignal overrideRc = rawRc;
+			sc->writeServoSignal(overrideRc);
+		}
+		else
+		{
+			sc->stopWriteServoSignal();
+		}
+
+		//cout<<"throttle: "<<rawRc.throttle<<endl;
+
 	}
 }

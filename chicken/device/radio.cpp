@@ -14,12 +14,20 @@ Radio::Radio(Io *io)
 	
 }
 
-void Radio::print(char *str)
+Radio::~Radio()
+{
+	if (mSerialRadioDriver != NULL)
+	{
+		delete mSerialRadioDriver;
+	}
+}
+
+void Radio::print(const char *str)
 {
 	mSerialRadioDriver->send((uint8_t*)str, strlen(str));
 }
 
-void Radio::write(uint8_t *buf, int len)
+void Radio::write(const uint8_t *buf, int len)
 {
 	mSerialRadioDriver->send(buf, len);
 }

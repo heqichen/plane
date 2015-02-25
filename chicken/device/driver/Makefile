@@ -1,9 +1,9 @@
-IDIR = ../
+IDIR = ../../
 CC=g++
-CFLAGS=-I$(IDIR)
+CFLAGS=-I$(IDIR) -I../../../mavlink/common/
 COMPILE.cc = $(CC) -c -g $(CFLAGS)
 
-OBJS = serial_radio_driver.o bmx055_driver.o
+OBJS = serial_radio_driver.o bmx055_driver.o serial_servo_driver.o
 
 LIBS=
 
@@ -11,8 +11,7 @@ all:	$(OBJS)
 
 serial_radio_driver.o:	serial_radio_driver.cpp serial_radio_driver.h
 bmx055_driver.o:	bmx055_driver.cpp bmx055_driver.h
-
-
+serial_servo_driver.o:	serial_servo_driver.cpp serial_servo_driver.h
 
 .PHONY: clean
 clean:

@@ -32,11 +32,20 @@ SerialHandler::~SerialHandler()
 	pthread_mutex_destroy(&mMutex);
 }
 
-void SerialHandler::send(uint8_t *buf, int len)
+void SerialHandler::send(const uint8_t *buf, int len)
 {
 	pthread_mutex_lock(&mMutex);
 	write(mTtyFile, buf, len);
 	pthread_mutex_unlock(&mMutex);
+}
+
+
+int SerialHandler::blockRead(uint8_t *buffer, int maxLen)
+{
+	pthread_mutex_lock(&mMutex);
+	int lenRead = read(mTtyFile, buffer, maxLen);
+	pthread_mutex_unlock(&mMutex);
+	return lenRead;
 }
 
 const char *SerialHandler::getPortName() const
