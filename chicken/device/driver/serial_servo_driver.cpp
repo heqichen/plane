@@ -50,9 +50,17 @@ void *startWriteServoThread(void *serialServoDriverPtr)
 }
 
 SerialServoDriver::SerialServoDriver(Io *io)
-	:	mSerialHandler	(NULL),
+	:	mSerialHandler			(NULL),
 		mIsReadThreadRunning	(false),
-		mIsWriteThreadRunning	(false)
+		mIsWriteThreadRunning	(false),
+		mRawServoSignal			(DEFAULT_SERVO_VALUE,
+								 DEFAULT_SERVO_VALUE,
+								 DEFAULT_THROTTLE_VALUE,
+								 DEFAULT_SERVO_VALUE,
+								 DEFAULT_SERVO_VALUE,
+								 DEFAULT_SERVO_VALUE,
+								 DEFAULT_SERVO_VALUE,
+								 DEFAULT_SERVO_VALUE)
 {
 	mSerialHandler = io->getSerialHandler("/dev/ttyO2");
 	mIsReadThreadRunning = true;
@@ -83,12 +91,21 @@ void SerialServoDriver::fetchServos()
 	{
 		if(mavlink_parse_char(mMavlinkComChannel, mBuffer[i], &mMavlinkMsg, &mMavlinkStatus))
 		{
-			//cout<<(int)mMavlinkMsg.msgid<<endl;
 			if (MAVLINK_MSG_ID_RC_CHANNELS_RAW == mMavlinkMsg.msgid)
 			{
 				mavlink_rc_channels_raw_t *mMavlinkRcChannelsRaw = (mavlink_rc_channels_raw_t *)_MAV_PAYLOAD(&mMavlinkMsg);
-				cout<<mMavlinkRcChannelsRaw->chan1_raw<<endl;
+				mRawServoSignal.aileron = mMavlinkRcChannelsRaw->chan1_raw;
+				mRawServoSignal.elevator = mMavlinkRcChannelsRaw->chan2_raw;
+				mRawServoSignal.throttle = mMavlinkRcChannelsRaw->chan3_raw;
+				mRawServoSignal.rudder = mMavlinkRcChannelsRaw->chan4_raw;
+				mRawServoSignal.flap = mMavlinkRcChannelsRaw->chan5_raw;
+				mRawServoSignal.status = mMavlinkRcChannelsRaw->chan6_raw;
+				mRawServoSignal.aux1 = mMavlinkRcChannelsRaw->chan7_raw;
+				mRawServoSignal.aux2 = mMavlinkRcChannelsRaw->chan8_raw;
 			}
 		} 
 	}
 }
+
+
+

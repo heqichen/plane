@@ -31,6 +31,9 @@ void setupSystem(void)
 
 	while (true)
 	{
+		/*
+		//test send attitude
+
 		usleep(100000UL);
 		ImuAttitude a = imu->getAttitude();
 		//cout<<"pitch: " << a.pitch<<"\troll: " << a.roll<<"\theading:"<<a.heading<<endl;
@@ -58,5 +61,11 @@ void setupSystem(void)
 			&attitude);
 		uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
 		radio->write(buf, len);
+		*/
+
+		//test read servo
+		usleep(200000UL);
+		RawServoSignal rawRc = sc->getRawServoSignal();
+		cout<<"throttle: "<<rawRc.throttle<<endl;
 	}
 }
