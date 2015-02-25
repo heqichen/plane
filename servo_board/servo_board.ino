@@ -39,7 +39,7 @@ void loop()
 		}
 		writePwm();
 	}
-	if (millis() - lastMavlinkTime < 500)
+	if (millis() - lastMavlinkTime < 500UL)
 	{
 		for (i=0; i<8; ++i)
 		{
