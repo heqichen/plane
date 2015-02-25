@@ -30,6 +30,16 @@ struct ServoSignal
 	int aux1;
 	int aux2;
 	public:
+		ServoSignal()
+			:	aileron		(DEFAULT_SERVO_VALUE),
+				elevator	(DEFAULT_SERVO_VALUE),
+				throttle	(DEFAULT_THROTTLE_VALUE),
+				rudder		(DEFAULT_SERVO_VALUE),
+				flap		(DEFAULT_SERVO_VALUE),
+				status		(DEFAULT_SERVO_VALUE),
+				aux1		(DEFAULT_SERVO_VALUE),
+				aux2		(DEFAULT_SERVO_VALUE)
+		{}
 		ServoSignal(int ch1, int ch2, int ch3, int ch4, int ch5, int ch6, int ch7, int ch8)
 			:	aileron		(ch1),
 				elevator	(ch2),
@@ -54,12 +64,15 @@ class SerialServoDriver
 		inline bool isWritingThreadRunning() const{return mIsWriteThreadRunning;}
 		inline ServoSignal getRawServoSignal() const {return mRawServoSignal;}
 		inline void setOverrideServoSignal(const ServoSignal &overrideServoSignal) {mOverrideServoSignal=overrideServoSignal;}
+		inline void startWriteServoSignal() {mIsOutputServo=true;}
+		inline void stopWriteServoSignal() {mIsOutputServo=false;}
 	private:
 		SerialHandler *mSerialHandler;
 		bool mIsReadThreadRunning;
 		bool mIsWriteThreadRunning;
 		pthread_t mReadThread;
 		pthread_t mWriteThread;
+		bool mIsOutputServo;
 
 		uint8_t mBuffer[SERIAL_SERVO_READ_BUFFER_LENGTH];
 		uint8_t mMavlinkComChannel;

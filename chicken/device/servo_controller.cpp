@@ -22,7 +22,3 @@ void ServoController::init()
 	mSerialServoDriver = new SerialServoDriver(mIo);
 }
 
-ServoSignal ServoController::getRawServoSignal()
-{
-	return mSerialServoDriver->getRawServoSignal();
-}

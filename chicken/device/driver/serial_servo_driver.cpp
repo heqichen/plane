@@ -53,6 +53,7 @@ SerialServoDriver::SerialServoDriver(Io *io)
 	:	mSerialHandler			(NULL),
 		mIsReadThreadRunning	(false),
 		mIsWriteThreadRunning	(false),
+		mIsOutputServo			(false),
 		mRawServoSignal			(DEFAULT_SERVO_VALUE,
 								 DEFAULT_SERVO_VALUE,
 								 DEFAULT_THROTTLE_VALUE,
@@ -88,6 +89,10 @@ SerialServoDriver::~SerialServoDriver()
 
 void SerialServoDriver::writeServos()
 {
+	if (!mIsOutputServo)
+	{
+		return ;
+	}
 	int systemId = 250;
 	int componentId = 0;
 	mavlink_message_t msg;
@@ -111,27 +116,30 @@ void SerialServoDriver::writeServos()
 
 void SerialServoDriver::fetchServos()
 {
-	int numByteRead = mSerialHandler->blockRead(mBuffer, SERIAL_SERVO_READ_BUFFER_LENGTH);
-	int i;
-	for (i=0; i<numByteRead; ++i)
+
+	int numByteRead;
+	do
 	{
-		if(mavlink_parse_char(mMavlinkComChannel, mBuffer[i], &mMavlinkMsg, &mMavlinkStatus))
+		numByteRead = mSerialHandler->blockRead(mBuffer, SERIAL_SERVO_READ_BUFFER_LENGTH);
+		int i;
+		for (i=0; i<numByteRead; ++i)
 		{
-			if (MAVLINK_MSG_ID_RC_CHANNELS_RAW == mMavlinkMsg.msgid)
+			if(mavlink_parse_char(mMavlinkComChannel, mBuffer[i], &mMavlinkMsg, &mMavlinkStatus))
 			{
-				mavlink_rc_channels_raw_t *mMavlinkRcChannelsRaw = (mavlink_rc_channels_raw_t *)_MAV_PAYLOAD(&mMavlinkMsg);
-				mRawServoSignal.aileron = mMavlinkRcChannelsRaw->chan1_raw;
-				mRawServoSignal.elevator = mMavlinkRcChannelsRaw->chan2_raw;
-				mRawServoSignal.throttle = mMavlinkRcChannelsRaw->chan3_raw;
-				mRawServoSignal.rudder = mMavlinkRcChannelsRaw->chan4_raw;
-				mRawServoSignal.flap = mMavlinkRcChannelsRaw->chan5_raw;
-				mRawServoSignal.status = mMavlinkRcChannelsRaw->chan6_raw;
-				mRawServoSignal.aux1 = mMavlinkRcChannelsRaw->chan7_raw;
-				mRawServoSignal.aux2 = mMavlinkRcChannelsRaw->chan8_raw;
-			}
-		} 
-	}
+				if (MAVLINK_MSG_ID_RC_CHANNELS_RAW == mMavlinkMsg.msgid)
+				{
+					mavlink_rc_channels_raw_t *mMavlinkRcChannelsRaw = (mavlink_rc_channels_raw_t *)_MAV_PAYLOAD(&mMavlinkMsg);
+					mRawServoSignal.aileron = mMavlinkRcChannelsRaw->chan1_raw;
+					mRawServoSignal.elevator = mMavlinkRcChannelsRaw->chan2_raw;
+					mRawServoSignal.throttle = mMavlinkRcChannelsRaw->chan3_raw;
+					mRawServoSignal.rudder = mMavlinkRcChannelsRaw->chan4_raw;
+					mRawServoSignal.flap = mMavlinkRcChannelsRaw->chan5_raw;
+					mRawServoSignal.status = mMavlinkRcChannelsRaw->chan6_raw;
+					mRawServoSignal.aux1 = mMavlinkRcChannelsRaw->chan7_raw;
+					mRawServoSignal.aux2 = mMavlinkRcChannelsRaw->chan8_raw;
+				}
+			} 
+		}
+	} while (numByteRead > 0);
 }
-
-
 

@@ -66,6 +66,18 @@ void setupSystem(void)
 		//test read servo
 		usleep(200000UL);
 		ServoSignal rawRc = sc->getRawServoSignal();
+		if (rawRc.status > 1500)
+		{
+			sc->startWriteServoSignal();
+			ServoSignal overrideRc = rawRc;
+			sc->writeServoSignal(overrideRc);
+		}
+		else
+		{
+			sc->stopWriteServoSignal();
+		}
+
 		//cout<<"throttle: "<<rawRc.throttle<<endl;
+
 	}
 }
