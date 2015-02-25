@@ -10,7 +10,7 @@ extern uint16_t mavlinkValue[8];
 extern unsigned long lastMavlinkTime;
 
 void initMavlink();
-void decodeMavlink();
+bool decodeMavlink();
 void writeMavlink();
 
 #endif

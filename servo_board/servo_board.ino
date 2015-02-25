@@ -6,9 +6,9 @@
 #include "output.h"
 #include "mavlink_io.h"
 
-#define INTERVAL_SEND_MAVLINK	100UL
+#define INTERVAL_SEND_MAVLINK	30UL
 unsigned long lastSendMavlinkTime;
-#define INTERVAL_SEND_PWM		20UL
+#define INTERVAL_SEND_PWM		15UL
 unsigned long lastSendPwmTime;
 
 Servo s[8];
@@ -31,8 +31,15 @@ void setup()
 void loop()
 {
 	int i;
-	decodeMavlink();
-	if (millis() - lastMavlinkTime < 500)
+	if (decodeMavlink())
+	{
+		for (i=0; i<8; ++i)
+		{
+			outputValue[i] = mavlinkValue[i];
+		}
+		writePwm();
+	}
+	if (millis() - lastMavlinkTime < 500UL)
 	{
 		for (i=0; i<8; ++i)
 		{
@@ -69,7 +76,7 @@ void loop()
 	Serial.println();
 	*/
 
-	delay(20);
+	delay(1);
 }
 
 
