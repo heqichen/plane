@@ -18,7 +18,7 @@ SerialHandler::SerialHandler(const char *portName)
 	int portNameLen = strlen(portName);
 	mPortName = new char[portNameLen+1];
 	strncpy(mPortName, portName, portNameLen);
-	mTtyFile = open(mPortName, O_RDWR | O_ASYNC);
+	mTtyFile = open(mPortName, O_RDWR| O_NONBLOCK | O_NDELAY);
 	pthread_mutex_init(&mMutex, NULL);
 }
 
@@ -40,7 +40,7 @@ void SerialHandler::send(const uint8_t *buf, int len)
 }
 
 
-int SerialHandler::blockRead(uint8_t *buffer, int maxLen)
+int SerialHandler::recv(uint8_t *buffer, int maxLen)
 {
 	pthread_mutex_lock(&mMutex);
 	int lenRead = read(mTtyFile, buffer, maxLen);

@@ -64,7 +64,7 @@ void setupSystem(void)
 		*/
 
 		//test read servo
-		usleep(200000UL);
+		usleep(20000UL);
 		ServoSignal rawRc = sc->getRawServoSignal();
 		if (rawRc.status > 1500)
 		{

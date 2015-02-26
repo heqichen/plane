@@ -8,7 +8,7 @@
 #include <cstring>
 using namespace std;
 
-#define INTERVAL_READ_SERVO		50
+#define INTERVAL_READ_SERVO		5
 #define INTERVAL_WRITE_SERVO	20
 
 void *startReadServoThread(void *serialServoDriverPtr)
@@ -93,6 +93,7 @@ void SerialServoDriver::writeServos()
 	{
 		return ;
 	}
+
 	int systemId = 250;
 	int componentId = 0;
 	mavlink_message_t msg;
@@ -120,7 +121,7 @@ void SerialServoDriver::fetchServos()
 	int numByteRead;
 	do
 	{
-		numByteRead = mSerialHandler->blockRead(mBuffer, SERIAL_SERVO_READ_BUFFER_LENGTH);
+		numByteRead = mSerialHandler->recv(mBuffer, SERIAL_SERVO_READ_BUFFER_LENGTH);
 		int i;
 		for (i=0; i<numByteRead; ++i)
 		{
