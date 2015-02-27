@@ -63,6 +63,19 @@ ServoController *DeviceManager::getServoController(void)
 	return (ServoController*) scDev;
 }
 
+Aoa *DeviceManager::getAoa(void)
+{
+	IDevice *aoaDev = findFirstDeviceByType(DEVICE_TYPE_AOA);
+	if (NULL == aoaDev)
+	{
+		aoaDev = new Aoa(mIo);
+		aoaDev->init();
+		mRunningDevices[mNumRunningDevices] = aoaDev;
+		++mNumRunningDevices;
+	}
+	return (Aoa*) aoaDev;
+}
+
 IDevice *DeviceManager::findFirstDeviceByType(int deviceType)
 {
 	int i;

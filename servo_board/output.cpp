@@ -1,6 +1,6 @@
 #include "output.h"
 
-uint16_t outputValue[8];
+uint16_t volatile outputValue[8];
 
 void writePwm()
 {
