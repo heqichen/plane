@@ -76,6 +76,19 @@ Aoa *DeviceManager::getAoa(void)
 	return (Aoa*) aoaDev;
 }
 
+Beeper *DeviceManager::getBeeper(void)
+{
+	IDevice *beeperDev = findFirstDeviceByType(DEVICE_TYPE_BEEPER);
+	if (NULL == beeperDev)
+	{
+		beeperDev = new Beeper(mIo);
+		beeperDev->init();
+		mRunningDevices[mNumRunningDevices] = beeperDev;
+		++mNumRunningDevices;
+	}
+	return (Beeper*)beeperDev;
+}
+
 IDevice *DeviceManager::findFirstDeviceByType(int deviceType)
 {
 	int i;
@@ -88,3 +101,5 @@ IDevice *DeviceManager::findFirstDeviceByType(int deviceType)
 	}
 	return NULL;
 }
+
+
