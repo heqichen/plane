@@ -1,6 +1,13 @@
 #ifndef __GPIO_HANDLER_H__
 #define __GPIO_HANDLER_H__
 
+#include "gpio_const.h"
+#include "gpio_manager.h"
+
+#ifndef NULL
+#define NULL 0
+#endif
+
 #define GPIO_INPUT	0
 #define GPIO_OUTPUT	1
 
@@ -18,6 +25,9 @@ class GpioHandler
 		void setPinMode(int status);
 	private:
 		char *mGpioKey;
+
+		GPIO::GPIOManager* mGpioManager;
+		int mGpioPin;
 };
 
 #endif
