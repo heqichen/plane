@@ -81,7 +81,7 @@ void setupSystem(void)
 
 		//cout<<"throttle: "<<rawRc.throttle<<endl;
 		*/
-
+		
 		usleep(500000UL);
 		cout<<"aoa: "<<aoa->readAoa()<<endl;
 		cout<<"side slip: "<<aoa->readSideSlip()<<endl;
