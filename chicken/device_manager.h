@@ -10,6 +10,7 @@
 #include "./device/driver/io/io.h"
 #include "./device/imu.h"
 #include "./device/servo_controller.h"
+#include "./device/aoa.h"
 
 #define MAX_DEVICES_IN_CHICKEN 256
 
@@ -21,6 +22,7 @@ class DeviceManager
 		Radio *getRadio(void);
 		Imu *getImu(void);
 		ServoController *getServoController(void);
+		Aoa *getAoa(void);
 	private:
 		Io *mIo;
 		int mNumRunningDevices;
