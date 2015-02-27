@@ -83,6 +83,7 @@ void setupSystem(void)
 		*/
 
 		usleep(500000UL);
-		cout<<aoa->readAoa()<<endl;
+		cout<<"aoa: "<<aoa->readAoa()<<endl;
+		cout<<"side slip: "<<aoa->readSideSlip()<<endl;
 	}
 }

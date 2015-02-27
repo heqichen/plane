@@ -28,10 +28,14 @@ void Aoa::init()
 
 double Aoa::readAoa()
 {
-	return mAds7828->readSingleChannel(0);
+	uint16_t ad = mAds7828->readSingleChannel(0);
+	double value = (ad / 2048.0) - 1.0;
+	return value;
 }
 
 double Aoa::readSideSlip()
 {
-	return mAds7828->readSingleChannel(1);
+	uint16_t ad =  mAds7828->readSingleChannel(1);
+	double value = (ad / 2048.0) - 1.0;
+	return value;
 }

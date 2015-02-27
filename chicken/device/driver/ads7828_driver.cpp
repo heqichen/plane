@@ -22,8 +22,6 @@ uint16_t Ads7828Driver::readSingleChannel(int id)
 		command |= ADS7828_INTERNAL_REF_BIT;
 	}
 	uint16_t value;
-
 	bool iicOk = mIicHandler->readU16LE(mAddress, command, value);
-	cout<<"read channel: " << id<< "\tiic ok? " << iicOk<<"\tvalue is "<<value<<endl;
 	return value;
 }
