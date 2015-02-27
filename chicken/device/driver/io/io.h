@@ -3,6 +3,7 @@
 
 #include "serial_handler.h"
 #include "iic_handler.h"
+#include "gpio_handler.h"
 
 #ifndef NULL
 #define NULL 0
@@ -17,12 +18,17 @@ class Io
 		Io();
 		SerialHandler *getSerialHandler(const char *portName);
 		IicHandler *getIicHandler(const char *portName);
+		GpioHandler *getGpioHandler(const char *gpioKey);
 
 	private:
 		SerialHandler *mOpenedSerialHandler[MAX_PORT_NUM];
 		int mNumOpenedSerialHandler;
 		IicHandler *mOpenedIicHandler[MAX_PORT_NUM];
 		int mNumOpenedIicHandler;
+		GpioHandler *mOpenedGpioHandler[MAX_PORT_NUM];
+		int mNumOpenedGpioHandler;
+
+
 };
 
 #endif

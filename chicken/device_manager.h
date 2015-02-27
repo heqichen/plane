@@ -12,6 +12,7 @@
 #include "./device/servo_controller.h"
 #include "./device/aoa.h"
 
+
 #define MAX_DEVICES_IN_CHICKEN 256
 
 class DeviceManager

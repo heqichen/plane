@@ -3,7 +3,9 @@
 #include <cstring>
 
 Io::Io()
-	:	mNumOpenedSerialHandler	(0)
+	:	mNumOpenedSerialHandler	(0),
+		mNumOpenedIicHandler	(0),
+		mNumOpenedGpioHandler	(0)
 {
 	
 }
@@ -36,4 +38,19 @@ IicHandler *Io::getIicHandler(const char *portName)
 	mOpenedIicHandler[mNumOpenedIicHandler] = new IicHandler(portName);
 	++mNumOpenedIicHandler;
 	return mOpenedIicHandler[mNumOpenedIicHandler-1];
+}
+
+GpioHandler *Io::getGpioHandler(const char *gpioKey)
+{
+	int i;
+	for (i=0; i<mNumOpenedGpioHandler; ++i)
+	{
+		if (strcmp(gpioKey, mOpenedGpioHandler[i]->getGpioKey()) == 0)
+		{
+			return mOpenedGpioHandler[i];
+		}
+	}
+	mOpenedGpioHandler[mNumOpenedGpioHandler] = new GpioHandler(gpioKey);
+	++mNumOpenedGpioHandler;
+	return mOpenedGpioHandler[mNumOpenedGpioHandler-1];
 }
