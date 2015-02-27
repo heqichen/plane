@@ -21,7 +21,7 @@
  * SOFTWARE.
  */
 
-#include "./GPIOManager.h"
+#include "./gpio_manager.h"
 
 #include <unistd.h>
 #include <fcntl.h>
@@ -29,7 +29,7 @@
 #include <fstream>
 #include <algorithm>
 
-#include "./GPIOConst.h"
+#include "./gpio_const.h"
 
 namespace GPIO {
 

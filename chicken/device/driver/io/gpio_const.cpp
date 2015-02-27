@@ -29,7 +29,7 @@
  * SOFTWARE.
  */
 
-#include "./GPIOConst.h"
+#include "./gpio_const.h"
 #include <stdio.h>
 #include <string.h>
 
