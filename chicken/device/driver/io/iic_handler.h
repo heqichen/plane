@@ -17,7 +17,9 @@ class IicHandler
 
 		bool readU8(const uint8_t deviceAddr, const uint8_t regAddr, uint8_t &value);
 		bool readS8(const uint8_t deviceAddr, const uint8_t regAddr, int8_t &value);
-		bool readU16LE(const uint8_t deviceAddr, const uint8_t regAddr, uint16_t &value);
+		bool readU16BE(const uint8_t deviceAddr, const uint8_t regAddr, uint16_t &value);
+		bool readS16LE(const uint8_t deviceAddr, const uint8_t regAddr, int16_t &value);
+
 	private:
 		char *mPortName;
 		int mI2cFile;

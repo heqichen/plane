@@ -128,7 +128,7 @@ bool IicHandler::readS8(const uint8_t deviceAddr, const uint8_t regAddr, int8_t 
 	return iicOk;
 }
 
-bool IicHandler::readU16LE(const uint8_t deviceAddr, const uint8_t regAddr, uint16_t &value)
+bool IicHandler::readU16BE(const uint8_t deviceAddr, const uint8_t regAddr, uint16_t &value)
 {
 	bool iicOk = false;
 	pthread_mutex_lock(&mMutex);
@@ -149,3 +149,26 @@ bool IicHandler::readU16LE(const uint8_t deviceAddr, const uint8_t regAddr, uint
 	pthread_mutex_unlock(&mMutex);
 	return iicOk;
 }
+
+bool IicHandler::readS16LE(const uint8_t deviceAddr, const uint8_t regAddr, int16_t &value)
+{
+	bool iicOk = false;
+	pthread_mutex_lock(&mMutex);
+
+	if (sendRegAddr(deviceAddr, regAddr))
+	{
+		int numRead = 0;
+		numRead = read(mI2cFile, mBuffer, 2);
+		if (numRead == 2)
+		{
+			value = (int8_t)mBuffer[1];
+			value <<= 8;
+			value |= (uint8_t)mBuffer[0];
+			iicOk = true;
+		}
+	}
+
+	pthread_mutex_unlock(&mMutex);
+	return iicOk;
+}
+
