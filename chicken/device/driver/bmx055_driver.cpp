@@ -165,15 +165,15 @@ bool Bmx055Driver::readMag(RawMagValue &value)
 	bool iicOk = true;
 	int16_t axisValue = (int16_t)value.x;
 	iicOk &= mIicHandler->readS16LE(MAG_ADDR, MAG_X_LSB_ADDR, axisValue);
-	value.x = axisValue;
+	value.x = axisValue >> 3;
 
 	axisValue = (int16_t)value.y;
 	iicOk &= mIicHandler->readS16LE(MAG_ADDR, MAG_Y_LSB_ADDR, axisValue);
-	value.y = axisValue;
+	value.y = axisValue >> 3;
 
 	axisValue = (int16_t)value.z;
 	iicOk &= mIicHandler->readS16LE(MAG_ADDR, MAG_Z_LSB_ADDR, axisValue);
-	value.z = axisValue;
+	value.z = axisValue >> 1;
 
 	return iicOk;
 }
