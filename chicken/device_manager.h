@@ -11,6 +11,7 @@
 #include "./device/imu.h"
 #include "./device/servo_controller.h"
 #include "./device/aoa.h"
+#include "./device/beeper.h"
 
 #define MAX_DEVICES_IN_CHICKEN 256
 
@@ -23,6 +24,8 @@ class DeviceManager
 		Imu *getImu(void);
 		ServoController *getServoController(void);
 		Aoa *getAoa(void);
+		Beeper *getBeeper(void);
+
 	private:
 		Io *mIo;
 		int mNumRunningDevices;

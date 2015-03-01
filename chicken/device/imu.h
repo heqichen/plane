@@ -27,10 +27,11 @@ class Imu	:	public IDevice
 		~Imu();
 		virtual void init();
 		void update();
-
+		inline bool isImuRunning() const {return mIsImuRunning;}
 		ImuAttitude getAttitude();
 	private:
 		Bmx055Driver *mBmx055;
+		bool mIsImuRunning;
 		pthread_t mDataUpdatePThread;
 		
 		int m_rawAccX;

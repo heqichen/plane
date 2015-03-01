@@ -4,6 +4,8 @@
 #include "./device/imu.h"
 #include "./device/servo_controller.h"
 #include "./device/aoa.h"
+#include "./device/beeper.h"
+
 #include <mavlink.h>
 
 #include <iostream>
@@ -29,6 +31,7 @@ void setupSystem(void)
 	Imu *imu = devManager.getImu();
 	ServoController *sc = devManager.getServoController();
 	Aoa *aoa = devManager.getAoa();
+	Beeper *beeper = devManager.getBeeper();
 
 	while (true)
 	{
@@ -82,8 +85,13 @@ void setupSystem(void)
 		//cout<<"throttle: "<<rawRc.throttle<<endl;
 		*/
 
+		/*
 		usleep(500000UL);
 		cout<<"aoa: "<<aoa->readAoa()<<endl;
 		cout<<"side slip: "<<aoa->readSideSlip()<<endl;
+		*/
+
+		beeper->test();
+
 	}
 }
