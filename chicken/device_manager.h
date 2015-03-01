@@ -12,6 +12,7 @@
 #include "./device/servo_controller.h"
 #include "./device/aoa.h"
 #include "./device/beeper.h"
+#include "./device/agl.h"
 
 #define MAX_DEVICES_IN_CHICKEN 256
 
@@ -25,6 +26,7 @@ class DeviceManager
 		ServoController *getServoController(void);
 		Aoa *getAoa(void);
 		Beeper *getBeeper(void);
+		Agl *getAgl(void);
 
 	private:
 		Io *mIo;

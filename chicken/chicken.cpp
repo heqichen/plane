@@ -5,6 +5,8 @@
 #include "./device/servo_controller.h"
 #include "./device/aoa.h"
 #include "./device/beeper.h"
+#include "./device/agl.h"
+
 
 #include <mavlink.h>
 
@@ -32,6 +34,7 @@ void setupSystem(void)
 	ServoController *sc = devManager.getServoController();
 	Aoa *aoa = devManager.getAoa();
 	Beeper *beeper = devManager.getBeeper();
+	Agl *agl = devManager.getAgl();
 
 	while (true)
 	{
@@ -93,7 +96,15 @@ void setupSystem(void)
 		cout<<"side slip: "<<aoa->readSideSlip()<<endl;
 		*/
 
+
+		/*
+		//test beeper
 		beeper->test();
+		*/
+
+		//test Agl Altitude Above Gound Level
+		cout<<agl->getAgl()<<endl;
+		usleep(1000000UL);
 
 	}
 }
