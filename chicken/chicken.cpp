@@ -32,6 +32,7 @@ void setupSystem(void)
 	ServoController *sc = devManager.getServoController();
 	Aoa *aoa = devManager.getAoa();
 	Beeper *beeper = devManager.getBeeper();
+	Agl *agl = devManager.getAgl();
 
 	while (true)
 	{
@@ -93,7 +94,11 @@ void setupSystem(void)
 		cout<<"side slip: "<<aoa->readSideSlip()<<endl;
 		*/
 
-		beeper->test();
+		//beeper->test();
+
+		//test ir sensor
+		usleep(100000UL);
+		cout<<agl->measureAgl()<<endl;
 
 	}
 }
