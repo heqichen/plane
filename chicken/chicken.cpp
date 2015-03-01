@@ -35,6 +35,7 @@ void setupSystem(void)
 
 	while (true)
 	{
+		/*
 		//test send attitude
 
 		usleep(100000UL);
@@ -66,6 +67,7 @@ void setupSystem(void)
 			&attitude);
 		uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
 		radio->write(buf, len);
+		*/
 
 		//test read servo
 		/*
@@ -91,7 +93,7 @@ void setupSystem(void)
 		cout<<"side slip: "<<aoa->readSideSlip()<<endl;
 		*/
 
-		//beeper->test();
+		beeper->test();
 
 	}
 }

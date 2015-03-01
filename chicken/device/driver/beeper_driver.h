@@ -4,7 +4,7 @@
 #include "io/io.h"
 #include "io/gpio_handler.h"
 
-#define DEFAULT_BEEPER_GPIO_KEY	"P9_14"
+#define DEFAULT_BEEPER_GPIO_KEY	"P9_42"
 
 class BeeperDriver
 {
