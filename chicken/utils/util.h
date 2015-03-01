@@ -24,7 +24,7 @@ class Point3D
 };
 
 unsigned long millis();
-
+unsigned long nanos();
 
 
 #endif

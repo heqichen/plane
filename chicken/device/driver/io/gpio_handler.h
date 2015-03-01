@@ -14,6 +14,11 @@
 #define GPIO_HIGH	1
 #define GPIO_LOW	0
 
+#define GPIO_EDGE_NONE		0
+#define GPIO_EDGE_RISING	1
+#define GPIO_EDGE_FALLING	2
+#define GPIO_EDGE_BOTH		3
+
 class GpioHandler
 {
 	public:
@@ -23,6 +28,7 @@ class GpioHandler
 		void write(int status);
 		bool read();
 		void setPinMode(int status);
+		bool waitForEdge(int edgeType, int timeoutInMillis);
 	private:
 		char *mGpioKey;
 

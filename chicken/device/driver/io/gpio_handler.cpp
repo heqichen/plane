@@ -55,5 +55,38 @@ bool GpioHandler::read()
 	return value == GPIO::HIGH;
 }
 
-
+bool GpioHandler::waitForEdge(int edgeType, int timeoutInMillis)
+{
+	GPIO::EDGE_VALUE edgeValue;
+	switch (edgeType)
+	{
+		case (GPIO_EDGE_NONE):
+		{
+			edgeValue = GPIO::NONE;
+			break;
+		}
+		case (GPIO_EDGE_RISING):
+		{
+			edgeValue = GPIO::RISING;
+			break;
+		}
+		case (GPIO_EDGE_FALLING):
+		{
+			edgeValue = GPIO::FALLING;
+			break;
+		}
+		case (GPIO_EDGE_BOTH):
+		{
+			edgeValue = GPIO::BOTH;
+			break;
+		}
+		default:
+		{
+			edgeValue = GPIO::NONE;
+			break;
+		}
+	}
+	int ret = mGpioManager->waitForEdge(mGpioPin, edgeValue, timeoutInMillis);
+	return ret>=0;
+}
 

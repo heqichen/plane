@@ -61,6 +61,7 @@ class GPIOManager {
   int setEdge(unsigned int gpio, EDGE_VALUE value);
   int getEdge(unsigned int gpio);
   int waitForEdge(unsigned int gpio, EDGE_VALUE value);
+  int waitForEdge(unsigned int gpio, EDGE_VALUE value, int timeoutInMillis);
   int countExportedPins();
   void clean();
  private:

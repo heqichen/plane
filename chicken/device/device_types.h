@@ -7,7 +7,7 @@
 #define DEVICE_TYPE_SERVO_CONTROLLER	0x03
 #define DEVICE_TYPE_AOA					0x04
 #define DEVICE_TYPE_BEEPER				0x05
-
+#define DEVICE_TYPE_AGL					0x06	//Altitude above grould level
 
 
 #endif

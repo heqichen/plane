@@ -1,14 +1,21 @@
-#include <sys/time.h>
-
 #include "util.h"
 
+#include <sys/time.h>
 #include <math.h>
+#include <time.h>
 
 unsigned long millis()
 {
     struct timeval tv;
     gettimeofday(&tv,NULL);
     return tv.tv_sec*1000UL + tv.tv_usec/1000UL;
+}
+
+unsigned long nanos()
+{
+	timespec ts;
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts);
+	return ts.tv_sec * 1000000000UL + ts.tv_nsec;
 }
 
 Point3D::Point3D(double nx, double ny, double nz)
