@@ -131,6 +131,7 @@ void Imu::readData(void)
 
 	mBmx055->readAcc(rawAccValue);
 	mBmx055->readGyro(rawGyroValue);
+	mBmx055->readMag(mRawMagValue);
 
 	m_rawAccX = rawAccValue.x;
 	m_rawAccY = rawAccValue.y;

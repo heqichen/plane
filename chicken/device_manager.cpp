@@ -89,6 +89,19 @@ Beeper *DeviceManager::getBeeper(void)
 	return (Beeper*)beeperDev;
 }
 
+Agl *DeviceManager::getAgl(void)
+{
+	IDevice *aglDev = findFirstDeviceByType(DEVICE_TYPE_AGL);
+	if (NULL == aglDev)
+	{
+		aglDev = new Agl(mIo);
+		aglDev->init();
+		mRunningDevices[mNumRunningDevices] = aglDev;
+		++mNumRunningDevices;
+	}
+	return (Agl*)aglDev;
+}
+
 IDevice *DeviceManager::findFirstDeviceByType(int deviceType)
 {
 	int i;

@@ -31,24 +31,38 @@ Bmx055Driver::Bmx055Driver(Io *io)
 		cout<<"gyro bad"<<endl;
 	}
 	
-	wakeupMag();
-	
-	
-	resetAcc();
-	resetGyro();	
-}
-
-void Bmx055Driver::wakeupMag()
-{
-	bool writeResult = mIicHandler->writeByte(MAG_ADDR, MAG_POWER_ADDR, 0x81);
-	if (writeResult)
+	if (wakeupMag())
 	{
-		cout<<"mag good"<<endl;
+		cout<<"mag ok"<<endl;
 	}
 	else
 	{
 		cout<<"mag bad"<<endl;
 	}
+	
+	
+	resetAcc();
+	resetGyro();
+
+}
+
+bool Bmx055Driver::wakeupMag()
+{
+	bool iicOk = true;
+	uint8_t chipId = 0;
+	//write 1 to power on bit
+	iicOk &= mIicHandler->writeByte(MAG_ADDR, MAG_POWER_ADDR, 0x01);
+	iicOk &= mIicHandler->readU8(MAG_ADDR, MAG_CHIPID_ADDR, chipId);
+	//datashit P 135, set mag to 30hz ODR, and normal mode.
+	iicOk &= mIicHandler->writeByte(MAG_ADDR, MAG_OP_ADDR, 0b00111000);
+	//cannot bring mag to suspend / sleep mode after soft reset
+
+	//set nXY to 47 repetions, see datashit p122
+	iicOk &= mIicHandler->writeByte(MAG_ADDR, MAG_REP_XY_ADDR, 23);
+	//set nZ to 83 repetions, see datashit P122
+	iicOk &= mIicHandler->writeByte(MAG_ADDR, MAG_REP_Z_ADDR, 41);
+
+	return iicOk && (chipId == 0x32);
 }
 
 void Bmx055Driver::resetAcc(void)
@@ -144,4 +158,22 @@ bool Bmx055Driver::readAcc(RawAccValue &value)
 	value.z = axisValue;
 
 	return readOk;
+}
+
+bool Bmx055Driver::readMag(RawMagValue &value)
+{
+	bool iicOk = true;
+	int16_t axisValue = (int16_t)value.x;
+	iicOk &= mIicHandler->readS16LE(MAG_ADDR, MAG_X_LSB_ADDR, axisValue);
+	value.x = axisValue >> 3;
+
+	axisValue = (int16_t)value.y;
+	iicOk &= mIicHandler->readS16LE(MAG_ADDR, MAG_Y_LSB_ADDR, axisValue);
+	value.y = axisValue >> 3;
+
+	axisValue = (int16_t)value.z;
+	iicOk &= mIicHandler->readS16LE(MAG_ADDR, MAG_Z_LSB_ADDR, axisValue);
+	value.z = axisValue >> 1;
+
+	return iicOk;
 }

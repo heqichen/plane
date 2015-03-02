@@ -32,6 +32,7 @@ void setupSystem(void)
 	ServoController *sc = devManager.getServoController();
 	Aoa *aoa = devManager.getAoa();
 	Beeper *beeper = devManager.getBeeper();
+	Agl *agl = devManager.getAgl();
 
 	while (true)
 	{
@@ -40,7 +41,9 @@ void setupSystem(void)
 
 		usleep(100000UL);
 		ImuAttitude a = imu->getAttitude();
-		//cout<<"pitch: " << a.pitch<<"\troll: " << a.roll<<"\theading:"<<a.heading<<endl;
+		RawMagValue mag = imu->getRawMagValue();
+		cout<<"pitch: " << a.pitch<<"\troll: " << a.roll<<"\theading:"<<a.heading<<endl;
+		cout<<"magnetometer x: " << mag.x << "\ty: "<<mag.y<<"\tz: "<<mag.z<<endl;
 
 		uint8_t buf[MAVLINK_MAX_PACKET_LEN];
 		mavlink_message_t msg;
@@ -91,7 +94,11 @@ void setupSystem(void)
 		cout<<"side slip: "<<aoa->readSideSlip()<<endl;
 		*/
 
-		beeper->test();
+		//beeper->test();
+
+		//test ir sensor
+		usleep(100000UL);
+		cout<<agl->measureAgl()<<endl;
 
 	}
 }

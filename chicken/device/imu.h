@@ -29,10 +29,12 @@ class Imu	:	public IDevice
 		void update();
 		inline bool isImuRunning() const {return mIsImuRunning;}
 		ImuAttitude getAttitude();
+		RawMagValue getRawMagValue() const{return mRawMagValue;}
 	private:
 		Bmx055Driver *mBmx055;
 		bool mIsImuRunning;
 		pthread_t mDataUpdatePThread;
+		RawMagValue mRawMagValue;
 		
 		int m_rawAccX;
 		int m_rawAccY;
