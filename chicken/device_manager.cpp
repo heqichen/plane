@@ -102,6 +102,19 @@ Agl *DeviceManager::getAgl(void)
 	return (Agl*)aglDev;
 }
 
+VirtualImu *DeviceManager::getVirtualImu(void)
+{
+	IDevice *virtualImuDev = findFirstDeviceByType(DEVICE_TYPE_VIRTUAL_IMU);
+	if (NULL == virtualImuDev)
+	{
+		virtualImuDev = new VirtualImu(mIo);
+		virtualImuDev->init();
+		mRunningDevices[mNumRunningDevices] = virtualImuDev;
+		++mNumRunningDevices;
+	}
+	return (VirtualImu*)virtualImuDev;
+}
+
 IDevice *DeviceManager::findFirstDeviceByType(int deviceType)
 {
 	int i;

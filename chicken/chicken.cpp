@@ -5,6 +5,7 @@
 #include "./device/servo_controller.h"
 #include "./device/aoa.h"
 #include "./device/beeper.h"
+#include "./device/virtual_imu.h"
 
 #include <mavlink.h>
 
@@ -22,6 +23,8 @@ ServoController *sc;
 Aoa *aoa;
 Beeper *beeper;
 Agl *agl;
+
+VirtualImu *virtualImu;
 
 void setupDevice(void);
 
@@ -43,4 +46,6 @@ void setupDevice(void)
 	aoa = devManager->getAoa();
 	beeper = devManager->getBeeper();
 	agl = devManager->getAgl();
+
+	virtualImu = devManager->getVirtualImu();
 }
