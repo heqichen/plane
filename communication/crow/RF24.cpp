@@ -5,7 +5,7 @@
 RF24::RF24(uint8_t cePin, uint8_t csnPin)
 	:	mCePin( cePin),
 		mCsnPin( csnPin),
-		wide_band(true),
+		mIsWideBand(true),
 		p_variant(false), 
 		payload_size(32),
 		ack_payload_available(false),
@@ -28,7 +28,7 @@ void RF24::csn(int mode)
 	SPI.setBitOrder(MSBFIRST);
 	SPI.setDataMode(SPI_MODE0);
 	SPI.setClockDivider(SPI_CLOCK_DIV4);
-#end if
+#endif
 	digitalWrite(mCsnPin, mode);
 }
 
@@ -249,7 +249,7 @@ void RF24::print_address_register(const char* name, uint8_t reg, uint8_t qty)
 
 void RF24::setChannel(uint8_t channel)
 {
-	// TODO: This method could take advantage of the 'wide_band' calculation
+	// TODO: This method could take advantage of the 'mIsWideBand' calculation
 	// done in setChannel() to require certain channel spacing.
 
 	const uint8_t max_channel = 127;
@@ -860,13 +860,13 @@ bool RF24::setDataRate(rf24_datarate_e speed)
 	uint8_t setup = read_register(RF_SETUP) ;
 
 	// HIGH and LOW '00' is 1Mbs - our default
-	wide_band = false ;
+	mIsWideBand = false ;
 	setup &= ~(_BV(RF_DR_LOW) | _BV(RF_DR_HIGH)) ;
 	if( speed == RF24_250KBPS )
 	{
 	// Must set the RF_DR_LOW to 1; RF_DR_HIGH (used to be RF_DR) is already 0
 	// Making it '10'.
-	wide_band = false ;
+	mIsWideBand = false ;
 	setup |= _BV( RF_DR_LOW ) ;
 	}
 	else
@@ -875,13 +875,13 @@ bool RF24::setDataRate(rf24_datarate_e speed)
 	// Making it '01'
 	if ( speed == RF24_2MBPS )
 	{
-		wide_band = true ;
+		mIsWideBand = true ;
 		setup |= _BV(RF_DR_HIGH);
 	}
 	else
 	{
 		// 1Mbs
-		wide_band = false ;
+		mIsWideBand = false ;
 	}
 	}
 	write_register(RF_SETUP,setup);
@@ -893,7 +893,7 @@ bool RF24::setDataRate(rf24_datarate_e speed)
 	}
 	else
 	{
-	wide_band = false;
+	mIsWideBand = false;
 	}
 
 	return result;

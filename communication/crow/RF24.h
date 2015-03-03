@@ -37,7 +37,7 @@ class RF24
     private:
         uint8_t mCePin; /**< "Chip Enable" pin, activates the RX or TX role */
         uint8_t mCsnPin; /**< SPI Chip select */
-        bool wide_band; /* 2Mbs data rate in use? */
+        bool mIsWideBand; /* 2Mbs data rate in use? */
         bool p_variant; /* False for RF24L01 and true for RF24L01P */
         uint8_t payload_size; /**< Fixed size of payloads */
         bool ack_payload_available; /**< Whether there is an ack payload waiting */
