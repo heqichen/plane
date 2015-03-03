@@ -14,6 +14,10 @@
 #define RF24_1MBPS		0x00
 #define RF24_2MBPS		0x08
 
+#define RF24_CRC_DISABLED	0x00
+#define RF24_CRC_8			0x08
+#define RF24_CRC_16			0x0C
+
 /**
  * Data rate.	How fast data moves through the air.
  *
@@ -26,7 +30,6 @@
  *
  * For use with setCRCLength()
  */
-typedef enum { RF24_CRC_DISABLED = 0, RF24_CRC_8, RF24_CRC_16 } rf24_crclength_e;
 
 /**
  * Driver for nRF24L01(+) 2.4GHz Wireless Transceiver
@@ -40,18 +43,23 @@ class RF24
 
 		void begin(void);	//because of F**king Arduino, call this in setup()
 		void setRetries(uint8_t delay, uint8_t count);
+
 		void setPALevel(uint8_t level);
 		uint8_t getPALevel(void);
+
 		void setDataRate(uint8_t speed);
 		uint8_t getDataRate(void);
 
+		void setCRCLength(uint8_t length);
+		uint8_t getCRCLength(void);
+		void disableCRC( void ) ;
 
-		
+
 		void resetSpi(void);
 		bool isAckPayloadAvailable(void);
 
 		bool is24l01Plus(void) const {return mIs24l01Plus;}
-		bool test24l01Plus(void);
+		
 		uint8_t getPayloadSize(void) const {return mPayloadSize;}
 
 	 private:
@@ -72,6 +80,8 @@ class RF24
 		uint8_t readRegister(uint8_t reg);
 		uint8_t writeRegister(uint8_t reg, const uint8_t* buf, uint8_t len);
 		uint8_t writeRegister(uint8_t reg, uint8_t value);
+
+		bool test24l01Plus(void);
 	 public:
 
 	/**
@@ -327,20 +337,7 @@ class RF24
 	 *
 	 * @param length RF24_CRC_8 for 8-bit or RF24_CRC_16 for 16-bit
 	 */
-	void setCRCLength(rf24_crclength_e length);
-
-	/**
-	 * Get the CRC length
-	 *
-	 * @return RF24_DISABLED if disabled or RF24_CRC_8 for 8-bit or RF24_CRC_16 for 16-bit
-	 */
-	rf24_crclength_e getCRCLength(void);
-
-	/**
-	 * Disable CRC validation
-	 *
-	 */
-	void disableCRC( void ) ;
+	
 
 	/**@}*/
 	/**

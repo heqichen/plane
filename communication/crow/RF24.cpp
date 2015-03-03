@@ -132,6 +132,32 @@ uint8_t RF24::getDataRate(void)
 	return readRegister(RF_SETUP) & (_BV(RF_DR_LOW) | _BV(RF_DR_HIGH));
 }
 
+void RF24::setCRCLength(uint8_t length)
+{
+	uint8_t config = readRegister(CONFIG) & ~( _BV(CRCO) | _BV(EN_CRC)) ;
+	
+	if ( length == RF24_CRC_DISABLED )
+	{
+		// Do nothing, we turned it off above. 
+		//nrf24l01 must do crc check
+		return ;
+	}
+	config |= length;
+	writeRegister(CONFIG, config) ;
+}
+
+uint8_t RF24::getCRCLength(void)
+{
+	return readRegister(CONFIG) & ( _BV(CRCO) | _BV(EN_CRC)) ;
+}
+
+void RF24::disableCRC( void )
+{
+	uint8_t disable = readRegister(CONFIG) & ~_BV(EN_CRC) ;
+	writeRegister(CONFIG, disable) ;
+}
+
+
 void RF24::resetSpi(void)
 {
 	// Minimum ideal SPI bus speed is 2x data rate
@@ -388,14 +414,7 @@ static const char * const rf24_model_e_str_P[] PROGMEM = {
 	rf24_model_e_str_0,
 	rf24_model_e_str_1,
 };
-static const char rf24_crclength_e_str_0[] PROGMEM = "Disabled";
-static const char rf24_crclength_e_str_1[] PROGMEM = "8 bits";
-static const char rf24_crclength_e_str_2[] PROGMEM = "16 bits" ;
-static const char * const rf24_crclength_e_str_P[] PROGMEM = {
-	rf24_crclength_e_str_0,
-	rf24_crclength_e_str_1,
-	rf24_crclength_e_str_2,
-};
+
 
 
 void RF24::printDetails(void)
@@ -419,7 +438,10 @@ void RF24::printDetails(void)
 
 	//printf_P(PSTR("Data Rate\t = %S\r\n"),pgm_read_word(&rf24_datarate_e_str_P[]));
 	printf_P(PSTR("Model\t\t = %S\r\n"),pgm_read_word(&rf24_model_e_str_P[is24l01Plus()]));
-	printf_P(PSTR("CRC Length\t = %S\r\n"),pgm_read_word(&rf24_crclength_e_str_P[getCRCLength()]));
+	//printf_P(PSTR("CRC Length\t = %S\r\n"),pgm_read_word(&rf24_crclength_e_str_P[getCRCLength()]));
+
+	Serial.print("CRC Length\t=");
+	Serial.println(getCRCLength());
 	//printf_P(PSTR("PA Power\t = %S\r\n"),pgm_read_word(&rf24_pa_dbm_e_str_P[getPALevel()]));
 
 	Serial.print("PA Power\t=");
@@ -836,52 +858,6 @@ bool RF24::testRPD(void)
 
 /****************************************************************************/
 
-void RF24::setCRCLength(rf24_crclength_e length)
-{
-	uint8_t config = readRegister(CONFIG) & ~( _BV(CRCO) | _BV(EN_CRC)) ;
-	
-	// switch uses RAM (evil!)
-	if ( length == RF24_CRC_DISABLED )
-	{
-	// Do nothing, we turned it off above. 
-	}
-	else if ( length == RF24_CRC_8 )
-	{
-	config |= _BV(EN_CRC);
-	}
-	else
-	{
-	config |= _BV(EN_CRC);
-	config |= _BV( CRCO );
-	}
-	writeRegister( CONFIG, config ) ;
-}
-
-/****************************************************************************/
-
-rf24_crclength_e RF24::getCRCLength(void)
-{
-	rf24_crclength_e result = RF24_CRC_DISABLED;
-	uint8_t config = readRegister(CONFIG) & ( _BV(CRCO) | _BV(EN_CRC)) ;
-
-	if ( config & _BV(EN_CRC ) )
-	{
-	if ( config & _BV(CRCO) )
-		result = RF24_CRC_16;
-	else
-		result = RF24_CRC_8;
-	}
-
-	return result;
-}
-
-/****************************************************************************/
-
-void RF24::disableCRC( void )
-{
-	uint8_t disable = readRegister(CONFIG) & ~_BV(EN_CRC) ;
-	writeRegister( CONFIG, disable ) ;
-}
 
 /****************************************************************************/
 

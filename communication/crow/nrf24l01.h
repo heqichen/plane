@@ -3,7 +3,7 @@
 
 
 /* Memory Map */
-#define CONFIG      0x00
+#define CONFIG      0x00	//Configuration Register P57
 #define EN_AA       0x01
 #define EN_RXADDR   0x02
 #define SETUP_AW    0x03
