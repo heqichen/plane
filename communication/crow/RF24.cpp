@@ -44,13 +44,6 @@ void RF24::begin(void)
 	setDataRate(RF24_1MBPS);
 	setCRCLength(RF24_CRC_16);
 	setDynamicPayloads(false);
-	//here
-
-	// Initialize CRC and request 2-byte (16bit) CRC
-	
-	
-	// Disable dynamic payloads, to match mIsDynamicPayloadsEnabled setting
-	
 
 	// Reset current status
 	// Notice reset and flush is the last thing we do
@@ -186,8 +179,8 @@ void RF24::setDynamicPayloads(bool status)
 void RF24::toggleFeatures(void)
 {
 	csn(LOW);
-	SPI.transfer( ACTIVATE );
-	SPI.transfer( 0x73 );
+	SPI.transfer(ACTIVATE);
+	SPI.transfer(0x73);
 	csn(HIGH);
 }
 

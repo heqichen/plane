@@ -70,6 +70,8 @@ class RF24
 		bool test24l01Plus(void);
 		void toggleFeatures(void);
 		void resetSpi(void);
+		uint8_t flushRx(void);
+		uint8_t flushTx(void);
 	 public:
 
 	/**
@@ -478,14 +480,7 @@ protected:
 	 *
 	 * @return Current value of status register
 	 */
-	uint8_t flush_rx(void);
 
-	/**
-	 * Empty the transmit buffer
-	 *
-	 * @return Current value of status register
-	 */
-	uint8_t flush_tx(void);
 
 	/**
 	 * Retrieve the current status of the chip
