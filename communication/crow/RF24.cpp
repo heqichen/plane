@@ -57,11 +57,11 @@ void RF24::begin(void)
 	setCRCLength( RF24_CRC_16 ) ;
 	
 	// Disable dynamic payloads, to match mIsDynamicPayloadsEnabled setting
-	write_register(DYNPD,0);
+	writeRegister(DYNPD,0);
 
 	// Reset current status
 	// Notice reset and flush is the last thing we do
-	write_register(STATUS,_BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT) );
+	writeRegister(STATUS,_BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT) );
 
 	// Set up default configuration.	Callers can always change it later.
 	// This channel should be universally safe and not bleed over into adjacent
@@ -86,7 +86,7 @@ void RF24::resetSpi(void)
 
 void RF24::setRetries(uint8_t delay, uint8_t count)
 {
-	write_register(SETUP_RETR, (delay & 0x0F) << ARD | (count & 0x0F) << ARC);
+	writeRegister(SETUP_RETR, (delay & 0x0F) << ARD | (count & 0x0F) << ARC);
 }
 
 
@@ -133,7 +133,7 @@ uint8_t RF24::read_register(uint8_t reg)
 
 /****************************************************************************/
 
-uint8_t RF24::write_register(uint8_t reg, const uint8_t* buf, uint8_t len)
+uint8_t RF24::writeRegister(uint8_t reg, const uint8_t* buf, uint8_t len)
 {
 	uint8_t status;
 
@@ -149,11 +149,11 @@ uint8_t RF24::write_register(uint8_t reg, const uint8_t* buf, uint8_t len)
 
 /****************************************************************************/
 
-uint8_t RF24::write_register(uint8_t reg, uint8_t value)
+uint8_t RF24::writeRegister(uint8_t reg, uint8_t value)
 {
 	uint8_t status;
 
-	IF_SERIAL_DEBUG(printf_P(PSTR("write_register(%02x,%02x)\r\n"),reg,value));
+	IF_SERIAL_DEBUG(printf_P(PSTR("writeRegister(%02x,%02x)\r\n"),reg,value));
 
 	csn(LOW);
 	status = SPI.transfer( W_REGISTER | ( REGISTER_MASK & reg ) );
@@ -317,7 +317,7 @@ void RF24::setChannel(uint8_t channel)
 	// done in setChannel() to require certain channel spacing.
 
 	const uint8_t max_channel = 127;
-	write_register(RF_CH,min(channel,max_channel));
+	writeRegister(RF_CH,min(channel,max_channel));
 }
 
 /****************************************************************************/
@@ -397,12 +397,12 @@ void RF24::printDetails(void)
 
 void RF24::startListening(void)
 {
-	write_register(CONFIG, read_register(CONFIG) | _BV(PWR_UP) | _BV(PRIM_RX));
-	write_register(STATUS, _BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT) );
+	writeRegister(CONFIG, read_register(CONFIG) | _BV(PWR_UP) | _BV(PRIM_RX));
+	writeRegister(STATUS, _BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT) );
 
 	// Restore the pipe0 adddress, if exists
 	if (mLastPipe0ReadingAddr)
-	write_register(RX_ADDR_P0, reinterpret_cast<const uint8_t*>(&mLastPipe0ReadingAddr), 5);
+	writeRegister(RX_ADDR_P0, reinterpret_cast<const uint8_t*>(&mLastPipe0ReadingAddr), 5);
 
 	// Flush buffers
 	flush_rx();
@@ -428,14 +428,14 @@ void RF24::stopListening(void)
 
 void RF24::powerDown(void)
 {
-	write_register(CONFIG,read_register(CONFIG) & ~_BV(PWR_UP));
+	writeRegister(CONFIG,read_register(CONFIG) & ~_BV(PWR_UP));
 }
 
 /****************************************************************************/
 
 void RF24::powerUp(void)
 {
-	write_register(CONFIG,read_register(CONFIG) | _BV(PWR_UP));
+	writeRegister(CONFIG,read_register(CONFIG) | _BV(PWR_UP));
 }
 
 /******************************************************************/
@@ -509,7 +509,7 @@ bool RF24::write( const void* buf, uint8_t len )
 void RF24::startWrite( const void* buf, uint8_t len )
 {
 	// Transmitter power-up
-	write_register(CONFIG, ( read_register(CONFIG) | _BV(PWR_UP) ) & ~_BV(PRIM_RX) );
+	writeRegister(CONFIG, ( read_register(CONFIG) | _BV(PWR_UP) ) & ~_BV(PRIM_RX) );
 	delayMicroseconds(150);
 
 	// Send the payload
@@ -564,12 +564,12 @@ bool RF24::available(uint8_t* pipe_num)
 	// ??? Should this REALLY be cleared now?	Or wait until we
 	// actually READ the payload?
 
-	write_register(STATUS,_BV(RX_DR) );
+	writeRegister(STATUS,_BV(RX_DR) );
 
 	// Handle ack payload receipt
 	if ( status & _BV(TX_DS) )
 	{
-		write_register(STATUS,_BV(TX_DS));
+		writeRegister(STATUS,_BV(TX_DS));
 	}
 	}
 
@@ -593,7 +593,7 @@ void RF24::whatHappened(bool& tx_ok,bool& tx_fail,bool& rx_ready)
 {
 	// Read the status & reset the status in one easy call
 	// Or is that such a good idea?
-	uint8_t status = write_register(STATUS,_BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT) );
+	uint8_t status = writeRegister(STATUS,_BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT) );
 
 	// Report to the user what happened
 	tx_ok = status & _BV(TX_DS);
@@ -608,11 +608,11 @@ void RF24::openWritingPipe(uint64_t value)
 	// Note that AVR 8-bit uC's store this LSB first, and the NRF24L01(+)
 	// expects it LSB first too, so we're good.
 
-	write_register(RX_ADDR_P0, reinterpret_cast<uint8_t*>(&value), 5);
-	write_register(TX_ADDR, reinterpret_cast<uint8_t*>(&value), 5);
+	writeRegister(RX_ADDR_P0, reinterpret_cast<uint8_t*>(&value), 5);
+	writeRegister(TX_ADDR, reinterpret_cast<uint8_t*>(&value), 5);
 
 	const uint8_t max_payload_size = 32;
-	write_register(RX_PW_P0,min(mPayloadSize,max_payload_size));
+	writeRegister(RX_PW_P0,min(mPayloadSize,max_payload_size));
 }
 
 /****************************************************************************/
@@ -642,16 +642,16 @@ void RF24::openReadingPipe(uint8_t child, uint64_t address)
 	{
 	// For pipes 2-5, only write the LSB
 	if ( child < 2 )
-		write_register(pgm_read_byte(&child_pipe[child]), reinterpret_cast<const uint8_t*>(&address), 5);
+		writeRegister(pgm_read_byte(&child_pipe[child]), reinterpret_cast<const uint8_t*>(&address), 5);
 	else
-		write_register(pgm_read_byte(&child_pipe[child]), reinterpret_cast<const uint8_t*>(&address), 1);
+		writeRegister(pgm_read_byte(&child_pipe[child]), reinterpret_cast<const uint8_t*>(&address), 1);
 
-	write_register(pgm_read_byte(&child_payload_size[child]),mPayloadSize);
+	writeRegister(pgm_read_byte(&child_payload_size[child]),mPayloadSize);
 
 	// Note it would be more efficient to set all of the bits for all open
 	// pipes at once.	However, I thought it would make the calling code
 	// more simple to do it this way.
-	write_register(EN_RXADDR,read_register(EN_RXADDR) | _BV(pgm_read_byte(&child_pipe_enable[child])));
+	writeRegister(EN_RXADDR,read_register(EN_RXADDR) | _BV(pgm_read_byte(&child_pipe_enable[child])));
 	}
 }
 
@@ -670,14 +670,14 @@ void RF24::toggle_features(void)
 void RF24::enableDynamicPayloads(void)
 {
 	// Enable dynamic payload throughout the system
-	write_register(FEATURE,read_register(FEATURE) | _BV(EN_DPL) );
+	writeRegister(FEATURE,read_register(FEATURE) | _BV(EN_DPL) );
 
 	// If it didn't work, the features are not enabled
 	if ( ! read_register(FEATURE) )
 	{
 	// So enable them and try again
 	toggle_features();
-	write_register(FEATURE,read_register(FEATURE) | _BV(EN_DPL) );
+	writeRegister(FEATURE,read_register(FEATURE) | _BV(EN_DPL) );
 	}
 
 	IF_SERIAL_DEBUG(printf("FEATURE=%i\r\n",read_register(FEATURE)));
@@ -686,7 +686,7 @@ void RF24::enableDynamicPayloads(void)
 	//
 	// Not sure the use case of only having dynamic payload on certain
 	// pipes, so the library does not support it.
-	write_register(DYNPD,read_register(DYNPD) | _BV(DPL_P5) | _BV(DPL_P4) | _BV(DPL_P3) | _BV(DPL_P2) | _BV(DPL_P1) | _BV(DPL_P0));
+	writeRegister(DYNPD,read_register(DYNPD) | _BV(DPL_P5) | _BV(DPL_P4) | _BV(DPL_P3) | _BV(DPL_P2) | _BV(DPL_P1) | _BV(DPL_P0));
 
 	mIsDynamicPayloadsEnabled = true;
 }
@@ -699,14 +699,14 @@ void RF24::enableAckPayload(void)
 	// enable ack payload and dynamic payload features
 	//
 
-	write_register(FEATURE,read_register(FEATURE) | _BV(EN_ACK_PAY) | _BV(EN_DPL) );
+	writeRegister(FEATURE,read_register(FEATURE) | _BV(EN_ACK_PAY) | _BV(EN_DPL) );
 
 	// If it didn't work, the features are not enabled
 	if ( ! read_register(FEATURE) )
 	{
 	// So enable them and try again
 	toggle_features();
-	write_register(FEATURE,read_register(FEATURE) | _BV(EN_ACK_PAY) | _BV(EN_DPL) );
+	writeRegister(FEATURE,read_register(FEATURE) | _BV(EN_ACK_PAY) | _BV(EN_DPL) );
 	}
 
 	IF_SERIAL_DEBUG(printf("FEATURE=%i\r\n",read_register(FEATURE)));
@@ -715,7 +715,7 @@ void RF24::enableAckPayload(void)
 	// Enable dynamic payload on pipes 0 & 1
 	//
 
-	write_register(DYNPD,read_register(DYNPD) | _BV(DPL_P1) | _BV(DPL_P0));
+	writeRegister(DYNPD,read_register(DYNPD) | _BV(DPL_P1) | _BV(DPL_P0));
 }
 
 /****************************************************************************/
@@ -744,9 +744,9 @@ void RF24::writeAckPayload(uint8_t pipe, const void* buf, uint8_t len)
 void RF24::setAutoAck(bool enable)
 {
 	if ( enable )
-	write_register(EN_AA, B111111);
+	writeRegister(EN_AA, B111111);
 	else
-	write_register(EN_AA, 0);
+	writeRegister(EN_AA, 0);
 }
 
 /****************************************************************************/
@@ -764,7 +764,7 @@ void RF24::setAutoAck( uint8_t pipe, bool enable )
 	{
 		en_aa &= ~_BV(pipe) ;
 	}
-	write_register( EN_AA, en_aa ) ;
+	writeRegister( EN_AA, en_aa ) ;
 	}
 }
 
@@ -812,7 +812,7 @@ void RF24::setPALevel(rf24_pa_dbm_e level)
 	setup |= (_BV(RF_PWR_LOW) | _BV(RF_PWR_HIGH)) ;
 	}
 
-	write_register( RF_SETUP, setup ) ;
+	writeRegister( RF_SETUP, setup ) ;
 }
 
 /****************************************************************************/
@@ -875,7 +875,7 @@ bool RF24::setDataRate(rf24_datarate_e speed)
 		mIsWideBand = false ;
 	}
 	}
-	write_register(RF_SETUP,setup);
+	writeRegister(RF_SETUP,setup);
 
 	// Verify our result
 	if ( read_register(RF_SETUP) == setup )
@@ -937,7 +937,7 @@ void RF24::setCRCLength(rf24_crclength_e length)
 	config |= _BV(EN_CRC);
 	config |= _BV( CRCO );
 	}
-	write_register( CONFIG, config ) ;
+	writeRegister( CONFIG, config ) ;
 }
 
 /****************************************************************************/
@@ -963,7 +963,7 @@ rf24_crclength_e RF24::getCRCLength(void)
 void RF24::disableCRC( void )
 {
 	uint8_t disable = read_register(CONFIG) & ~_BV(EN_CRC) ;
-	write_register( CONFIG, disable ) ;
+	writeRegister( CONFIG, disable ) ;
 }
 
 /****************************************************************************/
@@ -975,12 +975,12 @@ void RF24::resetForSending(void)
 {
 	/*
 	//start listen
-	write_register(CONFIG, read_register(CONFIG) | _BV(PWR_UP) | _BV(PRIM_RX));
-	write_register(STATUS, _BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT) );
+	writeRegister(CONFIG, read_register(CONFIG) | _BV(PWR_UP) | _BV(PRIM_RX));
+	writeRegister(STATUS, _BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT) );
 
 	// Restore the pipe0 adddress, if exists
 	if (mLastPipe0ReadingAddr)
-	write_register(RX_ADDR_P0, reinterpret_cast<const uint8_t*>(&mLastPipe0ReadingAddr), 5);
+	writeRegister(RX_ADDR_P0, reinterpret_cast<const uint8_t*>(&mLastPipe0ReadingAddr), 5);
 
 	// Flush buffers
 	flush_rx();
@@ -996,8 +996,8 @@ void RF24::resetForSending(void)
 	flush_rx();
 	*/
 	Serial.println(read_register(CONFIG), BIN);
-	write_register(CONFIG, read_register(CONFIG) | _BV(PWR_UP));
+	writeRegister(CONFIG, read_register(CONFIG) | _BV(PWR_UP));
 	Serial.println(read_register(CONFIG), BIN);
-	//write_register(STATUS, _BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT) );
+	//writeRegister(STATUS, _BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT) );
 
 }

@@ -60,8 +60,8 @@ class RF24
 
 		uint8_t read_register(uint8_t reg, uint8_t* buf, uint8_t len);
 		uint8_t read_register(uint8_t reg);
-		uint8_t write_register(uint8_t reg, const uint8_t* buf, uint8_t len);
-		uint8_t write_register(uint8_t reg, uint8_t value);
+		uint8_t writeRegister(uint8_t reg, const uint8_t* buf, uint8_t len);
+		uint8_t writeRegister(uint8_t reg, uint8_t value);
 	 public:
 
 	/**
