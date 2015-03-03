@@ -2,9 +2,9 @@
 #include "config.h"
 #include "RF24.h"
 
-RF24::RF24(uint8_t _cepin, uint8_t _cspin)
-	:	mCePin(_cepin),
-		csn_pin(_cspin),
+RF24::RF24(uint8_t cePin, uint8_t csnPin)
+	:	mCePin( cePin),
+		mCsnPin( csnPin),
 		wide_band(true),
 		p_variant(false), 
 		payload_size(32),
@@ -28,8 +28,8 @@ void RF24::csn(int mode)
 	SPI.setBitOrder(MSBFIRST);
 	SPI.setDataMode(SPI_MODE0);
 	SPI.setClockDivider(SPI_CLOCK_DIV4);
-#endif
-	digitalWrite(csn_pin,mode);
+#end if
+	digitalWrite(mCsnPin, mode);
 }
 
 /****************************************************************************/
@@ -333,8 +333,8 @@ void RF24::printDetails(void)
 void RF24::begin(void)
 {
 	// Initialize pins
-	pinMode(mCePin,OUTPUT);
-	pinMode(csn_pin,OUTPUT);
+	pinMode(mCePin, OUTPUT);
+	pinMode(mCsnPin, OUTPUT);
 
 	// Initialize SPI bus
 	SPI.begin();
