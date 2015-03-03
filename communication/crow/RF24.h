@@ -35,7 +35,7 @@ class RF24
 	public:
 		RF24(uint8_t _cepin, uint8_t _cspin);
 
-        bool isAckPayloadAvailable(void);
+		bool isAckPayloadAvailable(void);
 
 		bool is24l01Plus(void) const {return mIs24l01Plus;}
 		uint8_t getPayloadSize(void) const {return mPayloadSize;}
@@ -47,8 +47,7 @@ class RF24
 		bool mIs24l01Plus; /* False for RF24L01 and true for RF24L01P */
 		uint8_t mPayloadSize; /**< Fixed size of payloads */
 		bool mIsAckPayloadAvailable; /**< Whether there is an ack payload waiting */
-        
-		bool dynamic_payloads_enabled; /**< Whether dynamic payloads are enabled. */ 
+		bool mIsDynamicPayloadsEnabled; /**< Whether dynamic payloads are enabled. */ 
 		uint8_t ack_payload_length; /**< Dynamic size of pending ack payload. */
 		uint64_t pipe0_reading_address; /**< Last address set on pipe 0 for reading. */
 

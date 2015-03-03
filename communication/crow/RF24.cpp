@@ -9,7 +9,7 @@ RF24::RF24(uint8_t cePin, uint8_t csnPin)
 		mIs24l01Plus			(false),
 		mPayloadSize			(32),
 		mIsAckPayloadAvailable	(false),
-		dynamic_payloads_enabled(false),
+		mIsDynamicPayloadsEnabled(false),
 		pipe0_reading_address(0)
 {
 }
@@ -113,7 +113,7 @@ uint8_t RF24::write_payload(const void* buf, uint8_t len)
 	const uint8_t* current = reinterpret_cast<const uint8_t*>(buf);
 
 	uint8_t data_len = min(len,mPayloadSize);
-	uint8_t blank_len = dynamic_payloads_enabled ? 0 : mPayloadSize - data_len;
+	uint8_t blank_len = mIsDynamicPayloadsEnabled ? 0 : mPayloadSize - data_len;
 	
 	//printf("[Writing %u bytes %u blanks]",data_len,blank_len);
 	
@@ -136,7 +136,7 @@ uint8_t RF24::read_payload(void* buf, uint8_t len)
 	uint8_t* current = reinterpret_cast<uint8_t*>(buf);
 
 	uint8_t data_len = min(len,mPayloadSize);
-	uint8_t blank_len = dynamic_payloads_enabled ? 0 : mPayloadSize - data_len;
+	uint8_t blank_len = mIsDynamicPayloadsEnabled ? 0 : mPayloadSize - data_len;
 	
 	//printf("[Reading %u bytes %u blanks]",data_len,blank_len);
 	
@@ -376,7 +376,7 @@ void RF24::begin(void)
 	// Initialize CRC and request 2-byte (16bit) CRC
 	setCRCLength( RF24_CRC_16 ) ;
 	
-	// Disable dynamic payloads, to match dynamic_payloads_enabled setting
+	// Disable dynamic payloads, to match mIsDynamicPayloadsEnabled setting
 	write_register(DYNPD,0);
 
 	// Reset current status
@@ -688,7 +688,7 @@ void RF24::enableDynamicPayloads(void)
 	// pipes, so the library does not support it.
 	write_register(DYNPD,read_register(DYNPD) | _BV(DPL_P5) | _BV(DPL_P4) | _BV(DPL_P3) | _BV(DPL_P2) | _BV(DPL_P1) | _BV(DPL_P0));
 
-	dynamic_payloads_enabled = true;
+	mIsDynamicPayloadsEnabled = true;
 }
 
 /****************************************************************************/
