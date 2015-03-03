@@ -7,7 +7,7 @@ RF24::RF24(uint8_t cePin, uint8_t csnPin)
 		mCsnPin( csnPin),
 		mIsWideBand(true),
 		mIs24l01Plus(false), 
-		payload_size(32),
+		mPayloadSize(32),
 		ack_payload_available(false),
 		dynamic_payloads_enabled(false),
 		pipe0_reading_address(0)
@@ -107,8 +107,8 @@ uint8_t RF24::write_payload(const void* buf, uint8_t len)
 
 	const uint8_t* current = reinterpret_cast<const uint8_t*>(buf);
 
-	uint8_t data_len = min(len,payload_size);
-	uint8_t blank_len = dynamic_payloads_enabled ? 0 : payload_size - data_len;
+	uint8_t data_len = min(len,mPayloadSize);
+	uint8_t blank_len = dynamic_payloads_enabled ? 0 : mPayloadSize - data_len;
 	
 	//printf("[Writing %u bytes %u blanks]",data_len,blank_len);
 	
@@ -130,8 +130,8 @@ uint8_t RF24::read_payload(void* buf, uint8_t len)
 	uint8_t status;
 	uint8_t* current = reinterpret_cast<uint8_t*>(buf);
 
-	uint8_t data_len = min(len,payload_size);
-	uint8_t blank_len = dynamic_payloads_enabled ? 0 : payload_size - data_len;
+	uint8_t data_len = min(len,mPayloadSize);
+	uint8_t blank_len = dynamic_payloads_enabled ? 0 : mPayloadSize - data_len;
 	
 	//printf("[Reading %u bytes %u blanks]",data_len,blank_len);
 	
@@ -261,15 +261,12 @@ void RF24::setChannel(uint8_t channel)
 void RF24::setPayloadSize(uint8_t size)
 {
 	const uint8_t max_payload_size = 32;
-	payload_size = min(size,max_payload_size);
+	mPayloadSize = min(size,max_payload_size);
 }
 
 /****************************************************************************/
 
-uint8_t RF24::getPayloadSize(void)
-{
-	return payload_size;
-}
+
 
 /****************************************************************************/
 
@@ -610,7 +607,7 @@ void RF24::openWritingPipe(uint64_t value)
 	write_register(TX_ADDR, reinterpret_cast<uint8_t*>(&value), 5);
 
 	const uint8_t max_payload_size = 32;
-	write_register(RX_PW_P0,min(payload_size,max_payload_size));
+	write_register(RX_PW_P0,min(mPayloadSize,max_payload_size));
 }
 
 /****************************************************************************/
@@ -644,7 +641,7 @@ void RF24::openReadingPipe(uint8_t child, uint64_t address)
 	else
 		write_register(pgm_read_byte(&child_pipe[child]), reinterpret_cast<const uint8_t*>(&address), 1);
 
-	write_register(pgm_read_byte(&child_payload_size[child]),payload_size);
+	write_register(pgm_read_byte(&child_payload_size[child]),mPayloadSize);
 
 	// Note it would be more efficient to set all of the bits for all open
 	// pipes at once.	However, I thought it would make the calling code

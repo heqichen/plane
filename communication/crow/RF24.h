@@ -34,13 +34,18 @@ class RF24
 
 	public:
 		RF24(uint8_t _cepin, uint8_t _cspin);
+
+
+        
         bool is24l01Plus(void) const {return mIs24l01Plus;}
+        uint8_t getPayloadSize(void) const {return mPayloadSize;}
+
 	 private:
 		  uint8_t mCePin; /**< "Chip Enable" pin, activates the RX or TX role */
 		  uint8_t mCsnPin; /**< SPI Chip select */
 		  bool mIsWideBand; /* 2Mbs data rate in use? */
 		  bool mIs24l01Plus; /* False for RF24L01 and true for RF24L01P */
-		  uint8_t payload_size; /**< Fixed size of payloads */
+		  uint8_t mPayloadSize; /**< Fixed size of payloads */
 		  bool ack_payload_available; /**< Whether there is an ack payload waiting */
 		  bool dynamic_payloads_enabled; /**< Whether dynamic payloads are enabled. */ 
 		  uint8_t ack_payload_length; /**< Dynamic size of pending ack payload. */
@@ -199,14 +204,6 @@ class RF24
 	 */
 	void setPayloadSize(uint8_t size);
 
-	/**
-	 * Get Static Payload Size
-	 *
-	 * @see setPayloadSize()
-	 *
-	 * @return The number of bytes in the payload
-	 */
-	uint8_t getPayloadSize(void);
 
 	/**
 	 * Get Dynamic Payload Size
