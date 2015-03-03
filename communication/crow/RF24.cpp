@@ -141,7 +141,7 @@ void RF24::setCRCLength(uint8_t length)
 	if ( length == RF24_CRC_DISABLED )
 	{
 		// Do nothing, we turned it off above. 
-		//nrf24l01 must do crc check
+		//nrf24l01 must do crc check, P57
 		return ;
 	}
 	config |= length;
@@ -157,6 +157,38 @@ void RF24::disableCRC( void )
 {
 	uint8_t disable = readRegister(CONFIG) & ~_BV(EN_CRC) ;
 	writeRegister(CONFIG, disable) ;
+}
+
+void RF24::setDynamicPayloads(bool status)
+{
+	mIsDynamicPayloadsEnabled = status;
+
+	if (status)
+	{
+		// Enable dynamic payload throughout the system
+		writeRegister(FEATURE,readRegister(FEATURE) | _BV(EN_DPL));
+		// If it didn't work, the features are not enabled
+		if (!readRegister(FEATURE))
+		{
+			// So enable them and try again
+			toggleFeatures();
+			writeRegister(FEATURE,readRegister(FEATURE) | _BV(EN_DPL) );
+		}
+		writeRegister(DYNPD,readRegister(DYNPD) | _BV(DPL_P5) | _BV(DPL_P4) | _BV(DPL_P3) | _BV(DPL_P2) | _BV(DPL_P1) | _BV(DPL_P0));
+	}
+	else
+	{
+		writeRegister(DYNPD, 0);
+	}
+}
+
+
+void RF24::toggleFeatures(void)
+{
+	csn(LOW);
+	SPI.transfer( ACTIVATE );
+	SPI.transfer( 0x73 );
+	csn(HIGH);
 }
 
 
@@ -206,28 +238,6 @@ uint8_t RF24::writeRegister(uint8_t reg, uint8_t value)
 	return status;
 }
 
-void RF24::setDynamicPayloads(bool status)
-{
-	mIsDynamicPayloadsEnabled = status;
-
-	if (status)
-	{
-		// Enable dynamic payload throughout the system
-		writeRegister(FEATURE,readRegister(FEATURE) | _BV(EN_DPL));
-		// If it didn't work, the features are not enabled
-		if (!readRegister(FEATURE))
-		{
-			// So enable them and try again
-			toggle_features();
-			writeRegister(FEATURE,readRegister(FEATURE) | _BV(EN_DPL) );
-		}
-		writeRegister(DYNPD,readRegister(DYNPD) | _BV(DPL_P5) | _BV(DPL_P4) | _BV(DPL_P3) | _BV(DPL_P2) | _BV(DPL_P1) | _BV(DPL_P0));
-	}
-	else
-	{
-		writeRegister(DYNPD, 0);
-	}
-}
 
 
 
@@ -740,13 +750,6 @@ void RF24::openReadingPipe(uint8_t child, uint64_t address)
 
 /****************************************************************************/
 
-void RF24::toggle_features(void)
-{
-	csn(LOW);
-	SPI.transfer( ACTIVATE );
-	SPI.transfer( 0x73 );
-	csn(HIGH);
-}
 
 /****************************************************************************/
 
@@ -765,7 +768,7 @@ void RF24::enableAckPayload(void)
 	if ( ! readRegister(FEATURE) )
 	{
 	// So enable them and try again
-	toggle_features();
+	toggleFeatures();
 	writeRegister(FEATURE,readRegister(FEATURE) | _BV(EN_ACK_PAY) | _BV(EN_DPL) );
 	}
 

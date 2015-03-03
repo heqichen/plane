@@ -68,6 +68,7 @@ class RF24
 		uint8_t writeRegister(uint8_t reg, uint8_t value);
 
 		bool test24l01Plus(void);
+		void toggleFeatures(void);
 		void resetSpi(void);
 	 public:
 
@@ -543,7 +544,7 @@ protected:
 	 * The chip has certain 'features' which are only available when the 'features'
 	 * are enabled.	See the datasheet for details.
 	 */
-	void toggle_features(void);
+	
 	/**@}*/
 
 
