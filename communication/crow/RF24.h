@@ -9,12 +9,17 @@
 #define RF24_PA_HIGH	0x04	//-6dBm
 #define RF24_PA_MAX		0x06	//0dBm
 
+
+#define RF24_250KBPS	0x20
+#define RF24_1MBPS		0x00
+#define RF24_2MBPS		0x08
+
 /**
  * Data rate.	How fast data moves through the air.
  *
  * For use with setDataRate()
  */
-typedef enum { RF24_1MBPS = 0, RF24_2MBPS, RF24_250KBPS } rf24_datarate_e;
+//typedef enum { RF24_1MBPS = 0, RF24_2MBPS, RF24_250KBPS } rf24_datarate_e;
 
 /**
  * CRC Length.	How big (if any) of a CRC is included.
@@ -37,11 +42,16 @@ class RF24
 		void setRetries(uint8_t delay, uint8_t count);
 		void setPALevel(uint8_t level);
 		uint8_t getPALevel(void);
+		void setDataRate(uint8_t speed);
+		uint8_t getDataRate(void);
 
+
+		
 		void resetSpi(void);
 		bool isAckPayloadAvailable(void);
 
 		bool is24l01Plus(void) const {return mIs24l01Plus;}
+		bool test24l01Plus(void);
 		uint8_t getPayloadSize(void) const {return mPayloadSize;}
 
 	 private:
@@ -301,7 +311,7 @@ class RF24
 	 * @param speed RF24_250KBPS for 250kbs, RF24_1MBPS for 1Mbps, or RF24_2MBPS for 2Mbps
 	 * @return true if the change was successful
 	 */
-	bool setDataRate(rf24_datarate_e speed);
+	
 	
 	/**
 	 * Fetches the transmission data rate
@@ -310,7 +320,7 @@ class RF24
 	 * is one of 250kbs, RF24_1MBPS for 1Mbps, or RF24_2MBPS, as defined in the
 	 * rf24_datarate_e enum.
 	 */
-	rf24_datarate_e getDataRate( void ) ;
+	
 
 	/**
 	 * Set the CRC length

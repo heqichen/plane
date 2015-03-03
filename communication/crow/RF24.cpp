@@ -40,18 +40,9 @@ void RF24::begin(void)
 	// Restore our default PA level
 	setPALevel(RF24_PA_MAX) ;
 
-	// Determine if this is a p or non-p RF24 module and then
-	// reset our data rate back to default value. This works
-	// because a non-P variant won't allow the data rate to
-	// be set to 250Kbps.
-	if( setDataRate( RF24_250KBPS ) )
-	{
-	mIs24l01Plus = true ;
-	}
-	
-	// Then set the data rate to the slowest (and most reliable) speed supported by all
-	// hardware.
-	setDataRate( RF24_1MBPS ) ;
+	mIs24l01Plus = test24l01Plus();
+	setDataRate(RF24_1MBPS);
+	//here
 
 	// Initialize CRC and request 2-byte (16bit) CRC
 	setCRCLength( RF24_CRC_16 ) ;
@@ -81,9 +72,6 @@ void RF24::setRetries(uint8_t delay, uint8_t count)
 void RF24::setPALevel(uint8_t level)
 {
 	uint8_t setup = readRegister(RF_SETUP) ;
-	Serial.print("ps read");
-	Serial.println(setup, BIN);
-
 	setup &= ~(RF_PWR_MASK) ;
 	if (level > RF24_PA_MAX)
 	{
@@ -91,10 +79,6 @@ void RF24::setPALevel(uint8_t level)
 		return ;
 	}
 	setup |= level;
-
-	Serial.print("set PA Level to: ");
-	Serial.println(setup, BIN);
-
 	writeRegister(RF_SETUP, setup);
 }
 
@@ -102,6 +86,50 @@ uint8_t RF24::getPALevel(void)
 {
 	uint8_t power = readRegister(RF_SETUP) & RF_PWR_MASK;
 	return power;
+}
+
+bool RF24::test24l01Plus(void)
+{
+	// Determine if this is a p or non-p RF24 module and then
+	// reset our data rate back to default value. This works
+	// because a non-P variant won't allow the data rate to
+	// be set to 250Kbps.
+
+	//STEP1. read out register RF_SETUP
+	uint8_t setup = readRegister(RF_SETUP);
+
+	//STEP2. write 250KbPS to nrf24l01
+	setup &= ~(_BV(RF_DR_LOW) | _BV(RF_DR_HIGH));
+	setup |= RF24_250KBPS;
+	writeRegister(RF_SETUP,setup);
+
+	//STEP3. readout result and verify
+	if (readRegister(RF_SETUP) == setup)
+	{
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}
+
+void RF24::setDataRate(uint8_t speed)
+{
+	if(speed==RF24_250KBPS && !mIs24l01Plus)
+	{
+		return ;
+	}
+	uint8_t setup = readRegister(RF_SETUP);
+	setup &= ~(_BV(RF_DR_LOW) | _BV(RF_DR_HIGH));
+	setup |= speed;
+	writeRegister(RF_SETUP,setup);
+	mIsWideBand = (speed == RF24_2MBPS);
+}
+
+uint8_t RF24::getDataRate(void)
+{
+	return readRegister(RF_SETUP) & (_BV(RF_DR_LOW) | _BV(RF_DR_HIGH));
 }
 
 void RF24::resetSpi(void)
@@ -353,14 +381,7 @@ void RF24::setPayloadSize(uint8_t size)
 
 /****************************************************************************/
 
-static const char rf24_datarate_e_str_0[] PROGMEM = "1MBPS";
-static const char rf24_datarate_e_str_1[] PROGMEM = "2MBPS";
-static const char rf24_datarate_e_str_2[] PROGMEM = "250KBPS";
-static const char * const rf24_datarate_e_str_P[] PROGMEM = {
-	rf24_datarate_e_str_0,
-	rf24_datarate_e_str_1,
-	rf24_datarate_e_str_2,
-};
+
 static const char rf24_model_e_str_0[] PROGMEM = "nRF24L01";
 static const char rf24_model_e_str_1[] PROGMEM = "nRF24L01+";
 static const char * const rf24_model_e_str_P[] PROGMEM = {
@@ -393,7 +414,10 @@ void RF24::printDetails(void)
 	print_byte_register(PSTR("CONFIG"),CONFIG);
 	print_byte_register(PSTR("DYNPD/FEATURE"),DYNPD,2);
 
-	printf_P(PSTR("Data Rate\t = %S\r\n"),pgm_read_word(&rf24_datarate_e_str_P[getDataRate()]));
+	Serial.print("DataRate\t=");
+	Serial.println(getDataRate());
+
+	//printf_P(PSTR("Data Rate\t = %S\r\n"),pgm_read_word(&rf24_datarate_e_str_P[]));
 	printf_P(PSTR("Model\t\t = %S\r\n"),pgm_read_word(&rf24_model_e_str_P[is24l01Plus()]));
 	printf_P(PSTR("CRC Length\t = %S\r\n"),pgm_read_word(&rf24_crclength_e_str_P[getCRCLength()]));
 	//printf_P(PSTR("PA Power\t = %S\r\n"),pgm_read_word(&rf24_pa_dbm_e_str_P[getPALevel()]));
@@ -805,77 +829,10 @@ bool RF24::testRPD(void)
 
 /****************************************************************************/
 
-bool RF24::setDataRate(rf24_datarate_e speed)
-{
-	bool result = false;
-	uint8_t setup = readRegister(RF_SETUP) ;
-
-	// HIGH and LOW '00' is 1Mbs - our default
-	mIsWideBand = false ;
-	setup &= ~(_BV(RF_DR_LOW) | _BV(RF_DR_HIGH)) ;
-	if( speed == RF24_250KBPS )
-	{
-	// Must set the RF_DR_LOW to 1; RF_DR_HIGH (used to be RF_DR) is already 0
-	// Making it '10'.
-	mIsWideBand = false ;
-	setup |= _BV( RF_DR_LOW ) ;
-	}
-	else
-	{
-	// Set 2Mbs, RF_DR (RF_DR_HIGH) is set 1
-	// Making it '01'
-	if ( speed == RF24_2MBPS )
-	{
-		mIsWideBand = true ;
-		setup |= _BV(RF_DR_HIGH);
-	}
-	else
-	{
-		// 1Mbs
-		mIsWideBand = false ;
-	}
-	}
-	writeRegister(RF_SETUP,setup);
-
-	// Verify our result
-	if ( readRegister(RF_SETUP) == setup )
-	{
-	result = true;
-	}
-	else
-	{
-	mIsWideBand = false;
-	}
-
-	return result;
-}
 
 /****************************************************************************/
 
-rf24_datarate_e RF24::getDataRate( void )
-{
-	rf24_datarate_e result ;
-	uint8_t dr = readRegister(RF_SETUP) & (_BV(RF_DR_LOW) | _BV(RF_DR_HIGH));
-	
-	// switch uses RAM (evil!)
-	// Order matters in our case below
-	if ( dr == _BV(RF_DR_LOW) )
-	{
-	// '10' = 250KBPS
-	result = RF24_250KBPS ;
-	}
-	else if ( dr == _BV(RF_DR_HIGH) )
-	{
-	// '01' = 2MBPS
-	result = RF24_2MBPS ;
-	}
-	else
-	{
-	// '00' = 1MBPS
-	result = RF24_1MBPS ;
-	}
-	return result ;
-}
+
 
 /****************************************************************************/
 
