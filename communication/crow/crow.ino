@@ -10,6 +10,7 @@
 //TODO:
 /*
 1. remove PRIPSTR in config.h
+2. isAckPayloadAvailable is same to available(), change name to make it samilar
 
 */
 RF24 radio(9, 10);

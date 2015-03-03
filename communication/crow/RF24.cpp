@@ -3,18 +3,23 @@
 #include "RF24.h"
 
 RF24::RF24(uint8_t cePin, uint8_t csnPin)
-	:	mCePin( cePin),
-		mCsnPin( csnPin),
-		mIsWideBand(true),
-		mIs24l01Plus(false), 
-		mPayloadSize(32),
-		ack_payload_available(false),
+	:	mCePin					(cePin),
+		mCsnPin					(csnPin),
+		mIsWideBand				(true),
+		mIs24l01Plus			(false),
+		mPayloadSize			(32),
+		mIsAckPayloadAvailable	(false),
 		dynamic_payloads_enabled(false),
 		pipe0_reading_address(0)
 {
 }
 
-
+bool RF24::isAckPayloadAvailable(void)
+{
+	bool result = mIsAckPayloadAvailable;
+	mIsAckPayloadAvailable = false;
+	return result;
+}
 
 /****************************************************************************/
 
@@ -474,15 +479,15 @@ bool RF24::write( const void* buf, uint8_t len )
 	// * The send failed, too many retries (MAX_RT)
 	// * There is an ack packet waiting (RX_DR)
 	bool tx_ok, tx_fail;
-	whatHappened(tx_ok,tx_fail,ack_payload_available);
+	whatHappened(tx_ok,tx_fail,mIsAckPayloadAvailable);
 	
-	//printf("%u%u%u\r\n",tx_ok,tx_fail,ack_payload_available);
+	//printf("%u%u%u\r\n",tx_ok,tx_fail,mIsAckPayloadAvailable);
 
 	result = tx_ok;
 	IF_SERIAL_DEBUG(Serial.print(result?"...OK.":"...Failed"));
 
 	// Handle the ack packet
-	if ( ack_payload_available )
+	if ( mIsAckPayloadAvailable )
 	{
 	ack_payload_length = getDynamicPayloadSize();
 	IF_SERIAL_DEBUG(Serial.print("[AckPacket]/"));
@@ -731,12 +736,7 @@ void RF24::writeAckPayload(uint8_t pipe, const void* buf, uint8_t len)
 
 /****************************************************************************/
 
-bool RF24::isAckPayloadAvailable(void)
-{
-	bool result = ack_payload_available;
-	ack_payload_available = false;
-	return result;
-}
+
 
 
 /****************************************************************************/

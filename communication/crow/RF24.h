@@ -35,21 +35,22 @@ class RF24
 	public:
 		RF24(uint8_t _cepin, uint8_t _cspin);
 
+        bool isAckPayloadAvailable(void);
 
-        
-        bool is24l01Plus(void) const {return mIs24l01Plus;}
-        uint8_t getPayloadSize(void) const {return mPayloadSize;}
+		bool is24l01Plus(void) const {return mIs24l01Plus;}
+		uint8_t getPayloadSize(void) const {return mPayloadSize;}
 
 	 private:
-		  uint8_t mCePin; /**< "Chip Enable" pin, activates the RX or TX role */
-		  uint8_t mCsnPin; /**< SPI Chip select */
-		  bool mIsWideBand; /* 2Mbs data rate in use? */
-		  bool mIs24l01Plus; /* False for RF24L01 and true for RF24L01P */
-		  uint8_t mPayloadSize; /**< Fixed size of payloads */
-		  bool ack_payload_available; /**< Whether there is an ack payload waiting */
-		  bool dynamic_payloads_enabled; /**< Whether dynamic payloads are enabled. */ 
-		  uint8_t ack_payload_length; /**< Dynamic size of pending ack payload. */
-		  uint64_t pipe0_reading_address; /**< Last address set on pipe 0 for reading. */
+		uint8_t mCePin; /**< "Chip Enable" pin, activates the RX or TX role */
+		uint8_t mCsnPin; /**< SPI Chip select */
+		bool mIsWideBand; /* 2Mbs data rate in use? */
+		bool mIs24l01Plus; /* False for RF24L01 and true for RF24L01P */
+		uint8_t mPayloadSize; /**< Fixed size of payloads */
+		bool mIsAckPayloadAvailable; /**< Whether there is an ack payload waiting */
+        
+		bool dynamic_payloads_enabled; /**< Whether dynamic payloads are enabled. */ 
+		uint8_t ack_payload_length; /**< Dynamic size of pending ack payload. */
+		uint64_t pipe0_reading_address; /**< Last address set on pipe 0 for reading. */
 
 	 public:
 
@@ -395,20 +396,7 @@ class RF24
 	 */
 	void writeAckPayload(uint8_t pipe, const void* buf, uint8_t len);
 
-	/**
-	 * Determine if an ack payload was received in the most recent call to
-	 * write().
-	 *
-	 * Call read() to retrieve the ack payload.
-	 *
-	 * @warning Calling this function clears the internal flag which indicates
-	 * a payload is available.	If it returns true, you must read the packet
-	 * out as the very next interaction with the radio, or the results are
-	 * undefined.
-	 *
-	 * @return True if an ack payload is available.
-	 */
-	bool isAckPayloadAvailable(void);
+
 
 	/**
 	 * Call this when you get an interrupt to find out why
