@@ -10,4 +10,7 @@
 #define DEVICE_TYPE_AGL					0x06	// Altitude Above Ground Level
 
 
+
+#define DEVICE_TYPE_VIRTUAL_IMU			0x80
+
 #endif

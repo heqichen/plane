@@ -3,7 +3,7 @@ CC=g++
 CFLAGS=-I$(IDIR) -I../../mavlink/common
 COMPILE.cc = $(CC) -c -g $(CFLAGS)
 
-OBJS = radio.o i_device.o imu.o servo_controller.o aoa.o beeper.o agl.o
+OBJS = radio.o i_device.o imu.o servo_controller.o aoa.o beeper.o agl.o virtual_imu.o
 
 LIBS=
 
@@ -16,6 +16,8 @@ servo_controller.o:	servo_controller.cpp servo_controller.h
 aoa.o:	aoa.cpp aoa.h
 beeper.o:	beeper.cpp beeper.h
 agl.o:	agl.cpp	agl.h
+virtual_imu.o:	virtual_imu.cpp virtual_imu.h
+
 
 .PHONY: clean
 clean:
