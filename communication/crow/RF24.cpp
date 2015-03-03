@@ -33,12 +33,9 @@ void RF24::begin(void)
 	// Enabling 16b CRC is by far the most obvious case if the wrong timing is used - or skipped.
 	// Technically we require 4.5ms + 14us as a worst case. We'll just call it 5ms for good measure.
 	// WARNING: Delay is based on P-variant whereby non-P *may* require different timing.
-	delay( 5 ) ;
+	delay(5);
 
-	// Set 1500uS (minimum for 32B payload in ESB@250KBPS) timeouts, to make testing a little easier
-	// WARNING: If this is ever lowered, either 250KBS mode with AA is broken or maximum packet
-	// sizes must never be used. See documentation for a more complete explanation.
-	write_register(SETUP_RETR,(B0100 << ARD) | (B1111 << ARC));
+	setRetries(4, 15);	//restore to 4*250us timeout, 15 retransmit	P58
 
 	// Restore our default PA level
 	setPALevel( RF24_PA_MAX ) ;
@@ -87,6 +84,13 @@ void RF24::resetSpi(void)
 	SPI.setClockDivider(SPI_CLOCK_DIV4);
 }
 
+void RF24::setRetries(uint8_t delay, uint8_t count)
+{
+	write_register(SETUP_RETR, (delay & 0x0F) << ARD | (count & 0x0F) << ARC);
+}
+
+
+// TO BE Simplify
 
 bool RF24::isAckPayloadAvailable(void)
 {
@@ -963,10 +967,7 @@ void RF24::disableCRC( void )
 }
 
 /****************************************************************************/
-void RF24::setRetries(uint8_t delay, uint8_t count)
-{
- write_register(SETUP_RETR,(delay&0xf)<<ARD | (count&0xf)<<ARC);
-}
+
 
 // vim:ai:cin:sts=2 sw=2 ft=cpp
 

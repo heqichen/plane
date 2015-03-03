@@ -51,8 +51,8 @@
 #define ERX_P1      1
 #define ERX_P0      0
 #define AW          0
-#define ARD         4
-#define ARC         0
+#define ARD         4	//Auto Retransmit Delay
+#define ARC         0	//Auto Retransmit Count
 #define PLL_LOCK    4
 #define RF_DR       3
 #define RF_PWR      6

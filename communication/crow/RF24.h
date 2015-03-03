@@ -36,6 +36,8 @@ class RF24
 		RF24(uint8_t _cepin, uint8_t _cspin);
 
 		void begin(void);	//because of F**king Arduino, call this in setup()
+		void setRetries(uint8_t delay, uint8_t count);
+
 		void resetSpi(void);
 		bool isAckPayloadAvailable(void);
 
@@ -190,7 +192,6 @@ class RF24
 	 * max is 15.	0 means 250us, 15 means 4000us.
 	 * @param count How many retries before giving up, max 15
 	 */
-	void setRetries(uint8_t delay, uint8_t count);
 
 	/**
 	 * Set RF communication channel
