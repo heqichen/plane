@@ -6,7 +6,7 @@ RF24::RF24(uint8_t cePin, uint8_t csnPin)
 	:	mCePin( cePin),
 		mCsnPin( csnPin),
 		mIsWideBand(true),
-		p_variant(false), 
+		mIs24l01Plus(false), 
 		payload_size(32),
 		ack_payload_available(false),
 		dynamic_payloads_enabled(false),
@@ -323,7 +323,7 @@ void RF24::printDetails(void)
 	print_byte_register(PSTR("DYNPD/FEATURE"),DYNPD,2);
 
 	printf_P(PSTR("Data Rate\t = %S\r\n"),pgm_read_word(&rf24_datarate_e_str_P[getDataRate()]));
-	printf_P(PSTR("Model\t\t = %S\r\n"),pgm_read_word(&rf24_model_e_str_P[isPVariant()]));
+	printf_P(PSTR("Model\t\t = %S\r\n"),pgm_read_word(&rf24_model_e_str_P[is24l01Plus()]));
 	printf_P(PSTR("CRC Length\t = %S\r\n"),pgm_read_word(&rf24_crclength_e_str_P[getCRCLength()]));
 	printf_P(PSTR("PA Power\t = %S\r\n"),pgm_read_word(&rf24_pa_dbm_e_str_P[getPALevel()]));
 }
@@ -364,7 +364,7 @@ void RF24::begin(void)
 	// be set to 250Kbps.
 	if( setDataRate( RF24_250KBPS ) )
 	{
-	p_variant = true ;
+	mIs24l01Plus = true ;
 	}
 	
 	// Then set the data rate to the slowest (and most reliable) speed supported by all
@@ -741,12 +741,6 @@ bool RF24::isAckPayloadAvailable(void)
 	return result;
 }
 
-/****************************************************************************/
-
-bool RF24::isPVariant(void)
-{
-	return p_variant ;
-}
 
 /****************************************************************************/
 

@@ -33,19 +33,20 @@ class RF24
 {
 
 	public:
-	   RF24(uint8_t _cepin, uint8_t _cspin);
-    private:
-        uint8_t mCePin; /**< "Chip Enable" pin, activates the RX or TX role */
-        uint8_t mCsnPin; /**< SPI Chip select */
-        bool mIsWideBand; /* 2Mbs data rate in use? */
-        bool p_variant; /* False for RF24L01 and true for RF24L01P */
-        uint8_t payload_size; /**< Fixed size of payloads */
-        bool ack_payload_available; /**< Whether there is an ack payload waiting */
-        bool dynamic_payloads_enabled; /**< Whether dynamic payloads are enabled. */ 
-        uint8_t ack_payload_length; /**< Dynamic size of pending ack payload. */
-        uint64_t pipe0_reading_address; /**< Last address set on pipe 0 for reading. */
+		RF24(uint8_t _cepin, uint8_t _cspin);
+        bool is24l01Plus(void) const {return mIs24l01Plus;}
+	 private:
+		  uint8_t mCePin; /**< "Chip Enable" pin, activates the RX or TX role */
+		  uint8_t mCsnPin; /**< SPI Chip select */
+		  bool mIsWideBand; /* 2Mbs data rate in use? */
+		  bool mIs24l01Plus; /* False for RF24L01 and true for RF24L01P */
+		  uint8_t payload_size; /**< Fixed size of payloads */
+		  bool ack_payload_available; /**< Whether there is an ack payload waiting */
+		  bool dynamic_payloads_enabled; /**< Whether dynamic payloads are enabled. */ 
+		  uint8_t ack_payload_length; /**< Dynamic size of pending ack payload. */
+		  uint64_t pipe0_reading_address; /**< Last address set on pipe 0 for reading. */
 
-    public:
+	 public:
 
 	/**
 	 * Begin operation of the chip
@@ -237,13 +238,7 @@ class RF24
 	 */
 	void enableDynamicPayloads(void);
 
-	/**
-	 * Determine whether the hardware is an nRF24L01+ or not.
-	 *
-	 * @return true if the hardware is nRF24L01+ (or compatible) and false
-	 * if its not.
-	 */
-	bool isPVariant(void) ;
+
 
 	/**
 	 * Enable or disable auto-acknowlede packets
