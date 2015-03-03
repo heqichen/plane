@@ -55,8 +55,8 @@ void RF24::begin(void)
 	setChannel(76);
 
 	// Flush buffers
-	flush_rx();
-	flush_tx();
+	flushRx();
+	flushTx();
 }
 
 void RF24::setRetries(uint8_t delay, uint8_t count)
@@ -184,6 +184,27 @@ void RF24::toggleFeatures(void)
 	csn(HIGH);
 }
 
+uint8_t RF24::flushRx(void)
+{
+	uint8_t status;
+
+	csn(LOW);
+	status = SPI.transfer(FLUSH_RX);
+	csn(HIGH);
+
+	return status;
+}
+
+uint8_t RF24::flushTx(void)
+{
+	uint8_t status;
+
+	csn(LOW);
+	status = SPI.transfer(FLUSH_TX);
+	csn(HIGH);
+
+	return status;
+}
 
 void RF24::resetSpi(void)
 {
@@ -312,29 +333,7 @@ uint8_t RF24::read_payload(void* buf, uint8_t len)
 
 /****************************************************************************/
 
-uint8_t RF24::flush_rx(void)
-{
-	uint8_t status;
 
-	csn(LOW);
-	status = SPI.transfer( FLUSH_RX );
-	csn(HIGH);
-
-	return status;
-}
-
-/****************************************************************************/
-
-uint8_t RF24::flush_tx(void)
-{
-	uint8_t status;
-
-	csn(LOW);
-	status = SPI.transfer( FLUSH_TX );
-	csn(HIGH);
-
-	return status;
-}
 
 /****************************************************************************/
 
@@ -491,8 +490,8 @@ void RF24::startListening(void)
 	writeRegister(RX_ADDR_P0, reinterpret_cast<const uint8_t*>(&mLastPipe0ReadingAddr), 5);
 
 	// Flush buffers
-	flush_rx();
-	flush_tx();
+	flushRx();
+	flushTx();
 
 	// Go!
 	ce(HIGH);
@@ -506,8 +505,8 @@ void RF24::startListening(void)
 void RF24::stopListening(void)
 {
 	ce(LOW);
-	flush_tx();
-	flush_rx();
+	flushTx();
+	flushRx();
 }
 
 /****************************************************************************/
@@ -586,7 +585,7 @@ bool RF24::write( const void* buf, uint8_t len )
 	//powerDown();	//WTF who tell you I only want to send one packet!
 
 	// Flush buffers (Is this a relic of past experimentation, and not needed anymore??)
-	flush_tx();
+	flushTx();
 
 	return result;
 }
@@ -691,6 +690,27 @@ void RF24::whatHappened(bool& tx_ok,bool& tx_fail,bool& rx_ready)
 
 void RF24::openWritingPipe(uint64_t value)
 {
+
+	/**
+	 * Open a pipe for writing
+	 *
+	 * Only one pipe can be open at once, but you can change the pipe
+	 * you'll listen to.	Do not call this while actively listening.
+	 * Remember to stopListening() first.
+	 *
+	 * Addresses are 40-bit hex values, e.g.:
+	 *
+	 * @code
+	 *	 openWritingPipe(0xF0F0F0F0F0);
+	 * @endcode
+	 *
+	 * @param address The 40-bit address of the pipe to open.	This can be
+	 * any value whatsoever, as long as you are the only one writing to it
+	 * and only one other radio is listening to it.	Coordinate these pipe
+	 * addresses amongst nodes on the network.
+	 */
+
+
 	// Note that AVR 8-bit uC's store this LSB first, and the NRF24L01(+)
 	// expects it LSB first too, so we're good.
 
@@ -718,6 +738,7 @@ static const uint8_t child_pipe_enable[] PROGMEM =
 
 void RF24::openReadingPipe(uint8_t child, uint64_t address)
 {
+	
 	// If this is pipe 0, cache the address.	This is needed because
 	// openWritingPipe() will overwrite the pipe 0 address, so
 	// startListening() will have to restore it.
@@ -873,8 +894,8 @@ void RF24::resetForSending(void)
 	writeRegister(RX_ADDR_P0, reinterpret_cast<const uint8_t*>(&mLastPipe0ReadingAddr), 5);
 
 	// Flush buffers
-	flush_rx();
-	flush_tx();
+	flushRx();
+	flushTx();
 
 	// Go!
 	ce(HIGH);
@@ -882,8 +903,8 @@ void RF24::resetForSending(void)
 	// wait for the radio to come up (130us actually only needed)
 	delayMicroseconds(130); 
 	ce(LOW);
-	flush_tx();
-	flush_rx();
+	flushTx();
+	flushRx();
 	*/
 	Serial.println(readRegister(CONFIG), BIN);
 	writeRegister(CONFIG, readRegister(CONFIG) | _BV(PWR_UP));
