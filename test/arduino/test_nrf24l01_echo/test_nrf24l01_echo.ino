@@ -9,7 +9,10 @@
 
 RF24 radio(9, 10); 
 
+const int myChannel = 30;
 const uint64_t myAddr = 0xF0F0F0F0E1LL;
+
+const int anotherChannel = 80;
 const uint64_t otherAddr = 0xF0F0F0F0E2LL;
 
 unsigned char buffer[MAX_PAYLOAD_LENGTH];
@@ -24,8 +27,10 @@ void setup(void)
 	radio.setAutoAck(false);
 	radio.setCRCLength(RF24_CRC_8);
 	radio.setDataRate(RF24_250KBPS);
+	radio.setChannel(myChannel);
 	radio.enableDynamicPayloads();
 	radio.startListening();
+	radio.printDetails();
 
 }
 
@@ -38,10 +43,10 @@ void loop(void)
 		while (!isLastPacket)
 		{
 			uint8_t payloadSize = radio.getDynamicPayloadSize();
-
+			// set to transmitter
 			radio.stopListening();
+			radio.setChannel(anotherChannel);
 			radio.write(buffer, payloadSize);
-			radio.startListening();
 			Serial.print("got a payload, size is: ");
 			Serial.print(payloadSize);
 			Serial.print("\tdata: ");
@@ -53,7 +58,13 @@ void loop(void)
 			}
 			Serial.println();
 		}
+
+		//set to receiver
+		radio.setChannel(myChannel);
+		radio.startListening();
+
 	}
+
 }
 
 
