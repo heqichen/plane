@@ -38,7 +38,7 @@ void RF24::begin(void)
 	setRetries(4, 15);	//restore to 4*250us timeout, 15 retransmit	P58
 
 	// Restore our default PA level
-	setPALevel( RF24_PA_MAX ) ;
+	setPALevel(RF24_PA_MAX) ;
 
 	// Determine if this is a p or non-p RF24 module and then
 	// reset our data rate back to default value. This works
@@ -73,6 +73,42 @@ void RF24::begin(void)
 	flush_tx();
 }
 
+void RF24::setRetries(uint8_t delay, uint8_t count)
+{
+	writeRegister(SETUP_RETR, (delay & 0x0F) << ARD | (count & 0x0F) << ARC);
+}
+
+void RF24::setPALevel(rf24_pa_dbm_e level)
+{
+	uint8_t setup = readRegister(RF_SETUP) ;
+	setup &= ~(_BV(RF_PWR_LOW) | _BV(RF_PWR_HIGH)) ;
+
+	// switch uses RAM (evil!)
+	if ( level == RF24_PA_MAX )
+	{
+	setup |= (_BV(RF_PWR_LOW) | _BV(RF_PWR_HIGH)) ;
+	}
+	else if ( level == RF24_PA_HIGH )
+	{
+	setup |= _BV(RF_PWR_HIGH) ;
+	}
+	else if ( level == RF24_PA_LOW )
+	{
+	setup |= _BV(RF_PWR_LOW);
+	}
+	else if ( level == RF24_PA_MIN )
+	{
+	// nothing
+	}
+	else if ( level == RF24_PA_ERROR )
+	{
+	// On error, go to maximum PA
+	setup |= (_BV(RF_PWR_LOW) | _BV(RF_PWR_HIGH)) ;
+	}
+
+	writeRegister( RF_SETUP, setup ) ;
+}
+
 void RF24::resetSpi(void)
 {
 	// Minimum ideal SPI bus speed is 2x data rate
@@ -84,10 +120,43 @@ void RF24::resetSpi(void)
 	SPI.setClockDivider(SPI_CLOCK_DIV4);
 }
 
-void RF24::setRetries(uint8_t delay, uint8_t count)
+uint8_t RF24::readRegister(uint8_t reg)
 {
-	writeRegister(SETUP_RETR, (delay & 0x0F) << ARD | (count & 0x0F) << ARC);
+	csn(LOW);
+	SPI.transfer( R_REGISTER | ( REGISTER_MASK & reg ) );
+	uint8_t result = SPI.transfer(0xFF);
+	csn(HIGH);
+
+	return result;
 }
+
+uint8_t RF24::writeRegister(uint8_t reg, const uint8_t* buf, uint8_t len)
+{
+	uint8_t status;
+
+	csn(LOW);
+	status = SPI.transfer( W_REGISTER | ( REGISTER_MASK & reg ) );
+	while (len--)
+	SPI.transfer(*buf++);
+	csn(HIGH);
+
+	return status;
+}
+
+uint8_t RF24::writeRegister(uint8_t reg, uint8_t value)
+{
+	uint8_t status;
+
+	csn(LOW);
+	status = SPI.transfer( W_REGISTER | ( REGISTER_MASK & reg ) );
+	SPI.transfer(value);
+	csn(HIGH);
+
+	return status;
+}
+
+
+
 
 
 // TO BE Simplify
@@ -119,51 +188,6 @@ uint8_t RF24::readRegister(uint8_t reg, uint8_t* buf, uint8_t len)
 	return status;
 }
 
-/****************************************************************************/
-
-uint8_t RF24::readRegister(uint8_t reg)
-{
-	csn(LOW);
-	SPI.transfer( R_REGISTER | ( REGISTER_MASK & reg ) );
-	uint8_t result = SPI.transfer(0xff);
-
-	csn(HIGH);
-	return result;
-}
-
-/****************************************************************************/
-
-uint8_t RF24::writeRegister(uint8_t reg, const uint8_t* buf, uint8_t len)
-{
-	uint8_t status;
-
-	csn(LOW);
-	status = SPI.transfer( W_REGISTER | ( REGISTER_MASK & reg ) );
-	while ( len-- )
-	SPI.transfer(*buf++);
-
-	csn(HIGH);
-
-	return status;
-}
-
-/****************************************************************************/
-
-uint8_t RF24::writeRegister(uint8_t reg, uint8_t value)
-{
-	uint8_t status;
-
-	IF_SERIAL_DEBUG(printf_P(PSTR("writeRegister(%02x,%02x)\r\n"),reg,value));
-
-	csn(LOW);
-	status = SPI.transfer( W_REGISTER | ( REGISTER_MASK & reg ) );
-	SPI.transfer(value);
-	csn(HIGH);
-
-	return status;
-}
-
-/****************************************************************************/
 
 uint8_t RF24::write_payload(const void* buf, uint8_t len)
 {
@@ -784,36 +808,7 @@ bool RF24::testRPD(void)
 
 /****************************************************************************/
 
-void RF24::setPALevel(rf24_pa_dbm_e level)
-{
-	uint8_t setup = readRegister(RF_SETUP) ;
-	setup &= ~(_BV(RF_PWR_LOW) | _BV(RF_PWR_HIGH)) ;
 
-	// switch uses RAM (evil!)
-	if ( level == RF24_PA_MAX )
-	{
-	setup |= (_BV(RF_PWR_LOW) | _BV(RF_PWR_HIGH)) ;
-	}
-	else if ( level == RF24_PA_HIGH )
-	{
-	setup |= _BV(RF_PWR_HIGH) ;
-	}
-	else if ( level == RF24_PA_LOW )
-	{
-	setup |= _BV(RF_PWR_LOW);
-	}
-	else if ( level == RF24_PA_MIN )
-	{
-	// nothing
-	}
-	else if ( level == RF24_PA_ERROR )
-	{
-	// On error, go to maximum PA
-	setup |= (_BV(RF_PWR_LOW) | _BV(RF_PWR_HIGH)) ;
-	}
-
-	writeRegister( RF_SETUP, setup ) ;
-}
 
 /****************************************************************************/
 

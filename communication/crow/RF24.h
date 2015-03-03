@@ -37,6 +37,7 @@ class RF24
 
 		void begin(void);	//because of F**king Arduino, call this in setup()
 		void setRetries(uint8_t delay, uint8_t count);
+		void setPALevel(rf24_pa_dbm_e level);
 
 		void resetSpi(void);
 		bool isAckPayloadAvailable(void);
@@ -282,7 +283,7 @@ class RF24
 	 * 
 	 * @param level Desired PA level.
 	 */
-	void setPALevel( rf24_pa_dbm_e level ) ;
+	
 
 	/**
 	 * Fetches the current PA level.

@@ -11,7 +11,8 @@
 /*
 1. remove PRIPSTR in config.h
 2. isAckPayloadAvailable is same to available(), change name to make it samilar
-
+3. change RF24_PA_MAX to micro #define
+4. setPALevel() to int parameter
 */
 RF24 radio(9, 10);
 RF24 radio2(8, 7);
