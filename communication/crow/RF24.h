@@ -58,8 +58,8 @@ class RF24
 	 	void csn(int mode){digitalWrite(mCsnPin, mode);}
 		void ce(int level){digitalWrite(mCePin,level);}
 
-		uint8_t read_register(uint8_t reg, uint8_t* buf, uint8_t len);
-		uint8_t read_register(uint8_t reg);
+		uint8_t readRegister(uint8_t reg, uint8_t* buf, uint8_t len);
+		uint8_t readRegister(uint8_t reg);
 		uint8_t writeRegister(uint8_t reg, const uint8_t* buf, uint8_t len);
 		uint8_t writeRegister(uint8_t reg, uint8_t value);
 	 public:
