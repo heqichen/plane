@@ -49,7 +49,7 @@ class RF24
 		bool mIsAckPayloadAvailable; /**< Whether there is an ack payload waiting */
 		bool mIsDynamicPayloadsEnabled; /**< Whether dynamic payloads are enabled. */ 
 		uint8_t mAckPayloadLength; /**< Dynamic size of pending ack payload. */
-		uint64_t pipe0_reading_address; /**< Last address set on pipe 0 for reading. */
+		uint64_t mLastPipe0ReadingAddr; /**< Last address set on pipe 0 for reading. */
 
 	 public:
 

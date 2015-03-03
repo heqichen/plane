@@ -10,7 +10,7 @@ RF24::RF24(uint8_t cePin, uint8_t csnPin)
 		mPayloadSize			(32),
 		mIsAckPayloadAvailable	(false),
 		mIsDynamicPayloadsEnabled(false),
-		pipe0_reading_address(0)
+		mLastPipe0ReadingAddr	(0LL)
 {
 }
 
@@ -401,8 +401,8 @@ void RF24::startListening(void)
 	write_register(STATUS, _BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT) );
 
 	// Restore the pipe0 adddress, if exists
-	if (pipe0_reading_address)
-	write_register(RX_ADDR_P0, reinterpret_cast<const uint8_t*>(&pipe0_reading_address), 5);
+	if (mLastPipe0ReadingAddr)
+	write_register(RX_ADDR_P0, reinterpret_cast<const uint8_t*>(&mLastPipe0ReadingAddr), 5);
 
 	// Flush buffers
 	flush_rx();
@@ -636,7 +636,7 @@ void RF24::openReadingPipe(uint8_t child, uint64_t address)
 	// openWritingPipe() will overwrite the pipe 0 address, so
 	// startListening() will have to restore it.
 	if (child == 0)
-	pipe0_reading_address = address;
+	mLastPipe0ReadingAddr = address;
 
 	if (child <= 6)
 	{
@@ -982,8 +982,8 @@ void RF24::resetForSending(void)
 	write_register(STATUS, _BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT) );
 
 	// Restore the pipe0 adddress, if exists
-	if (pipe0_reading_address)
-	write_register(RX_ADDR_P0, reinterpret_cast<const uint8_t*>(&pipe0_reading_address), 5);
+	if (mLastPipe0ReadingAddr)
+	write_register(RX_ADDR_P0, reinterpret_cast<const uint8_t*>(&mLastPipe0ReadingAddr), 5);
 
 	// Flush buffers
 	flush_rx();
