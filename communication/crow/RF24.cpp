@@ -78,35 +78,30 @@ void RF24::setRetries(uint8_t delay, uint8_t count)
 	writeRegister(SETUP_RETR, (delay & 0x0F) << ARD | (count & 0x0F) << ARC);
 }
 
-void RF24::setPALevel(rf24_pa_dbm_e level)
+void RF24::setPALevel(uint8_t level)
 {
 	uint8_t setup = readRegister(RF_SETUP) ;
-	setup &= ~(_BV(RF_PWR_LOW) | _BV(RF_PWR_HIGH)) ;
+	Serial.print("ps read");
+	Serial.println(setup, BIN);
 
-	// switch uses RAM (evil!)
-	if ( level == RF24_PA_MAX )
+	setup &= ~(RF_PWR_MASK) ;
+	if (level > RF24_PA_MAX)
 	{
-	setup |= (_BV(RF_PWR_LOW) | _BV(RF_PWR_HIGH)) ;
+		level = RF24_PA_MAX;
+		return ;
 	}
-	else if ( level == RF24_PA_HIGH )
-	{
-	setup |= _BV(RF_PWR_HIGH) ;
-	}
-	else if ( level == RF24_PA_LOW )
-	{
-	setup |= _BV(RF_PWR_LOW);
-	}
-	else if ( level == RF24_PA_MIN )
-	{
-	// nothing
-	}
-	else if ( level == RF24_PA_ERROR )
-	{
-	// On error, go to maximum PA
-	setup |= (_BV(RF_PWR_LOW) | _BV(RF_PWR_HIGH)) ;
-	}
+	setup |= level;
 
-	writeRegister( RF_SETUP, setup ) ;
+	Serial.print("set PA Level to: ");
+	Serial.println(setup, BIN);
+
+	writeRegister(RF_SETUP, setup);
+}
+
+uint8_t RF24::getPALevel(void)
+{
+	uint8_t power = readRegister(RF_SETUP) & RF_PWR_MASK;
+	return power;
 }
 
 void RF24::resetSpi(void)
@@ -380,16 +375,7 @@ static const char * const rf24_crclength_e_str_P[] PROGMEM = {
 	rf24_crclength_e_str_1,
 	rf24_crclength_e_str_2,
 };
-static const char rf24_pa_dbm_e_str_0[] PROGMEM = "PA_MIN";
-static const char rf24_pa_dbm_e_str_1[] PROGMEM = "PA_LOW";
-static const char rf24_pa_dbm_e_str_2[] PROGMEM = "LA_MED";
-static const char rf24_pa_dbm_e_str_3[] PROGMEM = "PA_HIGH";
-static const char * const rf24_pa_dbm_e_str_P[] PROGMEM = { 
-	rf24_pa_dbm_e_str_0,
-	rf24_pa_dbm_e_str_1,
-	rf24_pa_dbm_e_str_2,
-	rf24_pa_dbm_e_str_3,
-};
+
 
 void RF24::printDetails(void)
 {
@@ -410,7 +396,10 @@ void RF24::printDetails(void)
 	printf_P(PSTR("Data Rate\t = %S\r\n"),pgm_read_word(&rf24_datarate_e_str_P[getDataRate()]));
 	printf_P(PSTR("Model\t\t = %S\r\n"),pgm_read_word(&rf24_model_e_str_P[is24l01Plus()]));
 	printf_P(PSTR("CRC Length\t = %S\r\n"),pgm_read_word(&rf24_crclength_e_str_P[getCRCLength()]));
-	printf_P(PSTR("PA Power\t = %S\r\n"),pgm_read_word(&rf24_pa_dbm_e_str_P[getPALevel()]));
+	//printf_P(PSTR("PA Power\t = %S\r\n"),pgm_read_word(&rf24_pa_dbm_e_str_P[getPALevel()]));
+
+	Serial.print("PA Power\t=");
+	Serial.println(getPALevel());
 }
 
 /****************************************************************************/
@@ -812,31 +801,7 @@ bool RF24::testRPD(void)
 
 /****************************************************************************/
 
-rf24_pa_dbm_e RF24::getPALevel(void)
-{
-	rf24_pa_dbm_e result = RF24_PA_ERROR ;
-	uint8_t power = readRegister(RF_SETUP) & (_BV(RF_PWR_LOW) | _BV(RF_PWR_HIGH)) ;
 
-	// switch uses RAM (evil!)
-	if ( power == (_BV(RF_PWR_LOW) | _BV(RF_PWR_HIGH)) )
-	{
-	result = RF24_PA_MAX ;
-	}
-	else if ( power == _BV(RF_PWR_HIGH) )
-	{
-	result = RF24_PA_HIGH ;
-	}
-	else if ( power == _BV(RF_PWR_LOW) )
-	{
-	result = RF24_PA_LOW ;
-	}
-	else
-	{
-	result = RF24_PA_MIN ;
-	}
-
-	return result ;
-}
 
 /****************************************************************************/
 

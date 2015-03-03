@@ -24,6 +24,7 @@ void setup(void)
 	printf_begin();
 	radio.begin();
 	radio.setRetries(0,0);
+
 	radio.setAutoAck(false);
 	radio.setCRCLength(RF24_CRC_8);
 	radio.setDataRate(RF24_250KBPS);
@@ -36,6 +37,8 @@ void setup(void)
 
 	radio.startListening();
 	radio.stopListening();
+
+	radio.printDetails();
 }
 
 void loop(void)

@@ -9,7 +9,7 @@
 #define SETUP_AW    0x03
 #define SETUP_RETR  0x04	//Setup of Automatic Retransmission
 #define RF_CH       0x05
-#define RF_SETUP    0x06
+#define RF_SETUP    0x06	//RF Setup Register P58
 #define STATUS      0x07
 #define OBSERVE_TX  0x08
 #define CD          0x09
@@ -103,6 +103,6 @@
 #define RF_DR_HIGH  3
 #define RF_PWR_LOW  1
 #define RF_PWR_HIGH 2
-
+#define RF_PWR_MASK	0x06
 
 #endif

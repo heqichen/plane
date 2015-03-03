@@ -4,12 +4,10 @@
 
 #include <config.h>
 
-/**
- * Power Amplifier level.
- *
- * For use with setPALevel()
- */
-typedef enum { RF24_PA_MIN = 0,RF24_PA_LOW, RF24_PA_HIGH, RF24_PA_MAX, RF24_PA_ERROR } rf24_pa_dbm_e ;
+#define RF24_PA_MIN		0x00	//-18dBm
+#define RF24_PA_LOW		0x02	//-12dBm
+#define RF24_PA_HIGH	0x04	//-6dBm
+#define RF24_PA_MAX		0x06	//0dBm
 
 /**
  * Data rate.	How fast data moves through the air.
@@ -37,7 +35,8 @@ class RF24
 
 		void begin(void);	//because of F**king Arduino, call this in setup()
 		void setRetries(uint8_t delay, uint8_t count);
-		void setPALevel(rf24_pa_dbm_e level);
+		void setPALevel(uint8_t level);
+		uint8_t getPALevel(void);
 
 		void resetSpi(void);
 		bool isAckPayloadAvailable(void);
@@ -293,7 +292,6 @@ class RF24
 	 * by the enum mnemonics are negative dBm. See setPALevel for
 	 * return value descriptions.
 	 */
-	rf24_pa_dbm_e getPALevel( void ) ;
 
 	/**
 	 * Set the transmission data rate
