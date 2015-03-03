@@ -28,7 +28,7 @@ void setup(void)
 	radio.setAutoAck(false);
 	radio.setCRCLength(RF24_CRC_8);
 	radio.setDataRate(RF24_250KBPS);
-	radio.enableDynamicPayloads();
+	radio.setDynamicPayloads(true);
 	//radio.setPALevel(RF24_PA_MIN);
 	//radio.setPALevel(RF24_PA_LOW);
 	//radio.setPALevel(RF24_PA_HIGH);

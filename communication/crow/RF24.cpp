@@ -42,13 +42,15 @@ void RF24::begin(void)
 
 	mIs24l01Plus = test24l01Plus();
 	setDataRate(RF24_1MBPS);
+	setCRCLength(RF24_CRC_16);
+	setDynamicPayloads(false);
 	//here
 
 	// Initialize CRC and request 2-byte (16bit) CRC
-	setCRCLength( RF24_CRC_16 ) ;
+	
 	
 	// Disable dynamic payloads, to match mIsDynamicPayloadsEnabled setting
-	writeRegister(DYNPD,0);
+	
 
 	// Reset current status
 	// Notice reset and flush is the last thing we do
@@ -204,6 +206,28 @@ uint8_t RF24::writeRegister(uint8_t reg, uint8_t value)
 	return status;
 }
 
+void RF24::setDynamicPayloads(bool status)
+{
+	mIsDynamicPayloadsEnabled = status;
+
+	if (status)
+	{
+		// Enable dynamic payload throughout the system
+		writeRegister(FEATURE,readRegister(FEATURE) | _BV(EN_DPL));
+		// If it didn't work, the features are not enabled
+		if (!readRegister(FEATURE))
+		{
+			// So enable them and try again
+			toggle_features();
+			writeRegister(FEATURE,readRegister(FEATURE) | _BV(EN_DPL) );
+		}
+		writeRegister(DYNPD,readRegister(DYNPD) | _BV(DPL_P5) | _BV(DPL_P4) | _BV(DPL_P3) | _BV(DPL_P2) | _BV(DPL_P1) | _BV(DPL_P0));
+	}
+	else
+	{
+		writeRegister(DYNPD, 0);
+	}
+}
 
 
 
@@ -726,29 +750,6 @@ void RF24::toggle_features(void)
 
 /****************************************************************************/
 
-void RF24::enableDynamicPayloads(void)
-{
-	// Enable dynamic payload throughout the system
-	writeRegister(FEATURE,readRegister(FEATURE) | _BV(EN_DPL) );
-
-	// If it didn't work, the features are not enabled
-	if ( ! readRegister(FEATURE) )
-	{
-	// So enable them and try again
-	toggle_features();
-	writeRegister(FEATURE,readRegister(FEATURE) | _BV(EN_DPL) );
-	}
-
-	IF_SERIAL_DEBUG(printf("FEATURE=%i\r\n",readRegister(FEATURE)));
-
-	// Enable dynamic payload on all pipes
-	//
-	// Not sure the use case of only having dynamic payload on certain
-	// pipes, so the library does not support it.
-	writeRegister(DYNPD,readRegister(DYNPD) | _BV(DPL_P5) | _BV(DPL_P4) | _BV(DPL_P3) | _BV(DPL_P2) | _BV(DPL_P1) | _BV(DPL_P0));
-
-	mIsDynamicPayloadsEnabled = true;
-}
 
 /****************************************************************************/
 

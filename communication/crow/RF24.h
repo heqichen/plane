@@ -18,22 +18,6 @@
 #define RF24_CRC_8			0x08
 #define RF24_CRC_16			0x0C
 
-/**
- * Data rate.	How fast data moves through the air.
- *
- * For use with setDataRate()
- */
-//typedef enum { RF24_1MBPS = 0, RF24_2MBPS, RF24_250KBPS } rf24_datarate_e;
-
-/**
- * CRC Length.	How big (if any) of a CRC is included.
- *
- * For use with setCRCLength()
- */
-
-/**
- * Driver for nRF24L01(+) 2.4GHz Wireless Transceiver
- */
 
 class RF24
 {
@@ -54,13 +38,15 @@ class RF24
 		uint8_t getCRCLength(void);
 		void disableCRC( void ) ;
 
+		void setDynamicPayloads(bool status);
 
-		void resetSpi(void);
+		
 		bool isAckPayloadAvailable(void);
 
 		bool is24l01Plus(void) const {return mIs24l01Plus;}
 		
 		uint8_t getPayloadSize(void) const {return mPayloadSize;}
+		
 
 	 private:
 		uint8_t mCePin; /**< "Chip Enable" pin, activates the RX or TX role */
@@ -82,6 +68,7 @@ class RF24
 		uint8_t writeRegister(uint8_t reg, uint8_t value);
 
 		bool test24l01Plus(void);
+		void resetSpi(void);
 	 public:
 
 	/**
@@ -263,7 +250,7 @@ class RF24
 	 *
 	 * @see examples/pingpair_pl/pingpair_dyn.pde
 	 */
-	void enableDynamicPayloads(void);
+	
 
 
 
