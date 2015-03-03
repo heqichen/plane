@@ -10,7 +10,7 @@ UTILS_OBJS = utils/filter.o utils/fol_filter.o utils/util.o utils/mavlink_wtf.o
 IO_OBJS = device/driver/io/io.o device/driver/io/serial_handler.o device/driver/io/iic_handler.o device/driver/io/gpio_const.o device/driver/io/gpio_manager.o device/driver/io/gpio_handler.o
 DRIVER_OBJS = device/driver/serial_radio_driver.o device/driver/bmx055_driver.o device/driver/serial_servo_driver.o device/driver/ads7828_driver.o device/driver/beeper_driver.o
 DEVICE_OBJS = device/radio.o device/i_device.o device/imu.o device/servo_controller.o device/aoa.o device/beeper.o device/agl.o
-OBJS = chicken.o device_manager.o $(UTILS_OBJS) $(DRIVER_OBJS) $(DEVICE_OBJS) $(IO_OBJS)
+OBJS = chicken.o device_manager.o altitude_fusion.o $(UTILS_OBJS) $(DRIVER_OBJS) $(DEVICE_OBJS) $(IO_OBJS)
 
 TARGET = chicken
 
@@ -28,7 +28,7 @@ RETRIVE_SUB_DIR:
 
 chicken.o:	chicken.cpp
 device_manager.o:	device_manager.cpp device_manager.h
-
+altitude_fusion.o:	altitude_fusion.cpp altitude_fusion.h
 
 
 .PHONY: all clean RETRIVE_SUB_DIR
