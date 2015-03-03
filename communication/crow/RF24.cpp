@@ -489,9 +489,9 @@ bool RF24::write( const void* buf, uint8_t len )
 	// Handle the ack packet
 	if ( mIsAckPayloadAvailable )
 	{
-	ack_payload_length = getDynamicPayloadSize();
+	mAckPayloadLength = getDynamicPayloadSize();
 	IF_SERIAL_DEBUG(Serial.print("[AckPacket]/"));
-	IF_SERIAL_DEBUG(Serial.println(ack_payload_length,DEC));
+	IF_SERIAL_DEBUG(Serial.println(mAckPayloadLength,DEC));
 	}
 
 	// Yay, we are done.
