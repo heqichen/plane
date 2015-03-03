@@ -35,6 +35,8 @@ class RF24
 	public:
 		RF24(uint8_t _cepin, uint8_t _cspin);
 
+		void begin(void);	//because of F**king Arduino, call this in setup()
+		void resetSpi(void);
 		bool isAckPayloadAvailable(void);
 
 		bool is24l01Plus(void) const {return mIs24l01Plus;}
@@ -51,6 +53,13 @@ class RF24
 		uint8_t mAckPayloadLength; /**< Dynamic size of pending ack payload. */
 		uint64_t mLastPipe0ReadingAddr; /**< Last address set on pipe 0 for reading. */
 
+	 	void csn(int mode){digitalWrite(mCsnPin, mode);}
+		void ce(int level){digitalWrite(mCePin,level);}
+
+		uint8_t read_register(uint8_t reg, uint8_t* buf, uint8_t len);
+		uint8_t read_register(uint8_t reg);
+		uint8_t write_register(uint8_t reg, const uint8_t* buf, uint8_t len);
+		uint8_t write_register(uint8_t reg, uint8_t value);
 	 public:
 
 	/**
@@ -58,7 +67,7 @@ class RF24
 	 *
 	 * Call this in setup(), before calling any other methods.
 	 */
-	void begin(void);
+	
 
 	/**
 	 * Start listening on the pipes opened for reading.
@@ -445,71 +454,7 @@ class RF24
 	void resetForSending(void);
 
 protected:
-	/**
-	 * @name Low-level internal interface.
-	 *
-	 *	Protected methods that address the chip directly.	Regular users cannot
-	 *	ever call these.	They are documented for completeness and for developers who
-	 *	may want to extend this class.
-	 */
-	/**@{*/
 
-	/**
-	 * Set chip select pin
-	 *
-	 * Running SPI bus at PI_CLOCK_DIV2 so we don't waste time transferring data
-	 * and best of all, we make use of the radio's FIFO buffers. A lower speed
-	 * means we're less likely to effectively leverage our FIFOs and pay a higher
-	 * AVR runtime cost as toll.
-	 *
-	 * @param mode HIGH to take this unit off the SPI bus, LOW to put it on
-	 */
-	void csn(int mode);
-
-	/**
-	 * Set chip enable
-	 *
-	 * @param level HIGH to actively begin transmission or LOW to put in standby.	Please see data sheet
-	 * for a much more detailed description of this pin.
-	 */
-	void ce(int level);
-
-	/**
-	 * Read a chunk of data in from a register
-	 *
-	 * @param reg Which register. Use constants from nRF24L01.h
-	 * @param buf Where to put the data
-	 * @param len How many bytes of data to transfer
-	 * @return Current value of status register
-	 */
-	uint8_t read_register(uint8_t reg, uint8_t* buf, uint8_t len);
-
-	/**
-	 * Read single byte from a register
-	 *
-	 * @param reg Which register. Use constants from nRF24L01.h
-	 * @return Current value of register @p reg
-	 */
-	uint8_t read_register(uint8_t reg);
-
-	/**
-	 * Write a chunk of data to a register
-	 *
-	 * @param reg Which register. Use constants from nRF24L01.h
-	 * @param buf Where to get the data
-	 * @param len How many bytes of data to transfer
-	 * @return Current value of status register
-	 */
-	uint8_t write_register(uint8_t reg, const uint8_t* buf, uint8_t len);
-
-	/**
-	 * Write a single byte to a register
-	 *
-	 * @param reg Which register. Use constants from nRF24L01.h
-	 * @param value The new value to write
-	 * @return Current value of status register
-	 */
-	uint8_t write_register(uint8_t reg, uint8_t value);
 
 	/**
 	 * Write the transmit payload

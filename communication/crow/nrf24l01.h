@@ -7,7 +7,7 @@
 #define EN_AA       0x01
 #define EN_RXADDR   0x02
 #define SETUP_AW    0x03
-#define SETUP_RETR  0x04
+#define SETUP_RETR  0x04	//Setup of Automatic Retransmission
 #define RF_CH       0x05
 #define RF_SETUP    0x06
 #define STATUS      0x07

@@ -14,6 +14,80 @@ RF24::RF24(uint8_t cePin, uint8_t csnPin)
 {
 }
 
+
+
+void RF24::begin(void)
+{
+	pinMode(mCePin, OUTPUT);
+	pinMode(mCsnPin, OUTPUT);
+
+	SPI.begin();
+	resetSpi();
+
+	ce(LOW);
+	csn(HIGH);
+
+	// Must allow the radio time to settle else configuration bits will not necessarily stick.
+	// This is actually only required following power up but some settling time also appears to
+	// be required after resets too. For full coverage, we'll always assume the worst.
+	// Enabling 16b CRC is by far the most obvious case if the wrong timing is used - or skipped.
+	// Technically we require 4.5ms + 14us as a worst case. We'll just call it 5ms for good measure.
+	// WARNING: Delay is based on P-variant whereby non-P *may* require different timing.
+	delay( 5 ) ;
+
+	// Set 1500uS (minimum for 32B payload in ESB@250KBPS) timeouts, to make testing a little easier
+	// WARNING: If this is ever lowered, either 250KBS mode with AA is broken or maximum packet
+	// sizes must never be used. See documentation for a more complete explanation.
+	write_register(SETUP_RETR,(B0100 << ARD) | (B1111 << ARC));
+
+	// Restore our default PA level
+	setPALevel( RF24_PA_MAX ) ;
+
+	// Determine if this is a p or non-p RF24 module and then
+	// reset our data rate back to default value. This works
+	// because a non-P variant won't allow the data rate to
+	// be set to 250Kbps.
+	if( setDataRate( RF24_250KBPS ) )
+	{
+	mIs24l01Plus = true ;
+	}
+	
+	// Then set the data rate to the slowest (and most reliable) speed supported by all
+	// hardware.
+	setDataRate( RF24_1MBPS ) ;
+
+	// Initialize CRC and request 2-byte (16bit) CRC
+	setCRCLength( RF24_CRC_16 ) ;
+	
+	// Disable dynamic payloads, to match mIsDynamicPayloadsEnabled setting
+	write_register(DYNPD,0);
+
+	// Reset current status
+	// Notice reset and flush is the last thing we do
+	write_register(STATUS,_BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT) );
+
+	// Set up default configuration.	Callers can always change it later.
+	// This channel should be universally safe and not bleed over into adjacent
+	// spectrum.
+	setChannel(76);
+
+	// Flush buffers
+	flush_rx();
+	flush_tx();
+}
+
+void RF24::resetSpi(void)
+{
+	// Minimum ideal SPI bus speed is 2x data rate
+	// If we assume 2Mbs data rate and 16Mhz clock, a
+	// divider of 4 is the minimum we want.
+	// CLK:BUS 8Mhz:2Mhz, 16Mhz:4Mhz, or 20Mhz:5Mhz
+	SPI.setBitOrder(MSBFIRST);
+	SPI.setDataMode(SPI_MODE0);
+	SPI.setClockDivider(SPI_CLOCK_DIV4);
+}
+
+
 bool RF24::isAckPayloadAvailable(void)
 {
 	bool result = mIsAckPayloadAvailable;
@@ -23,26 +97,7 @@ bool RF24::isAckPayloadAvailable(void)
 
 /****************************************************************************/
 
-void RF24::csn(int mode)
-{
-	// Minimum ideal SPI bus speed is 2x data rate
-	// If we assume 2Mbs data rate and 16Mhz clock, a
-	// divider of 4 is the minimum we want.
-	// CLK:BUS 8Mhz:2Mhz, 16Mhz:4Mhz, or 20Mhz:5Mhz
-#ifdef ARDUINO
-	SPI.setBitOrder(MSBFIRST);
-	SPI.setDataMode(SPI_MODE0);
-	SPI.setClockDivider(SPI_CLOCK_DIV4);
-#endif
-	digitalWrite(mCsnPin, mode);
-}
 
-/****************************************************************************/
-
-void RF24::ce(int level)
-{
-	digitalWrite(mCePin,level);
-}
 
 /****************************************************************************/
 
@@ -332,66 +387,7 @@ void RF24::printDetails(void)
 
 /****************************************************************************/
 
-void RF24::begin(void)
-{
-	// Initialize pins
-	pinMode(mCePin, OUTPUT);
-	pinMode(mCsnPin, OUTPUT);
 
-	// Initialize SPI bus
-	SPI.begin();
-
-	ce(LOW);
-	csn(HIGH);
-
-	// Must allow the radio time to settle else configuration bits will not necessarily stick.
-	// This is actually only required following power up but some settling time also appears to
-	// be required after resets too. For full coverage, we'll always assume the worst.
-	// Enabling 16b CRC is by far the most obvious case if the wrong timing is used - or skipped.
-	// Technically we require 4.5ms + 14us as a worst case. We'll just call it 5ms for good measure.
-	// WARNING: Delay is based on P-variant whereby non-P *may* require different timing.
-	delay( 5 ) ;
-
-	// Set 1500uS (minimum for 32B payload in ESB@250KBPS) timeouts, to make testing a little easier
-	// WARNING: If this is ever lowered, either 250KBS mode with AA is broken or maximum packet
-	// sizes must never be used. See documentation for a more complete explanation.
-	write_register(SETUP_RETR,(B0100 << ARD) | (B1111 << ARC));
-
-	// Restore our default PA level
-	setPALevel( RF24_PA_MAX ) ;
-
-	// Determine if this is a p or non-p RF24 module and then
-	// reset our data rate back to default value. This works
-	// because a non-P variant won't allow the data rate to
-	// be set to 250Kbps.
-	if( setDataRate( RF24_250KBPS ) )
-	{
-	mIs24l01Plus = true ;
-	}
-	
-	// Then set the data rate to the slowest (and most reliable) speed supported by all
-	// hardware.
-	setDataRate( RF24_1MBPS ) ;
-
-	// Initialize CRC and request 2-byte (16bit) CRC
-	setCRCLength( RF24_CRC_16 ) ;
-	
-	// Disable dynamic payloads, to match mIsDynamicPayloadsEnabled setting
-	write_register(DYNPD,0);
-
-	// Reset current status
-	// Notice reset and flush is the last thing we do
-	write_register(STATUS,_BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT) );
-
-	// Set up default configuration.	Callers can always change it later.
-	// This channel should be universally safe and not bleed over into adjacent
-	// spectrum.
-	setChannel(76);
-
-	// Flush buffers
-	flush_rx();
-	flush_tx();
-}
 
 /****************************************************************************/
 
