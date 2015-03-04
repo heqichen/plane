@@ -6,6 +6,7 @@
 #include "./device/aoa.h"
 #include "./device/beeper.h"
 #include "./device/virtual_imu.h"
+#include "./instruments/adi.h"
 
 #include <mavlink.h>
 
@@ -26,25 +27,22 @@ Agl *agl;
 
 VirtualImu *virtualImu;
 
+ADI *adi;
+
 void setupDevice(void);
 
 int main(int argc, char *argv[])
 {
 	setupDevice();
 
+	adi = new ADI(imu);
+
 
 	while (true)
 	{
-		usleep(1000000UL);
-		if (virtualImu->isInService())
-		{
-			ImuAttitude attitude = virtualImu->getAttitude();
-			cout<<"pitch: " << attitude.pitch << endl;
-		}
-		else
-		{
-			cout<<"virtual imu failed"<<endl;
-		}
+		usleep(100000UL);
+		Attitude a = adi->getAttitude();
+		cout<<a.pitch<<endl;
 	}
 
 	int a;
