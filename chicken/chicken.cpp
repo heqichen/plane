@@ -31,6 +31,22 @@ void setupDevice(void);
 int main(int argc, char *argv[])
 {
 	setupDevice();
+
+
+	while (true)
+	{
+		usleep(1000000UL);
+		if (virtualImu->isInService())
+		{
+			ImuAttitude attitude = virtualImu->getAttitude();
+			cout<<"pitch: " << attitude.pitch << endl;
+		}
+		else
+		{
+			cout<<"virtual imu failed"<<endl;
+		}
+	}
+
 	int a;
 	cin>>a;
 	return 0;
@@ -49,4 +65,9 @@ void setupDevice(void)
 	agl = devManager->getAgl();
 
 	virtualImu = devManager->getVirtualImu();
+
+
+	radio->setVirtualImu(virtualImu);
+
+
 }

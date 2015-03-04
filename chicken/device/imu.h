@@ -18,6 +18,7 @@ struct ImuAttitude
 	double heading;
 
 	ImuAttitude():pitch(0.0),roll(0.0),heading(0.0){}
+	ImuAttitude(double _pitch, double _roll, double _heading):pitch(_pitch),roll(_roll),heading(_heading){}
 };
 
 class Imu	:	public IDevice

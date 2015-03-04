@@ -89,6 +89,7 @@ void Radio::fetchData()
 					{
 						mavlink_attitude_t attitude;
 						mavlink_msg_attitude_decode(&mMavlinkDecodeMsg, &attitude);
+						/*
 						cout<<"time_boot_ms: " << attitude.time_boot_ms << "\t"<<endl;
 						cout<<"roll: " << attitude.roll << "\t"<<endl;
 						cout<<"pitch: " << attitude.pitch << "\t"<<endl;
@@ -96,7 +97,12 @@ void Radio::fetchData()
 						cout<<"rollspeed: " << attitude.rollspeed << "\t"<<endl;
 						cout<<"pitchspeed: " << attitude.pitchspeed << "\t"<<endl;
 						cout<<"yawspeed: " << attitude.yawspeed << "\t"<<endl;
-
+						*/
+						ImuAttitude imuAttitude(attitude.pitch, attitude.roll, attitude.yaw);
+						if (mVirtualImu != NULL)
+						{
+							mVirtualImu->updateAttitude(imuAttitude);
+						}
 						break;
 					}
 					default:
