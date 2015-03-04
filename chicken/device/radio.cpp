@@ -2,6 +2,7 @@
 #include "device_types.h"
 #include "driver/io/io.h"
 #include <utils/util.h>
+#include <utils/mavlink_wtf.h>
 
 
 #include <cstring>
@@ -67,10 +68,44 @@ void Radio::init()
 	mSerialRadioDriver = new SerialRadioDriver(mIo);
 	mIsRadioRunning = true;
 	pthread_create(&mFetchDataPthread, NULL, &radioReadingThread, this);
-
+	mMavlinkComChannel = getMavlinkComChannel();
 }
 
 void Radio::fetchData()
 {
-	cout<<"TODO fetch radio data"<<endl;
+
+	int numByteRead;
+	do
+	{
+		numByteRead = mSerialRadioDriver->recv(mReadBuffer, RADIO_READ_BUFFER_LENGTH);
+		int i;
+		for (i=0; i<numByteRead; ++i)
+		{
+			if(mavlink_parse_char(mMavlinkComChannel, mReadBuffer[i], &mMavlinkDecodeMsg, &mMavlinkDecodeStatus))
+			{
+				switch (mMavlinkDecodeMsg.msgid)
+				{
+					case (MAVLINK_MSG_ID_ATTITUDE):
+					{
+						mavlink_attitude_t attitude;
+						mavlink_msg_attitude_decode(&mMavlinkDecodeMsg, &attitude);
+						cout<<"time_boot_ms: " << attitude.time_boot_ms << "\t"<<endl;
+						cout<<"roll: " << attitude.roll << "\t"<<endl;
+						cout<<"pitch: " << attitude.pitch << "\t"<<endl;
+						cout<<"yaw: " << attitude.yaw << "\t"<<endl;
+						cout<<"rollspeed: " << attitude.rollspeed << "\t"<<endl;
+						cout<<"pitchspeed: " << attitude.pitchspeed << "\t"<<endl;
+						cout<<"yawspeed: " << attitude.yawspeed << "\t"<<endl;
+
+						break;
+					}
+					default:
+					{
+						break;
+					}
+
+				}
+			} 
+		}
+	} while (numByteRead > 0);
 }

@@ -5,8 +5,12 @@
 #include "driver/serial_radio_driver.h"
 #include "driver/io/io.h"
 #include "virtual_imu.h"
-#include <pthread.h>
 
+
+#include <pthread.h>
+#include <mavlink.h>
+
+#define RADIO_READ_BUFFER_LENGTH	1024
 
 #ifndef NULL
 #define NULL 0
@@ -31,6 +35,10 @@ class Radio : public IDevice
 		SerialRadioDriver *mSerialRadioDriver;
 		VirtualImu *mVirtualImu;
 		pthread_t mFetchDataPthread;
+		uint8_t mReadBuffer[RADIO_READ_BUFFER_LENGTH];
+		uint8_t mMavlinkComChannel;
+		mavlink_message_t mMavlinkDecodeMsg; 
+		mavlink_status_t mMavlinkDecodeStatus;
 
 };
 

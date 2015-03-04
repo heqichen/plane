@@ -31,7 +31,8 @@ void setupDevice(void);
 int main(int argc, char *argv[])
 {
 	setupDevice();
-
+	int a;
+	cin>>a;
 	return 0;
 }
 

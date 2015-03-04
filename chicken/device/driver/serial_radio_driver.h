@@ -13,6 +13,7 @@ class SerialRadioDriver
 	public:
 		SerialRadioDriver(Io *io);
 		void send(const uint8_t *buf, int len);
+		int recv(uint8_t *buf, int nMaxRead);
 	private:
 		SerialHandler *mSerialHandler;
 
