@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
 	{
 		usleep(100000UL);
 		Attitude a = adi->getAttitude();
+		adi->setVirtualImu(virtualImu);
 		cout<<a.pitch<<endl;
 	}
 
