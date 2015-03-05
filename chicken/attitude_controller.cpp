@@ -13,7 +13,9 @@ AttitudeController::AttitudeController(ADI *adi, ServoController *servoControlle
 		mPitchPid			(1050.0, 10.0 ,0,100),
 		mRollPid			(0,0,0,10),
 		mYawPid				(0,0,0,10),
-		mTargetPitch		(0.0)
+		mTargetPitch		(0.0),
+		mTargetRoll			(0.0),
+		mTargetYaw			(0.0)
 
 {
 
@@ -57,4 +59,11 @@ void AttitudeController::reset()
 	mPitchPid.reset();
 	mRollPid.reset();
 	mYawPid.reset();
+}
+
+void AttitudeController::setTargetAttitude(double pitch, double roll)
+{
+	mTargetPitch = pitch;
+	mTargetRoll = roll;
+	mTargetYaw = 0.0;
 }

@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 	manullyNavigator->setEnabled(false);
 	manullyNavigator->start();
 
-	attitudeNavigator = new AttitudeNavigator(servoController, attitudeController);
+	attitudeNavigator = new AttitudeNavigator(servoController, attitudeController, adi);
 	attitudeNavigator->setEnabled(false);
 	attitudeNavigator->setInterval(100);
 	attitudeNavigator->start();

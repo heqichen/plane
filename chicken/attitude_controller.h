@@ -10,6 +10,7 @@ class AttitudeController	:	public IIntervalThread
 {
 	public:
 		AttitudeController(ADI *adi, ServoController *servoController);
+		void setTargetAttitude(double pitch, double roll);
 		void setEnabled(bool isEnabled) {mIsEnabled = isEnabled;}
 		void work();
 		void reset();
@@ -21,7 +22,8 @@ class AttitudeController	:	public IIntervalThread
 		PID mRollPid;
 		PID mYawPid;
 		double mTargetPitch;
-
+		double mTargetRoll;
+		double mTargetYaw;
 };
 
 #endif
