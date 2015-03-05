@@ -4,24 +4,23 @@
 using namespace std;
 
 ManullyNavigator::ManullyNavigator(ServoController *servoController)
-	:	mServoController	(servoController),
-		mIsEnabled		(false)
+	:	mServoController	(servoController)
 {
 
 }
 
-
-void ManullyNavigator::work()
+void ManullyNavigator::navigate()
 {
-
-	if (!mIsEnabled)
-	{
-		return ;	
-	}
-
-//	cout<<"manully navi"<<endl;
 	ServoSignal servo = mServoController->getRawServoSignal();
 	mServoController->writeServoSignal(servo);
+}
+
+void ManullyNavigator::onTakeover()
+{
 
 }
 
+void ManullyNavigator::onRelease()
+{
+	
+}

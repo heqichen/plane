@@ -1,18 +1,18 @@
 #ifndef __MANULLY_NAVIGATOR_H__
 #define __MANULLY_NAVIGATOR_H__
 
-#include <utils/i_interval_thread.h>
+#include "i_navigator.h"
 #include <device/servo_controller.h>
 
-class ManullyNavigator	:	public IIntervalThread
+class ManullyNavigator	:	public INavigator
 {
 	public:
 		ManullyNavigator(ServoController *servoController);
-		virtual void work();
-		inline void setEnabled(bool isEnabled) {mIsEnabled = isEnabled;}
+		virtual void navigate();
+		virtual void onTakeover();
+		virtual void onRelease();
 	private:
 		ServoController *mServoController;
-		bool mIsEnabled;
 };
 
 #endif
