@@ -39,8 +39,8 @@ int main(int argc, char *argv[])
 
 	adi = new ADI(imu);
 
-	StatusController test;
-	test.setInterval(2000);
+	StatusController test(sc);
+	test.setInterval(500);
 	test.start();
 	int b;
 	cin>>b;
