@@ -9,7 +9,7 @@ int count;
 AttitudeController::AttitudeController(ADI *adi, ServoController *servoController)
 	:	mAdi				(adi),
 		mServoController	(servoController),
-		mPitchPid			(1050,0,0,100),
+		mPitchPid			(1050.0, 10.0 ,0,100),
 		mTargetPitch		(0.0)
 {
 
@@ -32,7 +32,6 @@ void AttitudeController::work()
 	//cout<<servo.elevator<<endl;
 
 	mServoController->writeServoSignal(servo);
-	mServoController->emitSignal();
 
 
 	//for debug

@@ -19,6 +19,10 @@
 #define NULL 0
 #endif
 
+#define SERVO_OUTPUT_MODE_DISABLE	0x01
+#define SERVO_OUTPUT_MODE_MANULLY	0x02
+#define SERVO_OUTPUT_MODE_CONTINUOS	0x03
+
 struct ServoSignal
 {
 	int aileron;
@@ -60,20 +64,19 @@ class SerialServoDriver
 		void fetchServos();
 		void writeServos();
 
+		void setOverrideServoSignal(const ServoSignal &overrideServoSignal);
+
 		inline bool isReadingThreadRunning() const{return mIsReadThreadRunning;}
 		inline bool isWritingThreadRunning() const{return mIsWriteThreadRunning;}
 		inline ServoSignal getRawServoSignal() const {return mRawServoSignal;}
-		inline void setOverrideServoSignal(const ServoSignal &overrideServoSignal) {mOverrideServoSignal=overrideServoSignal;}
-		inline void startWriteServoSignal() {mIsOutputServo=true;}
-		inline void stopWriteServoSignal() {mIsOutputServo=false;}
-		void emitSignal();
+		inline void setOutputMode(int mode){mOutputMode = mode;}
 	private:
 		SerialHandler *mSerialHandler;
 		bool mIsReadThreadRunning;
 		bool mIsWriteThreadRunning;
 		pthread_t mReadThread;
 		pthread_t mWriteThread;
-		bool mIsOutputServo;
+		int mOutputMode;
 
 		uint8_t mBuffer[SERIAL_SERVO_READ_BUFFER_LENGTH];
 		uint8_t mMavlinkComChannel;
@@ -82,6 +85,8 @@ class SerialServoDriver
 
 		ServoSignal mRawServoSignal;
 		ServoSignal mOverrideServoSignal;
+
+		void emitSignal();
 };
 
 #endif
