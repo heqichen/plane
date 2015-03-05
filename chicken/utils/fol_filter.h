@@ -20,9 +20,9 @@ class FolFilter : public Filter
 		FolFilter(double q, double lastValue);
 		virtual ~FolFilter();
 		virtual double filter(double);
-		inline virtual double getLastValue(void) {return m_lastValue;}
+		inline virtual double getLastValue(void) {return mLastValue;}
 	private:
-		double m_q;
+		double mQ;
 };
 
 

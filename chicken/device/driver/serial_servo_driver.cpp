@@ -93,7 +93,12 @@ void SerialServoDriver::writeServos()
 	{
 		return ;
 	}
+	emitSignal();
 
+}
+
+void SerialServoDriver::emitSignal()
+{
 	int systemId = 250;
 	int componentId = 0;
 	mavlink_message_t msg;

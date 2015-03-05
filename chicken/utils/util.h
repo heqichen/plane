@@ -24,6 +24,7 @@ class Point3D
 };
 
 unsigned long millis();
+int constraint(int x, int minx, int maxx);
 
 
 

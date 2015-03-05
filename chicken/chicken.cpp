@@ -7,6 +7,8 @@
 #include "./device/beeper.h"
 #include "./device/virtual_imu.h"
 #include "./instruments/adi.h"
+#include "status_controller.h"
+#include "attitude_controller.h"
 
 #include <mavlink.h>
 
@@ -20,7 +22,7 @@ Io *io;
 DeviceManager *devManager;
 Radio *radio;
 Imu *imu;
-ServoController *sc;
+ServoController *servoController;
 Aoa *aoa;
 Beeper *beeper;
 Agl *agl;
@@ -29,6 +31,10 @@ VirtualImu *virtualImu;
 
 ADI *adi;
 
+
+StatusController *statusController;
+AttitudeController *attitudeController;
+
 void setupDevice(void);
 
 int main(int argc, char *argv[])
@@ -36,15 +42,26 @@ int main(int argc, char *argv[])
 	setupDevice();
 
 	adi = new ADI(imu);
+	adi->setVirtualImu(virtualImu);
 
+	statusController = new StatusController(servoController);
+	statusController->setInterval(500);
+	statusController->start();
 
+	attitudeController = new AttitudeController(adi, servoController);
+	attitudeController->setInterval(50);
+	attitudeController->start();
+
+	/*
 	while (true)
 	{
 		usleep(100000UL);
 		Attitude a = adi->getAttitude();
-		adi->setVirtualImu(virtualImu);
+		
 		cout<<a.pitch<<endl;
 	}
+	*/
+
 
 	int a;
 	cin>>a;
@@ -58,7 +75,7 @@ void setupDevice(void)
 	
 	radio = devManager->getRadio();
 	imu = devManager->getImu();
-	sc = devManager->getServoController();
+	servoController = devManager->getServoController();
 	aoa = devManager->getAoa();
 	beeper = devManager->getBeeper();
 	agl = devManager->getAgl();
