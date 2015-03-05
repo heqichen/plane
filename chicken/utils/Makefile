@@ -3,7 +3,7 @@ CC=g++
 CFLAGS=-I$(IDIR) -I../../mavlink/common
 COMPILE.cc = $(CC) -c -g $(CFLAGS)
 
-OBJS = filter.o fol_filter.o util.o mavlink_wtf.o i_interval_thread.o pid.o
+OBJS = filter.o fol_filter.o util.o mavlink_wtf.o i_interval_thread.o pid.o avg_filter.o
 
 LIBS=
 
@@ -15,7 +15,7 @@ util.o:	util.cpp util.h
 mavlink_wtf.o:	mavlink_wtf.cpp mavlink_wtf.h
 i_interval_thread.o:	i_interval_thread.cpp i_interval_thread.h
 pid.o:	pid.cpp pid.h
-
+avg_filter.o:	avg_filter.cpp avg_filter.h
 
 .PHONY: clean
 clean:

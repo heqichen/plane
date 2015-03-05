@@ -4,10 +4,14 @@
 
 
 Filter::Filter()
-	:	m_lastValue(0)
+	:	mLastValue(0)
 {
 
 }
+
+Filter::Filter(double lastValue)
+	:	mLastValue	(lastValue)
+{}
 
 Filter::~Filter()
 {
@@ -16,12 +20,12 @@ Filter::~Filter()
 
 double Filter::getLastValue(void)
 {
-	return m_lastValue;
+	return mLastValue;
 }
 
 double Filter::filter(double newValue)
 {
-	m_lastValue = newValue;
-	return m_lastValue;
+	mLastValue = newValue;
+	return mLastValue;
 }
 

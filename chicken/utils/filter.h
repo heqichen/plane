@@ -7,11 +7,12 @@ class Filter
 {
 	public:
 		Filter();
+		Filter(double lastValue);
 		virtual ~Filter();
 		virtual double filter(double);
 		inline virtual double getLastValue(void);
 	protected:
-		double m_lastValue;
+		double mLastValue;
 };
 
 

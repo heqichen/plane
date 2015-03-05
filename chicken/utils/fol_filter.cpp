@@ -9,22 +9,22 @@
 
 FolFilter::FolFilter(double q)
 	:	Filter::Filter(),
-		m_q(q)
+		mQ(q)
 {}
 
 
 FolFilter::FolFilter(double q, double lastValue)
 	:	Filter::Filter(),
-		m_q(q)
+		mQ(q)
 {
-	m_lastValue = lastValue;
+	mLastValue = lastValue;
 }
 
 
 double FolFilter::filter(double newValue)
 {
-	m_lastValue = (1-m_q)*m_lastValue + m_q*newValue;
-	return m_lastValue;
+	mLastValue = (1-mQ)*mLastValue + mQ*newValue;
+	return mLastValue;
 }
 
 
