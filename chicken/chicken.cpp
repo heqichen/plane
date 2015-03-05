@@ -70,8 +70,9 @@ int main(int argc, char *argv[])
 
 	statusController = new StatusController(servoController);
 	statusController->setInterval(500);
-	statusController->setManullyNavigator(manullyNavigator);
-	statusController->setAttitudeNavigator(attitudeNavigator);
+	statusController->setNavigator(FLIGHT_STATUS_DEFAULT, attitudeNavigator);
+	statusController->setNavigator(FLIGHT_STATUS_MANULLY, manullyNavigator);
+	statusController->setNavigator(FLIGHT_STATUS_ATTITUDE, attitudeNavigator);
 	statusController->start();
 
 	int a;

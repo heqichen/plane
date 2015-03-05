@@ -12,9 +12,12 @@ const char *FLIGHT_STATUS_NAME_STR[] = {
 StatusController::StatusController(ServoController *servoController)
 	:	mServoController	(servoController),
 		mFlightStatus		(FLIGHT_STATUS_DEFAULT)
-
 {
-
+	int i;
+	for (i=0; i<MAX_NUMBER_NAVIGATORS; ++i)
+	{
+		mNavigators[i] = NULL;
+	}
 }
 
 void StatusController::work()
@@ -46,44 +49,23 @@ int StatusController::decideFlightStatus()
 
 void StatusController::onFlightStatusChange(int status)
 {
-	switch (mFlightStatus)
+	if (mNavigators[mFlightStatus] != NULL)
 	{
-		case (FLIGHT_STATUS_MANULLY):
-		{
-			mMaullyNavigator->setEnabled(false);
-			break;
-		}
-		case (FLIGHT_STATUS_ATTITUDE):
-		{
-			mAttitudeNavigator->setEnabled(false);
-			break;
-		}
-		default:
-		{
-			break;
-		}
+		mNavigators[mFlightStatus]->setEnabled(false);
 	}
+	
+
 	mFlightStatus = status;
 	cout<<"change status to " << FLIGHT_STATUS_NAME_STR[mFlightStatus] << endl;;
 	
-	switch (mFlightStatus)
+	if (mNavigators[mFlightStatus] != NULL)
 	{
-		case (FLIGHT_STATUS_MANULLY):
-		{
-			mMaullyNavigator->setEnabled(true);
-			break;
-		}
-		case (FLIGHT_STATUS_ATTITUDE):
-		{
-			mAttitudeNavigator->setEnabled(true);
-			break;
-		}
-		default:
-		{
-			break;
-		}
+		mNavigators[mFlightStatus]->setEnabled(true);
 	}
+}
 
 
-
+void StatusController::setNavigator(int naviId, INavigator *navigator)
+{
+	mNavigators[naviId] = navigator;
 }
