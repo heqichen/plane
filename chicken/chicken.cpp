@@ -7,6 +7,8 @@
 #include "./device/beeper.h"
 #include "./device/virtual_imu.h"
 #include "./instruments/adi.h"
+#include "status_controller.h"
+
 
 #include <mavlink.h>
 
@@ -37,6 +39,11 @@ int main(int argc, char *argv[])
 
 	adi = new ADI(imu);
 
+	StatusController test;
+	test.setInterval(2000);
+	test.start();
+	int b;
+	cin>>b;
 
 	while (true)
 	{
