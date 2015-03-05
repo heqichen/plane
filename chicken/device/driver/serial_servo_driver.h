@@ -66,6 +66,7 @@ class SerialServoDriver
 		inline void setOverrideServoSignal(const ServoSignal &overrideServoSignal) {mOverrideServoSignal=overrideServoSignal;}
 		inline void startWriteServoSignal() {mIsOutputServo=true;}
 		inline void stopWriteServoSignal() {mIsOutputServo=false;}
+		void emitSignal();
 	private:
 		SerialHandler *mSerialHandler;
 		bool mIsReadThreadRunning;

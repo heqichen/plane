@@ -11,6 +11,22 @@ unsigned long millis()
     return tv.tv_sec*1000UL + tv.tv_usec/1000UL;
 }
 
+int constraint(int x, int minx, int maxx)
+{
+	if (x < minx)
+	{
+		x = minx;
+	}
+	else
+	{
+		if (x > maxx)
+		{
+			x = maxx;
+		}
+	}
+	return x;
+}
+
 Point3D::Point3D(double nx, double ny, double nz)
 	:	x	(nx),
 		y	(ny),

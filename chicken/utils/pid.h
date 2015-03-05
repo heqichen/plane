@@ -4,7 +4,8 @@
 class PID
 {
 	public:
-		PID();
+		PID(double p, double i, double d, int interWinSize);
+		double updateError(double error);
 	private:
 		double mKp;
 		double mKi;
