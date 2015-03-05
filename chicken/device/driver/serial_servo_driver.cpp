@@ -53,7 +53,7 @@ SerialServoDriver::SerialServoDriver(Io *io)
 	:	mSerialHandler			(NULL),
 		mIsReadThreadRunning	(false),
 		mIsWriteThreadRunning	(false),
-		mIsOutputServo			(false),
+		mOutputMode				(SERVO_OUTPUT_MODE_MANULLY),
 		mRawServoSignal			(DEFAULT_SERVO_VALUE,
 								 DEFAULT_SERVO_VALUE,
 								 DEFAULT_THROTTLE_VALUE,
@@ -89,12 +89,10 @@ SerialServoDriver::~SerialServoDriver()
 
 void SerialServoDriver::writeServos()
 {
-	if (!mIsOutputServo)
+	if (mOutputMode == SERVO_OUTPUT_MODE_CONTINUOS)
 	{
-		return ;
+		emitSignal();
 	}
-	emitSignal();
-
 }
 
 void SerialServoDriver::emitSignal()
@@ -149,3 +147,11 @@ void SerialServoDriver::fetchServos()
 	} while (numByteRead > 0);
 }
 
+void SerialServoDriver::setOverrideServoSignal(const ServoSignal &overrideServoSignal)
+{
+	mOverrideServoSignal=overrideServoSignal;
+	if (mOutputMode == SERVO_OUTPUT_MODE_MANULLY)
+	{
+		emitSignal();
+	}
+}

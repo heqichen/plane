@@ -17,9 +17,7 @@ class ServoController : public IDevice
 		virtual void init();
 		inline ServoSignal getRawServoSignal(){return mSerialServoDriver->getRawServoSignal();}
 		inline void writeServoSignal(const ServoSignal &servoSignal){mSerialServoDriver->setOverrideServoSignal(servoSignal);}
-		inline void emitSignal(){mSerialServoDriver->emitSignal();}
-		inline void startWriteServoSignal(){mSerialServoDriver->startWriteServoSignal();}
-		inline void stopWriteServoSignal(){mSerialServoDriver->stopWriteServoSignal();}
+		inline void setOutputMode(int mode){mSerialServoDriver->setOutputMode(mode);}
 	private:
 		SerialServoDriver *mSerialServoDriver;
 };

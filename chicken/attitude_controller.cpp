@@ -32,7 +32,6 @@ void AttitudeController::work()
 	//cout<<servo.elevator<<endl;
 
 	mServoController->writeServoSignal(servo);
-	mServoController->emitSignal();
 
 
 	//for debug

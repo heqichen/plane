@@ -76,6 +76,7 @@ void setupDevice(void)
 	radio = devManager->getRadio();
 	imu = devManager->getImu();
 	servoController = devManager->getServoController();
+	servoController->setOutputMode(SERVO_OUTPUT_MODE_MANULLY);
 	aoa = devManager->getAoa();
 	beeper = devManager->getBeeper();
 	agl = devManager->getAgl();
