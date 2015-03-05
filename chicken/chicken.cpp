@@ -44,24 +44,17 @@ int main(int argc, char *argv[])
 	adi = new ADI(imu);
 	adi->setVirtualImu(virtualImu);
 
-	statusController = new StatusController(servoController);
-	statusController->setInterval(500);
-	statusController->start();
+
 
 	attitudeController = new AttitudeController(adi, servoController);
 	attitudeController->setInterval(50);
 	attitudeController->start();
 
-	/*
-	while (true)
-	{
-		usleep(100000UL);
-		Attitude a = adi->getAttitude();
-		
-		cout<<a.pitch<<endl;
-	}
-	*/
 
+
+	statusController = new StatusController(servoController);
+	statusController->setInterval(500);
+	statusController->start();
 
 	int a;
 	cin>>a;
