@@ -10,6 +10,9 @@
 #include "status_controller.h"
 #include "attitude_controller.h"
 
+#include "navigator/attitude_navigator.h"
+#include "navigator/manully_navigator.h"
+
 #include <mavlink.h>
 
 #include <iostream>
@@ -35,6 +38,10 @@ ADI *adi;
 StatusController *statusController;
 AttitudeController *attitudeController;
 
+ManullyNavigator *manullyNavigator;
+AttitudeNavigator *attitudeNavigator;
+
+
 void setupDevice(void);
 
 int main(int argc, char *argv[])
@@ -50,10 +57,21 @@ int main(int argc, char *argv[])
 	attitudeController->setInterval(50);
 	attitudeController->start();
 
+	manullyNavigator = new ManullyNavigator(servoController);
+	manullyNavigator->setInterval(50);
+	manullyNavigator->setEnabled(false);
+	manullyNavigator->start();
+
+	attitudeNavigator = new AttitudeNavigator(servoController, attitudeController);
+	attitudeNavigator->setEnabled(false);
+	attitudeNavigator->setInterval(100);
+	attitudeNavigator->start();
 
 
 	statusController = new StatusController(servoController);
 	statusController->setInterval(500);
+	statusController->setManullyNavigator(manullyNavigator);
+	statusController->setAttitudeNavigator(attitudeNavigator);
 	statusController->start();
 
 	int a;

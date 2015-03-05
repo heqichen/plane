@@ -3,13 +3,14 @@ CC=g++
 CFLAGS=-I$(IDIR) -I../../mavlink/common
 COMPILE.cc = $(CC) -c -g $(CFLAGS)
 
-OBJS = attitude_navigator.o
+OBJS = attitude_navigator.o manully_navigator.o
 
 LIBS=
 
 all:	$(OBJS)
 
 attitude_navigator.o:	attitude_navigator.cpp attitude_navigator.h
+manully_navigator.o:	manully_navigator.cpp manully_navigator.h
 
 
 .PHONY: clean

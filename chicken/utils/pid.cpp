@@ -22,6 +22,15 @@ PID::~PID()
 	delete [] mIntegralBuffer;
 }
 
+void PID::reset()
+{
+	int i;
+	for (i=0; i<mIntegralWindowSize; ++i)
+	{
+		mIntegralBuffer[i] = 0.0;
+	}
+	mIntegralBufferIndex = 0;
+}
 
 double PID::updateError(double error)
 {

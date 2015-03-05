@@ -9,14 +9,22 @@ int count;
 AttitudeController::AttitudeController(ADI *adi, ServoController *servoController)
 	:	mAdi				(adi),
 		mServoController	(servoController),
+		mIsEnabled			(false),
 		mPitchPid			(1050.0, 10.0 ,0,100),
+		mRollPid			(0,0,0,10),
+		mYawPid				(0,0,0,10),
 		mTargetPitch		(0.0)
+
 {
 
 }
 
 void AttitudeController::work()
 {
+	if (!mIsEnabled)
+	{
+		return ;
+	}
 
 	Attitude attitude = mAdi->getAttitude();
 	double pitchError = mTargetPitch - attitude.pitch;
@@ -41,4 +49,12 @@ void AttitudeController::work()
 		count = 0;
 		cout<<"pitchDiff:" << pitchDiff <<"\toutputServo: " << servo.elevator<<endl;
 	}
+}
+
+
+void AttitudeController::reset()
+{
+	mPitchPid.reset();
+	mRollPid.reset();
+	mYawPid.reset();
 }
