@@ -6,6 +6,10 @@ using namespace std;
 
 int count;
 
+#ifndef PI
+#define PI 3.14159265897932384626433832795
+#endif
+
 #define RAD2DEG 180.0/3.14159265358
 
 /*
@@ -26,7 +30,7 @@ AttitudeController::AttitudeController(ADI *adi, ServoController *servoControlle
 		mIsEnabled			(false),
 		mPitchPid			(1000.0,	10.0,	0.0,	1000),
 		mRollPid			(600.0, 	5.0, 	0.0, 	500),
-		mYawPid				(0,0,0,10),
+		mYawPid				(2000.0,	20.0,	0.0,	10),
 		mTargetPitch		(0.0),
 		mTargetRoll			(0.0),
 		mTargetYaw			(0.0),
@@ -55,7 +59,10 @@ void AttitudeController::work()
 	double pitchDiff = mPitchPid.updateError(pitchError);
 
 	//calculate yaw diff
-	double  yawDiff = 0;
+	double currentYaw = cycleCompare(attitude.heading, mLastHeading, 2*PI);
+	mLastHeading = attitude.heading;
+	double yawError = cycleCompare(mTargetYaw, currentYaw, 2*PI);
+	double  yawDiff = mYawPid.updateError(yawError);
 
 	double cosA = cos(attitude.roll);
 	double sinA = sin(attitude.roll);
@@ -66,16 +73,24 @@ void AttitudeController::work()
 	mServo.elevator = DEFAULT_SERVO_VALUE - cosA*pitchDiff;
 	mServo.elevator = constraint(mServo.elevator, 1000, 2000);
 	
-	mServo.rudder = DEFAULT_SERVO_VALUE - sinA*pitchDiff;
+	//mServo.rudder = DEFAULT_SERVO_VALUE - sinA*pitchDiff + yawDiff;
+	mServo.rudder = DEFAULT_SERVO_VALUE + yawDiff;
 	mServo.rudder = constraint(mServo.rudder, 1000, 2000);
 
 	mServo.throttle = currentRc.throttle;
 
+	
+
+
+
+	//for testing, remove soon
+	mServo.aileron = currentRc.aileron;
+	mServo.elevator =currentRc.elevator;
+
+	
 	mServoController->writeServoSignal(mServo);
 
 
-
-	
 
 	//for debug
 	++count;
@@ -83,9 +98,9 @@ void AttitudeController::work()
 	{
 		count = 0;
 
-		cout<<"target: pitch: "<< (mTargetPitch * RAD2DEG) << "\troll: "<< (mTargetRoll * RAD2DEG ) <<endl;
-		cout<<"current: pitch: "<< (attitude.pitch * RAD2DEG) << "\troll: "<< (attitude.roll * RAD2DEG ) <<endl;
-		cout<<"PID diff: pitch: "<< pitchDiff << "\troll: " << rollDiff<<endl;
+		cout<<"target: pitch: "<< (mTargetPitch * RAD2DEG) << "\troll: "<< (mTargetRoll * RAD2DEG ) <<"\tyaw: "<<(mTargetYaw*RAD2DEG)<<endl;
+		cout<<"current: pitch: "<< (attitude.pitch * RAD2DEG) << "\troll: "<< (attitude.roll * RAD2DEG ) <<"\tyaw: "<<(currentYaw*RAD2DEG)<<endl;
+		cout<<"PID diff: pitch: "<< pitchDiff << "\troll: " << rollDiff<<"\tyaw: " << yawDiff <<endl;
 		cout<<"sinA: "<<sinA<<"\tcosA: "<<cosA<<endl;
 		cout<<"Servo aileron: " << mServo.aileron<<"\televator: "<<mServo.elevator<<"\trudder: "<<mServo.rudder<<endl;
 
@@ -116,5 +131,6 @@ void AttitudeController::setTargetAttitude(double pitch, double roll)
 void AttitudeController::setTunning(double p, double i, double d)
 {
 	cout<<"set tunning: P: " << p << " I: " << i<<" D: " <<d <<endl;
-	mRollPid.setTunning(p, i, d);
+	//mRollPid.setTunning(p, i, d);
+	mYawPid.setTunning(p, i, d);
 }

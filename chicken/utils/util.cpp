@@ -43,6 +43,24 @@ double constraint(double x, double minx, double maxx)
 	return x;
 }
 
+double cycleCompare(double target, double current, double cycleSize)
+{
+	double result = target - current;
+	if (fabs(result) > (cycleSize/2.0))
+	{
+		if (result > 0)
+		{
+			result -= cycleSize;
+		}
+		else
+		{
+			result += cycleSize;
+		}
+	}
+
+	return result;
+}
+
 Point3D::Point3D(double nx, double ny, double nz)
 	:	x	(nx),
 		y	(ny),
@@ -78,3 +96,5 @@ double Point3D::absolute()
 {
 	return sqrt(x*x + y*y + z*z);
 }
+
+
