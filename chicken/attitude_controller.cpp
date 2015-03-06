@@ -29,7 +29,8 @@ AttitudeController::AttitudeController(ADI *adi, ServoController *servoControlle
 		mYawPid				(0,0,0,10),
 		mTargetPitch		(0.0),
 		mTargetRoll			(0.0),
-		mTargetYaw			(0.0)
+		mTargetYaw			(0.0),
+		mLastHeading		(0.0)
 
 {
 
@@ -45,27 +46,36 @@ void AttitudeController::work()
 	ServoSignal currentRc = mServoController->getRawServoSignal();
 	ImuAttitude attitude = mAdi->getAttitude();
 	
+	//calculate roll diff
 	double rollError = mTargetRoll - attitude.roll;
 	double rollDiff = mRollPid.updateError(rollError);
 
+	//calculate pitch diff
 	double pitchError = mTargetPitch - attitude.pitch;
 	double pitchDiff = mPitchPid.updateError(pitchError);
 
+	//calculate yaw diff
+	double  yawDiff = 0;
+
+	double cosA = cos(attitude.roll);
+	double sinA = sin(attitude.roll);
 
 	mServo.aileron = DEFAULT_SERVO_VALUE - rollDiff;
 	mServo.aileron = constraint(mServo.aileron, 1000, 2000);
 
-	mServo.elevator = DEFAULT_SERVO_VALUE - pitchDiff;
+	mServo.elevator = DEFAULT_SERVO_VALUE - cosA*pitchDiff;
 	mServo.elevator = constraint(mServo.elevator, 1000, 2000);
-	//cout<<servo.elevator<<endl;
+	
+	mServo.rudder = DEFAULT_SERVO_VALUE - sinA*pitchDiff;
+	mServo.rudder = constraint(mServo.rudder, 1000, 2000);
 
 	mServo.throttle = currentRc.throttle;
-	mServo.rudder = currentRc.rudder;
 
 	mServoController->writeServoSignal(mServo);
 
 
-	cout<<attitude.heading<<endl;
+
+	
 
 	//for debug
 	++count;
@@ -73,10 +83,11 @@ void AttitudeController::work()
 	{
 		count = 0;
 
-		cout<<"current: pitch: "<< (attitude.pitch * RAD2DEG) << "\troll: "<< (attitude.roll * RAD2DEG ) <<endl;
 		cout<<"target: pitch: "<< (mTargetPitch * RAD2DEG) << "\troll: "<< (mTargetRoll * RAD2DEG ) <<endl;
-		cout<<"roll diff: " << rollDiff << "\t servo: " << mServo.aileron<<endl;
-		cout<<"pitchDiff:" << pitchDiff <<"\toutputServo: " << mServo.elevator<<endl;
+		cout<<"current: pitch: "<< (attitude.pitch * RAD2DEG) << "\troll: "<< (attitude.roll * RAD2DEG ) <<endl;
+		cout<<"PID diff: pitch: "<< pitchDiff << "\troll: " << rollDiff<<endl;
+		cout<<"Servo aileron: " << mServo.aileron<<"\televator: "<<mServo.elevator<<"\trudder: "<<mServo.rudder<<endl;
+
 
 		cout<<endl;
 	}
@@ -89,6 +100,9 @@ void AttitudeController::reset()
 	mPitchPid.reset();
 	mRollPid.reset();
 	mYawPid.reset();
+
+	ImuAttitude attitude = mAdi->getAttitude();
+	mLastHeading = attitude.heading;
 }
 
 void AttitudeController::setTargetAttitude(double pitch, double roll)
