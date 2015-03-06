@@ -24,7 +24,7 @@ AttitudeController::AttitudeController(ADI *adi, ServoController *servoControlle
 	:	mAdi				(adi),
 		mServoController	(servoController),
 		mIsEnabled			(false),
-		mPitchPid			(300.0,		5.0,	0.0,	1000),
+		mPitchPid			(300.0,		2.0,	0.0,	1000),
 		mRollPid			(300.0, 	1.0, 	0.0, 	500),
 		mYawPid				(0,0,0,10),
 		mTargetPitch		(0.0),

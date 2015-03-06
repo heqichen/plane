@@ -27,6 +27,22 @@ int constraint(int x, int minx, int maxx)
 	return x;
 }
 
+double constraint(double x, double minx, double maxx)
+{
+	if (x < minx)
+	{
+		x = minx;
+	}
+	else
+	{
+		if (x > maxx)
+		{
+			x = maxx;
+		}
+	}
+	return x;
+}
+
 Point3D::Point3D(double nx, double ny, double nz)
 	:	x	(nx),
 		y	(ny),

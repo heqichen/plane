@@ -25,6 +25,7 @@ class Point3D
 
 unsigned long millis();
 int constraint(int x, int minx, int maxx);
+double constraint(double x, double minx, double maxxI);
 
 
 

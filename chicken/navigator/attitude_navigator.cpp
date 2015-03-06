@@ -1,8 +1,13 @@
 #include "attitude_navigator.h"
-
+#include <utils/util.h>
 #include <iostream>
 #include <math.h>
 using namespace std;
+
+#ifndef PI
+#define PI 3.1415926535897932384626433832795
+#endif
+#define MAX_ANGLE  60.0*PI/180.0
 
 AttitudeNavigator::AttitudeNavigator(ServoController *servoController, AttitudeController *attitudeController, ADI *adi)
 	:	mServoController	(servoController),
@@ -19,22 +24,11 @@ AttitudeNavigator::AttitudeNavigator(ServoController *servoController, AttitudeC
 void AttitudeNavigator::navigate()
 {
 	mRcSignal = mServoController->getRawServoSignal();
-	double pitchDiff = (mRcSignal.elevator - DEFAULT_SERVO_VALUE) / 10000.0;
-	if (fabs(pitchDiff) < 0.01)
-	{
-		pitchDiff = 0.0;
-	}
-	mPitchTarget -= pitchDiff;
-
-
-	double rollDiff = (mRcSignal.aileron - DEFAULT_SERVO_VALUE) / 10000.0;
-	if (fabs(rollDiff) < 0.01)
-	{
-		rollDiff = 0.0;
-	}
-	mRollTarget -= rollDiff;
-
-
+	
+	mPitchTarget -= calculateTargetDiff(mRcSignal.elevator);
+	mPitchTarget = constraint(mPitchTarget, -MAX_ANGLE, MAX_ANGLE);
+	mRollTarget -= calculateTargetDiff(mRcSignal.aileron);
+	mRollTarget = constraint(mRollTarget, -MAX_ANGLE, MAX_ANGLE);
 
 	mAttitudeController->setTargetAttitude(mPitchTarget, mRollTarget);
 
@@ -61,4 +55,15 @@ void AttitudeNavigator::onTakeover()
 void AttitudeNavigator::onRelease()
 {
 	mAttitudeController->setEnabled(false);
+}
+
+double AttitudeNavigator::calculateTargetDiff(int servoValue)
+{
+	servoValue -= DEFAULT_SERVO_VALUE;
+	if (servoValue>-50 & servoValue<50)
+	{
+		servoValue = 0;
+	}
+	double diff = servoValue / 5000.0;
+	return diff;
 }

@@ -22,6 +22,7 @@ class AttitudeNavigator	:	public INavigator
 		double mRollTarget;
 
 		void updateTarget();
+		double calculateTargetDiff(int servoValue);
 };
 
 #endif
