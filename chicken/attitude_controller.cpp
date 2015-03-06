@@ -30,7 +30,7 @@ AttitudeController::AttitudeController(ADI *adi, ServoController *servoControlle
 		mIsEnabled			(false),
 		mPitchPid			(1000.0,	10.0,	0.0,	1000),
 		mRollPid			(600.0, 	5.0, 	0.0, 	500),
-		mYawPid				(2000.0,	20.0,	0.0,	10),
+		mYawPid				(3000.0,	20.0,	0.0,	10),
 		mTargetPitch		(0.0),
 		mTargetRoll			(0.0),
 		mTargetYaw			(0.0),
@@ -70,11 +70,10 @@ void AttitudeController::work()
 	mServo.aileron = DEFAULT_SERVO_VALUE + rollDiff;
 	mServo.aileron = constraint(mServo.aileron, 1000, 2000);
 
-	mServo.elevator = DEFAULT_SERVO_VALUE - cosA*pitchDiff;
+	mServo.elevator = DEFAULT_SERVO_VALUE - cosA*pitchDiff + yawDiff*sinA;
 	mServo.elevator = constraint(mServo.elevator, 1000, 2000);
 	
-	//mServo.rudder = DEFAULT_SERVO_VALUE - sinA*pitchDiff + yawDiff;
-	mServo.rudder = DEFAULT_SERVO_VALUE + yawDiff;
+	mServo.rudder = DEFAULT_SERVO_VALUE - sinA*pitchDiff + yawDiff*cosA;
 	mServo.rudder = constraint(mServo.rudder, 1000, 2000);
 
 	mServo.throttle = currentRc.throttle;
@@ -84,8 +83,6 @@ void AttitudeController::work()
 
 
 	//for testing, remove soon
-	mServo.aileron = currentRc.aileron;
-	mServo.elevator =currentRc.elevator;
 
 	
 	mServoController->writeServoSignal(mServo);
