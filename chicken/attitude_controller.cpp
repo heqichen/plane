@@ -43,7 +43,7 @@ void AttitudeController::work()
 	}
 
 	ServoSignal currentRc = mServoController->getRawServoSignal();
-	Attitude attitude = mAdi->getAttitude();
+	ImuAttitude attitude = mAdi->getAttitude();
 	
 	double rollError = mTargetRoll - attitude.roll;
 	double rollDiff = mRollPid.updateError(rollError);
@@ -65,7 +65,7 @@ void AttitudeController::work()
 	mServoController->writeServoSignal(mServo);
 
 
-
+	cout<<attitude.heading<<endl;
 
 	//for debug
 	++count;

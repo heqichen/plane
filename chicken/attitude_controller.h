@@ -24,9 +24,12 @@ class AttitudeController	:	public IIntervalThread
 		PID mPitchPid;
 		PID mRollPid;
 		PID mYawPid;
+
 		double mTargetPitch;
 		double mTargetRoll;
 		double mTargetYaw;
+
+		double mLastHeading;
 };
 
 #endif

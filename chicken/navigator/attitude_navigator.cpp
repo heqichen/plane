@@ -39,7 +39,7 @@ void AttitudeNavigator::navigate()
 void AttitudeNavigator::onTakeover()
 {
 	mAttitudeController->reset();
-	Attitude currentAttitude = mAdi->getAttitude();
+	ImuAttitude currentAttitude = mAdi->getAttitude();
 	mPitchTarget = currentAttitude.pitch;
 	mRollTarget = currentAttitude.roll;
 
