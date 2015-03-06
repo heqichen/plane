@@ -11,7 +11,7 @@ IO_OBJS = device/driver/io/io.o device/driver/io/serial_handler.o device/driver/
 DRIVER_OBJS = device/driver/serial_radio_driver.o device/driver/bmx055_driver.o device/driver/serial_servo_driver.o device/driver/ads7828_driver.o device/driver/beeper_driver.o
 DEVICE_OBJS = device/radio.o device/i_device.o device/imu.o device/servo_controller.o device/aoa.o device/beeper.o device/agl.o device/virtual_imu.o
 INSTRU_OBJS = instruments/adi.o
-NAVIGATOR_OBJS = navigator/attitude_navigator.o
+NAVIGATOR_OBJS = navigator/i_navigator.o navigator/attitude_navigator.o navigator/manully_navigator.o
 OBJS = chicken.o device_manager.o status_controller.o attitude_controller.o $(UTILS_OBJS) $(DRIVER_OBJS) $(DEVICE_OBJS) $(IO_OBJS) $(INSTRU_OBJS) $(NAVIGATOR_OBJS)
 
 

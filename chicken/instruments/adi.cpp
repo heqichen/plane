@@ -12,7 +12,7 @@ ADI::~ADI()
 
 }
 
-Attitude ADI::getAttitude()
+ImuAttitude ADI::getAttitude()
 {
 	ImuAttitude imu;
 	if (mVirtualImu!=NULL && mVirtualImu->isInService())
@@ -23,9 +23,5 @@ Attitude ADI::getAttitude()
 	{
 		imu = mImu->getAttitude();
 	}
-	Attitude a;
-	a.pitch = imu.pitch;
-	a.roll = imu.roll;
-	a.yaw = imu.heading;
-	return a;
+	return imu;
 }
