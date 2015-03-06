@@ -7,6 +7,7 @@ class PID
 		PID(double p, double i, double d, int interWinSize);
 		~PID();
 		double updateError(double error);
+		void setTunning(double kp, double ki, double kd);
 		void reset();
 	private:
 		double mKp;

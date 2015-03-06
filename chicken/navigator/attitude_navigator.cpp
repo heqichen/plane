@@ -25,7 +25,7 @@ void AttitudeNavigator::onTakeover()
 	Attitude currentAttitude = mAdi->getAttitude();
 	mAttitudeController->setTargetAttitude(currentAttitude.pitch, currentAttitude.roll);
 	
-	cout<<"set attitude target to pitch: "<<currentAttitude.pitch << "\troll: "<<currentAttitude.roll<<endl;
+	cout<<"set attitude target to pitch: "<<currentAttitude.pitch * 180.0 / 3.1415926 << "\troll: "<<currentAttitude.roll<<endl;
 
 	mAttitudeController->setEnabled(true);
 

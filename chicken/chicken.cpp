@@ -75,8 +75,12 @@ int main(int argc, char *argv[])
 	statusController->setNavigator(FLIGHT_STATUS_ATTITUDE, attitudeNavigator);
 	statusController->start();
 
-	int a;
-	cin>>a;
+	double p, i, d;
+	while (true)
+	{
+		cin>>p>>i>>d;
+		attitudeController->setTunning(p, i, d);
+	}
 	return 0;
 }
 

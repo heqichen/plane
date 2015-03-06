@@ -60,3 +60,9 @@ double PID::updateError(double error)
 
 }
 
+void PID::setTunning(double kp, double ki, double kd)
+{
+	mKp = kp;
+	mKi = ki;
+	mKd = kd;
+}
