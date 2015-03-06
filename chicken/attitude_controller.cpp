@@ -24,8 +24,8 @@ AttitudeController::AttitudeController(ADI *adi, ServoController *servoControlle
 	:	mAdi				(adi),
 		mServoController	(servoController),
 		mIsEnabled			(false),
-		mPitchPid			(300.0,		2.0,	0.0,	1000),
-		mRollPid			(300.0, 	1.0, 	0.0, 	500),
+		mPitchPid			(1000.0,	10.0,	0.0,	1000),
+		mRollPid			(600.0, 	5.0, 	0.0, 	500),
 		mYawPid				(0,0,0,10),
 		mTargetPitch		(0.0),
 		mTargetRoll			(0.0),
@@ -60,7 +60,7 @@ void AttitudeController::work()
 	double cosA = cos(attitude.roll);
 	double sinA = sin(attitude.roll);
 
-	mServo.aileron = DEFAULT_SERVO_VALUE - rollDiff;
+	mServo.aileron = DEFAULT_SERVO_VALUE + rollDiff;
 	mServo.aileron = constraint(mServo.aileron, 1000, 2000);
 
 	mServo.elevator = DEFAULT_SERVO_VALUE - cosA*pitchDiff;
@@ -79,13 +79,14 @@ void AttitudeController::work()
 
 	//for debug
 	++count;
-	if (count >= 100)
+	if (count >= 10)
 	{
 		count = 0;
 
 		cout<<"target: pitch: "<< (mTargetPitch * RAD2DEG) << "\troll: "<< (mTargetRoll * RAD2DEG ) <<endl;
 		cout<<"current: pitch: "<< (attitude.pitch * RAD2DEG) << "\troll: "<< (attitude.roll * RAD2DEG ) <<endl;
 		cout<<"PID diff: pitch: "<< pitchDiff << "\troll: " << rollDiff<<endl;
+		cout<<"sinA: "<<sinA<<"\tcosA: "<<cosA<<endl;
 		cout<<"Servo aileron: " << mServo.aileron<<"\televator: "<<mServo.elevator<<"\trudder: "<<mServo.rudder<<endl;
 
 

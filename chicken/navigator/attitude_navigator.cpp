@@ -23,14 +23,25 @@ AttitudeNavigator::AttitudeNavigator(ServoController *servoController, AttitudeC
 
 void AttitudeNavigator::navigate()
 {
+	ImuAttitude attitude = mAdi->getAttitude();
+	double cosA = cos(attitude.roll);
+	double sinA = sin(attitude.roll);
+
 	mRcSignal = mServoController->getRawServoSignal();
 	
-	mPitchTarget -= calculateTargetDiff(mRcSignal.elevator);
+	double elevatorDiff = calculateTargetDiff(mRcSignal.elevator);
+	double rudderDiff = calculateTargetDiff(mRcSignal.rudder);
+	
+
+	mPitchTarget += (-cosA*elevatorDiff -sinA*rudderDiff);
 	mPitchTarget = constraint(mPitchTarget, -MAX_ANGLE, MAX_ANGLE);
-	mRollTarget -= calculateTargetDiff(mRcSignal.aileron);
+
+	mRollTarget += calculateTargetDiff(mRcSignal.aileron);
 	mRollTarget = constraint(mRollTarget, -MAX_ANGLE, MAX_ANGLE);
 
 	mAttitudeController->setTargetAttitude(mPitchTarget, mRollTarget);
+
+
 
 
 }
