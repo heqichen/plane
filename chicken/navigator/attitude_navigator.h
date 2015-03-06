@@ -17,7 +17,11 @@ class AttitudeNavigator	:	public INavigator
 		ServoController *mServoController;
 		AttitudeController *mAttitudeController;
 		ADI *mAdi;
-		bool mIsEnabled;
+		ServoSignal mRcSignal;
+		double mPitchTarget;
+		double mRollTarget;
+
+		void updateTarget();
 };
 
 #endif

@@ -6,11 +6,13 @@ using namespace std;
 
 int count;
 
+#define RAD2DEG 180.0/3.14159265358
+
 /*
 
 PID @ 4x speed
 pitch:	300, 5, 0
-roll:	50, 1, 0
+roll:	300, 1, 0
 
 PID @ 1x speed
 pitch:	1000, 10, 0
@@ -23,7 +25,7 @@ AttitudeController::AttitudeController(ADI *adi, ServoController *servoControlle
 		mServoController	(servoController),
 		mIsEnabled			(false),
 		mPitchPid			(300.0,		5.0,	0.0,	1000),
-		mRollPid			(50, 		1.0, 	0.0, 	500),
+		mRollPid			(300.0, 	1.0, 	0.0, 	500),
 		mYawPid				(0,0,0,10),
 		mTargetPitch		(0.0),
 		mTargetRoll			(0.0),
@@ -70,6 +72,9 @@ void AttitudeController::work()
 	if (count >= 100)
 	{
 		count = 0;
+
+		cout<<"current: pitch: "<< (attitude.pitch * RAD2DEG) << "\troll: "<< (attitude.roll * RAD2DEG ) <<endl;
+		cout<<"target: pitch: "<< (mTargetPitch * RAD2DEG) << "\troll: "<< (mTargetRoll * RAD2DEG ) <<endl;
 		cout<<"roll diff: " << rollDiff << "\t servo: " << mServo.aileron<<endl;
 		cout<<"pitchDiff:" << pitchDiff <<"\toutputServo: " << mServo.elevator<<endl;
 
