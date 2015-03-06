@@ -14,7 +14,8 @@ AttitudeNavigator::AttitudeNavigator(ServoController *servoController, AttitudeC
 		mAttitudeController	(attitudeController),
 		mAdi				(adi),
 		mPitchTarget		(0.0),
-		mRollTarget			(0.0)
+		mRollTarget			(0.0),
+		mYawTarget			(0.0)
 {
 
 }
@@ -39,7 +40,9 @@ void AttitudeNavigator::navigate()
 	mRollTarget += calculateTargetDiff(mRcSignal.aileron);
 	mRollTarget = constraint(mRollTarget, -MAX_ANGLE, MAX_ANGLE);
 
-	mAttitudeController->setTargetAttitude(mPitchTarget, mRollTarget);
+	mYawTarget = cosA*rudderDiff - sinA*elevatorDiff;
+
+	mAttitudeController->setTargetAttitude(mPitchTarget, mRollTarget, mYawTarget);
 
 
 
@@ -53,9 +56,9 @@ void AttitudeNavigator::onTakeover()
 	ImuAttitude currentAttitude = mAdi->getAttitude();
 	mPitchTarget = currentAttitude.pitch;
 	mRollTarget = currentAttitude.roll;
+	mYawTarget = 0.0;
 
-
-	mAttitudeController->setTargetAttitude(mPitchTarget, mRollTarget);
+	mAttitudeController->setTargetAttitude(mPitchTarget, mRollTarget, mYawTarget);
 	
 	cout<<"set attitude target to pitch: "<<mPitchTarget * 180.0 / 3.1415926 << "\troll: "<<mRollTarget<<endl;
 

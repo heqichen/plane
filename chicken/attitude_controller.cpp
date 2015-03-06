@@ -118,11 +118,11 @@ void AttitudeController::reset()
 	mLastHeading = attitude.heading;
 }
 
-void AttitudeController::setTargetAttitude(double pitch, double roll)
+void AttitudeController::setTargetAttitude(double pitch, double roll, double yaw)
 {
 	mTargetPitch = pitch;
 	mTargetRoll = roll;
-	mTargetYaw = 0.0;
+	mTargetYaw = yaw;
 }
 
 void AttitudeController::setTunning(double p, double i, double d)

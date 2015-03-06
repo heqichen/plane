@@ -20,7 +20,8 @@ class AttitudeNavigator	:	public INavigator
 		ServoSignal mRcSignal;
 		double mPitchTarget;
 		double mRollTarget;
-
+		double mYawTarget;
+		
 		void updateTarget();
 		double calculateTargetDiff(int servoValue);
 };
