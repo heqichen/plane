@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.5" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.5" altunitdist="mm" altunit="mm"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -77,37 +77,27 @@
 <smd name="GND" x="2" y="9.5" dx="1.27" dy="0.635" layer="1"/>
 <smd name="VCC" x="3" y="4" dx="1.27" dy="0.635" layer="1"/>
 <rectangle x1="0" y1="-0.5" x2="8" y2="6" layer="1"/>
-<pad name="P$1" x="1" y="12" drill="0.5" diameter="0.6096"/>
-<pad name="P$2" x="1" y="10.5" drill="0.5" diameter="0.6096"/>
-<pad name="P$3" x="1" y="9" drill="0.5" diameter="0.6096"/>
-<pad name="P$4" x="1" y="7.5" drill="0.5" diameter="0.6096"/>
-<pad name="P$5" x="2.5" y="7.5" drill="0.5" diameter="0.6096"/>
-<pad name="P$6" x="2.5" y="9" drill="0.5" diameter="0.6096"/>
-<pad name="P$7" x="2.5" y="10.5" drill="0.5" diameter="0.6096"/>
-<pad name="P$8" x="2.5" y="12" drill="0.5" diameter="0.6096"/>
-<pad name="P$9" x="4" y="12" drill="0.5" diameter="0.6096"/>
-<pad name="P$10" x="4" y="10.5" drill="0.5" diameter="0.6096"/>
-<pad name="P$11" x="4" y="9" drill="0.5" diameter="0.6096"/>
-<pad name="P$12" x="4" y="7.5" drill="0.5" diameter="0.6096"/>
-<pad name="P$13" x="5.5" y="7.5" drill="0.5" diameter="0.6096"/>
-<pad name="P$14" x="5.5" y="9" drill="0.5" diameter="0.6096"/>
-<pad name="P$15" x="5.5" y="10.5" drill="0.5" diameter="0.6096"/>
-<pad name="P$16" x="5.5" y="12" drill="0.5" diameter="0.6096"/>
-<pad name="P$17" x="7" y="12" drill="0.5" diameter="0.6096"/>
-<pad name="P$18" x="7" y="10.5" drill="0.5" diameter="0.6096"/>
-<pad name="P$19" x="7" y="9" drill="0.5" diameter="0.6096"/>
-<pad name="P$20" x="7" y="7.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$2" x="1" y="11.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$3" x="1" y="10" drill="0.5" diameter="0.6096"/>
+<pad name="P$4" x="1" y="8" drill="0.5" diameter="0.6096"/>
+<pad name="P$5" x="2.5" y="8" drill="0.5" diameter="0.6096"/>
+<pad name="P$6" x="2.5" y="10" drill="0.5" diameter="0.6096"/>
+<pad name="P$7" x="2.5" y="11.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$10" x="4" y="11.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$11" x="4" y="10" drill="0.5" diameter="0.6096"/>
+<pad name="P$12" x="4" y="8" drill="0.5" diameter="0.6096"/>
+<pad name="P$13" x="5.5" y="8" drill="0.5" diameter="0.6096"/>
+<pad name="P$14" x="5.5" y="10" drill="0.5" diameter="0.6096"/>
+<pad name="P$15" x="5.5" y="11.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$18" x="7" y="11.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$19" x="7" y="10" drill="0.5" diameter="0.6096"/>
+<pad name="P$20" x="7" y="8" drill="0.5" diameter="0.6096"/>
 <pad name="P$21" x="1" y="5.5" drill="0.5" diameter="0.6096"/>
 <pad name="P$22" x="2.5" y="5.5" drill="0.5" diameter="0.6096"/>
 <pad name="P$23" x="4" y="5.5" drill="0.5" diameter="0.6096"/>
 <pad name="P$24" x="5.5" y="5.5" drill="0.5" diameter="0.6096"/>
 <pad name="P$26" x="1" y="2" drill="0.5" diameter="0.6096"/>
 <pad name="P$27" x="5.5" y="2" drill="0.5" diameter="0.6096"/>
-<pad name="P$28" x="7.5" y="1" drill="0.5" diameter="0.6096"/>
-<pad name="P$29" x="6" y="1" drill="0.5" diameter="0.6096"/>
-<pad name="P$30" x="4.5" y="1" drill="0.5" diameter="0.6096"/>
-<pad name="P$31" x="3" y="1" drill="0.5" diameter="0.6096"/>
-<pad name="P$32" x="1.5" y="1" drill="0.5" diameter="0.6096"/>
 <rectangle x1="0" y1="-0.5" x2="8" y2="6" layer="16"/>
 <rectangle x1="0" y1="7" x2="8" y2="13.5" layer="16"/>
 <pad name="P$33" x="1" y="0" drill="0.5" diameter="0.6096"/>
@@ -127,9 +117,7 @@
 <rectangle x1="0" y1="-0.5" x2="8" y2="6" layer="30"/>
 <pad name="P$44" x="2.5" y="2" drill="0.5" diameter="0.6096"/>
 <pad name="P$45" x="4" y="2" drill="0.5" diameter="0.6096"/>
-<pad name="P$46" x="6.5" y="3" drill="0.5" diameter="0.6096"/>
 <pad name="P$47" x="7.5" y="3.5" drill="0.5" diameter="0.6096"/>
-<pad name="P$48" x="6.5" y="4.5" drill="0.5" diameter="0.6096"/>
 <pad name="P$49" x="7.5" y="5" drill="0.5" diameter="0.6096"/>
 <rectangle x1="0" y1="7" x2="8" y2="13.5" layer="1"/>
 </package>
@@ -171,17 +159,11 @@
 <pad name="P$14" x="5" y="3.5" drill="0.5" diameter="0.6096"/>
 <pad name="P$15" x="6.5" y="3.5" drill="0.5" diameter="0.6096"/>
 <pad name="P$16" x="7.5" y="2.5" drill="0.5" diameter="0.6096"/>
-<pad name="P$17" x="6.5" y="2" drill="0.5" diameter="0.6096"/>
 <pad name="P$18" x="7.5" y="1" drill="0.5" diameter="0.6096"/>
-<pad name="P$19" x="6.5" y="0.5" drill="0.5" diameter="0.6096"/>
 <pad name="P$20" x="1" y="0" drill="0.5" diameter="0.6096"/>
 <pad name="P$21" x="2.5" y="0" drill="0.5" diameter="0.6096"/>
 <pad name="P$22" x="4" y="0" drill="0.5" diameter="0.6096"/>
 <pad name="P$23" x="5.5" y="0" drill="0.5" diameter="0.6096"/>
-<pad name="P$6" x="1" y="4.5" drill="0.5" diameter="0.6096"/>
-<pad name="P$7" x="3" y="4.5" drill="0.5" diameter="0.6096"/>
-<pad name="P$8" x="4.5" y="4.5" drill="0.5" diameter="0.6096"/>
-<pad name="P$9" x="6" y="4.5" drill="0.5" diameter="0.6096"/>
 <pad name="P$10" x="1" y="8" drill="0.5" diameter="0.6096"/>
 <pad name="P$24" x="2.5" y="8" drill="0.5" diameter="0.6096"/>
 <pad name="P$25" x="4" y="8" drill="0.5" diameter="0.6096"/>
