@@ -54,5 +54,7 @@ ehthumbs.db
 Thumbs.db
 /app/styles/slide/slides.psd
 
-#eagle
-*/*.l#*
+#Eagle temp files
+*.b#*
+*.s#*
+*.l#*
