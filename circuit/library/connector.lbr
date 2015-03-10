@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE eagle SYSTEM "eagle.dtd">
+<eagle version="7.0.0">
+<drawing>
+<settings>
+<setting alwaysvectorfont="no"/>
+<setting verticaltext="up"/>
+</settings>
+<grid distance="0.5" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.5" altunitdist="mm" altunit="mm"/>
+<layers>
+<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="27" name="tValues" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
+<layer number="30" name="bStop" color="7" fill="6" visible="yes" active="yes"/>
+<layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
+<layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
+<layer number="33" name="tFinish" color="6" fill="3" visible="no" active="yes"/>
+<layer number="34" name="bFinish" color="6" fill="6" visible="no" active="yes"/>
+<layer number="35" name="tGlue" color="7" fill="4" visible="no" active="yes"/>
+<layer number="36" name="bGlue" color="7" fill="5" visible="no" active="yes"/>
+<layer number="37" name="tTest" color="7" fill="1" visible="no" active="yes"/>
+<layer number="38" name="bTest" color="7" fill="1" visible="no" active="yes"/>
+<layer number="39" name="tKeepout" color="4" fill="11" visible="yes" active="yes"/>
+<layer number="40" name="bKeepout" color="1" fill="11" visible="yes" active="yes"/>
+<layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
+<layer number="42" name="bRestrict" color="1" fill="10" visible="yes" active="yes"/>
+<layer number="43" name="vRestrict" color="2" fill="10" visible="yes" active="yes"/>
+<layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
+<layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="46" name="Milling" color="3" fill="1" visible="yes" active="yes"/>
+<layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
+<layer number="48" name="Document" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="51" name="tDocu" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="52" name="bDocu" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="90" name="Modules" color="5" fill="1" visible="yes" active="yes"/>
+<layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="93" name="Pins" color="2" fill="1" visible="no" active="yes"/>
+<layer number="94" name="Symbols" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="95" name="Names" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="96" name="Values" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="97" name="Info" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="98" name="Guide" color="6" fill="1" visible="yes" active="yes"/>
+</layers>
+<library>
+<packages>
+<package name="T-MALE">
+<wire x1="0" y1="0" x2="0" y2="3.2" width="0.127" layer="21"/>
+<wire x1="0" y1="3.2" x2="0" y2="4.7" width="0.127" layer="21"/>
+<wire x1="0" y1="4.7" x2="0" y2="8.3" width="0.127" layer="21"/>
+<wire x1="0" y1="8.3" x2="0" y2="11.2" width="0.127" layer="21"/>
+<wire x1="0" y1="11.2" x2="0" y2="13.5" width="0.127" layer="21"/>
+<wire x1="0" y1="4.7" x2="5.2" y2="4.7" width="0.127" layer="21"/>
+<wire x1="5.2" y1="4.7" x2="5.2" y2="3.2" width="0.127" layer="21"/>
+<wire x1="5.2" y1="3.2" x2="0" y2="3.2" width="0.127" layer="21"/>
+<wire x1="0" y1="8.3" x2="5.2" y2="8.3" width="0.127" layer="21"/>
+<wire x1="5.2" y1="8.3" x2="5.2" y2="11.2" width="0.127" layer="21"/>
+<wire x1="5.2" y1="11.2" x2="0" y2="11.2" width="0.127" layer="21"/>
+<wire x1="0" y1="13.5" x2="-7.62" y2="13.5" width="0.127" layer="21"/>
+<wire x1="0" y1="0" x2="-7.62" y2="0" width="0.127" layer="21"/>
+<wire x1="0" y1="5" x2="5.5" y2="5" width="0.127" layer="46"/>
+<wire x1="5.5" y1="5" x2="5.5" y2="3" width="0.127" layer="46"/>
+<wire x1="5.5" y1="3" x2="0" y2="3" width="0.127" layer="46"/>
+<smd name="GND" x="2" y="10" dx="1.27" dy="0.635" layer="1"/>
+<smd name="VCC" x="3" y="4" dx="1.27" dy="0.635" layer="1"/>
+<rectangle x1="0" y1="7.5" x2="8" y2="14" layer="1"/>
+<rectangle x1="0" y1="0" x2="8" y2="6.5" layer="1"/>
+<pad name="P$1" x="1" y="12.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$2" x="1" y="11" drill="0.5" diameter="0.6096"/>
+<pad name="P$3" x="1" y="9.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$4" x="1" y="8" drill="0.5" diameter="0.6096"/>
+<pad name="P$5" x="2.5" y="8" drill="0.5" diameter="0.6096"/>
+<pad name="P$6" x="2.5" y="9.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$7" x="2.5" y="11" drill="0.5" diameter="0.6096"/>
+<pad name="P$8" x="2.5" y="12.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$9" x="4" y="12.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$10" x="4" y="11" drill="0.5" diameter="0.6096"/>
+<pad name="P$11" x="4" y="9.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$12" x="4" y="8" drill="0.5" diameter="0.6096"/>
+<pad name="P$13" x="5.5" y="8" drill="0.5" diameter="0.6096"/>
+<pad name="P$14" x="5.5" y="9.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$15" x="5.5" y="11" drill="0.5" diameter="0.6096"/>
+<pad name="P$16" x="5.5" y="12.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$17" x="7" y="12.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$18" x="7" y="11" drill="0.5" diameter="0.6096"/>
+<pad name="P$19" x="7" y="9.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$20" x="7" y="8" drill="0.5" diameter="0.6096"/>
+<pad name="P$21" x="1" y="6" drill="0.5" diameter="0.6096"/>
+<pad name="P$22" x="2.5" y="6" drill="0.5" diameter="0.6096"/>
+<pad name="P$23" x="4" y="6" drill="0.5" diameter="0.6096"/>
+<pad name="P$24" x="5.5" y="6" drill="0.5" diameter="0.6096"/>
+<pad name="P$25" x="7" y="6" drill="0.5" diameter="0.6096"/>
+<pad name="P$26" x="6.5" y="5" drill="0.5" diameter="0.6096"/>
+<pad name="P$27" x="7" y="4" drill="0.5" diameter="0.6096"/>
+<pad name="P$28" x="7" y="2" drill="0.5" diameter="0.6096"/>
+<pad name="P$29" x="5.5" y="2" drill="0.5" diameter="0.6096"/>
+<pad name="P$30" x="4" y="2" drill="0.5" diameter="0.6096"/>
+<pad name="P$31" x="2.5" y="2" drill="0.5" diameter="0.6096"/>
+<pad name="P$32" x="1" y="2" drill="0.5" diameter="0.6096"/>
+<rectangle x1="0" y1="0" x2="8" y2="6.5" layer="16"/>
+<rectangle x1="0" y1="7.5" x2="8" y2="14" layer="16"/>
+<pad name="P$33" x="1" y="0.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$34" x="2.5" y="0.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$35" x="4" y="0.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$36" x="5.5" y="0.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$37" x="6.5" y="3" drill="0.5" diameter="0.6096" rot="R90"/>
+<pad name="P$38" x="7" y="0.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$39" x="1" y="13.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$40" x="2.5" y="13.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$41" x="4" y="13.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$42" x="5.5" y="13.5" drill="0.5" diameter="0.6096"/>
+<pad name="P$43" x="7" y="13.5" drill="0.5" diameter="0.6096"/>
+<rectangle x1="0" y1="7.5" x2="8" y2="14" layer="29"/>
+<rectangle x1="0" y1="7.5" x2="8" y2="14" layer="30"/>
+<rectangle x1="0" y1="0" x2="8" y2="6.5" layer="29"/>
+<rectangle x1="0" y1="0" x2="8" y2="6.5" layer="30"/>
+</package>
+</packages>
+<symbols>
+</symbols>
+<devicesets>
+</devicesets>
+</library>
+</drawing>
+</eagle>
