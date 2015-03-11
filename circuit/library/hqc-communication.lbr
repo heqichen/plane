@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE eagle SYSTEM "eagle.dtd">
+<eagle version="7.0.0">
+<drawing>
+<settings>
+<setting alwaysvectorfont="no"/>
+<setting verticaltext="up"/>
+</settings>
+<grid distance="0.5" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.5" altunitdist="mm" altunit="mm"/>
+<layers>
+<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="27" name="tValues" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
+<layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
+<layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
+<layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
+<layer number="33" name="tFinish" color="6" fill="3" visible="no" active="yes"/>
+<layer number="34" name="bFinish" color="6" fill="6" visible="no" active="yes"/>
+<layer number="35" name="tGlue" color="7" fill="4" visible="no" active="yes"/>
+<layer number="36" name="bGlue" color="7" fill="5" visible="no" active="yes"/>
+<layer number="37" name="tTest" color="7" fill="1" visible="no" active="yes"/>
+<layer number="38" name="bTest" color="7" fill="1" visible="no" active="yes"/>
+<layer number="39" name="tKeepout" color="4" fill="11" visible="yes" active="yes"/>
+<layer number="40" name="bKeepout" color="1" fill="11" visible="yes" active="yes"/>
+<layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
+<layer number="42" name="bRestrict" color="1" fill="10" visible="yes" active="yes"/>
+<layer number="43" name="vRestrict" color="2" fill="10" visible="yes" active="yes"/>
+<layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
+<layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
+<layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
+<layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
+<layer number="48" name="Document" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="51" name="tDocu" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="52" name="bDocu" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="90" name="Modules" color="5" fill="1" visible="yes" active="yes"/>
+<layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="93" name="Pins" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="94" name="Symbols" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="95" name="Names" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="96" name="Values" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="97" name="Info" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="98" name="Guide" color="6" fill="1" visible="yes" active="yes"/>
+</layers>
+<library>
+<packages>
+<package name="2.5W-TDD">
+<wire x1="0" y1="0" x2="40.1" y2="0" width="0.127" layer="21"/>
+<wire x1="40.1" y1="0" x2="40.1" y2="30.1" width="0.127" layer="21"/>
+<wire x1="40.1" y1="30.1" x2="0" y2="30.1" width="0.127" layer="21"/>
+<wire x1="0" y1="30.1" x2="0" y2="0" width="0.127" layer="21"/>
+<smd name="GND6" x="6.05" y="0" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="VLNA" x="10.05" y="0" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="GND5" x="14.05" y="0" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="GND4" x="34.05" y="0" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="GND2-ANT" x="40.1" y="6.85" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="ANT" x="40.1" y="10.85" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="GND1-ANT" x="40.1" y="14.85" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="GND3" x="40.1" y="22.85" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="GND2" x="34.05" y="30.1" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="GND1" x="26.05" y="30.1" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="VPA" x="22.05" y="30.1" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="GND-TX" x="18.05" y="30.1" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="TX" x="14.05" y="30.1" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="RX" x="10.05" y="30.1" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="GND-RX" x="6.05" y="30.1" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="RFOUT" x="0" y="22.55" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="GND-RFOUT" x="0" y="18.55" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="GND-RFIN" x="0" y="10.55" dx="2" dy="2" layer="1" roundness="100"/>
+<smd name="RFIN" x="0" y="6.55" dx="2" dy="2" layer="1" roundness="100"/>
+<text x="6.35" y="16.51" size="4" layer="21">INNOTION</text>
+<text x="7.62" y="11.43" size="3" layer="21">Technologies</text>
+<text x="17.78" y="-3.81" size="1.27" layer="25">&gt;name</text>
+<text x="17.78" y="-6.35" size="1.27" layer="27">&gt;value</text>
+<polygon width="0.127" layer="1">
+<vertex x="36.1" y="26.1"/>
+<vertex x="4" y="26.1"/>
+<vertex x="4" y="4"/>
+<vertex x="36.1" y="4"/>
+</polygon>
+<rectangle x1="5" y1="0" x2="7" y2="5" layer="1"/>
+<rectangle x1="13" y1="0" x2="15" y2="4.5" layer="1"/>
+<rectangle x1="33" y1="0" x2="35" y2="5" layer="1"/>
+<rectangle x1="33.5" y1="5.5" x2="40" y2="8" layer="1"/>
+<rectangle x1="34.5" y1="14" x2="40" y2="16" layer="1"/>
+<rectangle x1="34" y1="21.5" x2="40" y2="24" layer="1"/>
+<rectangle x1="33" y1="25.5" x2="35" y2="30.5" layer="1"/>
+<rectangle x1="25" y1="25" x2="27" y2="30" layer="1"/>
+<rectangle x1="5" y1="25" x2="7" y2="30" layer="1"/>
+<rectangle x1="17" y1="24.5" x2="19" y2="30" layer="1"/>
+<rectangle x1="0" y1="17.5" x2="7" y2="19.5" layer="1"/>
+<rectangle x1="0" y1="9.5" x2="7" y2="11.5" layer="1"/>
+</package>
+</packages>
+<symbols>
+<symbol name="2.5W-TDD">
+<pin name="RFOUT" x="-43.18" y="-2.54" length="middle" direction="in"/>
+<pin name="GND-RFOUT" x="17.78" y="-15.24" length="middle" direction="pwr" rot="R90"/>
+<pin name="RFIN" x="-43.18" y="-7.62" length="middle" direction="out"/>
+<pin name="GND-RFIN" x="12.7" y="-15.24" length="middle" direction="pwr" rot="R90"/>
+<pin name="GND-RX" x="7.62" y="-15.24" length="middle" direction="pwr" rot="R90"/>
+<pin name="RX" x="-43.18" y="2.54" length="middle"/>
+<pin name="GND-TX" x="2.54" y="-15.24" length="middle" direction="pwr" rot="R90"/>
+<pin name="TX" x="-43.18" y="7.62" length="middle"/>
+<pin name="VPA" x="43.18" y="7.62" length="middle" direction="pwr" rot="R180"/>
+<pin name="GND" x="-27.94" y="-15.24" length="middle" direction="pwr" rot="R90"/>
+<pin name="GND2" x="-22.86" y="-15.24" length="middle" direction="pwr" rot="R90"/>
+<pin name="GND3" x="-17.78" y="-15.24" length="middle" direction="pwr" rot="R90"/>
+<pin name="GND1-ANT" x="22.86" y="-15.24" length="middle" direction="pwr" rot="R90"/>
+<pin name="ANT" x="43.18" y="0" length="middle" direction="out" rot="R180"/>
+<pin name="GND2-ANT" x="27.94" y="-15.24" length="middle" direction="pwr" rot="R90"/>
+<pin name="GND4" x="-12.7" y="-15.24" length="middle" direction="pwr" rot="R90"/>
+<pin name="GND5" x="-7.62" y="-15.24" length="middle" direction="pwr" rot="R90"/>
+<pin name="VLNA" x="43.18" y="5.08" length="middle" direction="pwr" rot="R180"/>
+<pin name="GND6" x="-2.54" y="-15.24" length="middle" direction="pwr" rot="R90"/>
+<wire x1="-38.1" y1="-10.16" x2="38.1" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="38.1" y1="-10.16" x2="38.1" y2="10.16" width="0.254" layer="94"/>
+<wire x1="38.1" y1="10.16" x2="-38.1" y2="10.16" width="0.254" layer="94"/>
+<wire x1="-38.1" y1="10.16" x2="-38.1" y2="-10.16" width="0.254" layer="94"/>
+<text x="-20.32" y="7.62" size="1.27" layer="95">&gt;name</text>
+<text x="-20.32" y="5.08" size="1.27" layer="96">&gt;value</text>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="2.5W-TDD">
+<gates>
+<gate name="G$1" symbol="2.5W-TDD" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="2.5W-TDD">
+<connects>
+<connect gate="G$1" pin="ANT" pad="ANT"/>
+<connect gate="G$1" pin="GND" pad="GND1"/>
+<connect gate="G$1" pin="GND-RFIN" pad="RFIN"/>
+<connect gate="G$1" pin="GND-RFOUT" pad="RFOUT"/>
+<connect gate="G$1" pin="GND-RX" pad="GND-RX"/>
+<connect gate="G$1" pin="GND-TX" pad="GND-TX"/>
+<connect gate="G$1" pin="GND1-ANT" pad="GND1-ANT"/>
+<connect gate="G$1" pin="GND2" pad="GND2"/>
+<connect gate="G$1" pin="GND2-ANT" pad="GND2-ANT"/>
+<connect gate="G$1" pin="GND3" pad="GND3"/>
+<connect gate="G$1" pin="GND4" pad="GND4"/>
+<connect gate="G$1" pin="GND5" pad="GND5"/>
+<connect gate="G$1" pin="GND6" pad="GND6"/>
+<connect gate="G$1" pin="RFIN" pad="GND-RFIN"/>
+<connect gate="G$1" pin="RFOUT" pad="GND-RFOUT"/>
+<connect gate="G$1" pin="RX" pad="RX"/>
+<connect gate="G$1" pin="TX" pad="TX"/>
+<connect gate="G$1" pin="VLNA" pad="VLNA"/>
+<connect gate="G$1" pin="VPA" pad="VPA"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
+</drawing>
+</eagle>
