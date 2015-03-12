@@ -1,0 +1,14 @@
+{
+  "name": "node-maps",
+  "version": "0.0.0",
+  "description": "WEBUI for showing GPS maps",
+  "main": "main.js",
+  "scripts": {
+    "test": "node main 8080"
+  },
+  "author": "HE Qichen",
+  "license": "MIT",
+  "dependencies": {
+    "bl": "~0.9.4"
+  }
+}
