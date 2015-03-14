@@ -1,9 +1,134 @@
 <html>
 	<head>
 		<title>Chicken GPS</title>
+		<script src="/gps/html/jquery-1.11.2.min.js"></script>
+<script>
 
+ function long2tile(lon,zoom) { return (Math.floor((lon+180)/360*Math.pow(2,zoom))); }
+ function lat2tile(lat,zoom)  { return (Math.floor((1-Math.log(Math.tan(lat*Math.PI/180) + 1/Math.cos(lat*Math.PI/180))/Math.PI)/2 *Math.pow(2,zoom))); }
+
+
+ function tile2long(x,z) {
+  return (x/Math.pow(2,z)*360-180);
+ }
+ function tile2lat(y,z) {
+  var n=Math.PI-2*Math.PI*y/Math.pow(2,z);
+  return (180/Math.PI*Math.atan(0.5*(Math.exp(n)-Math.exp(-n))));
+ }
+
+var ChickenMap = function(_domName, _longitude, _latitude) {
+	var self = this;
+	this.domName = _domName;
+	this.longitude = _longitude;
+	this.latitude = _latitude;
+	this.zoom = 18;
+
+	var tileWidth = 256;
+	var tileHeight = 256;
+
+	if (this.longitude == undefined) {
+		this.longitude = 121.504368;
+	}
+
+	if (this.latitude == undefined) {
+		this.latitude = 31.294153;
+	}
+
+	var getTileOfGps = function(lon, lat, zo) {
+		return {
+			"x":long2tile(lon, zo),
+			"y": lat2tile(lat, zo),
+			"zoom": zo
+		};
+	};
+
+	var getTileUrl = function(tile) {
+		return "http://tile.openstreetmap.org/" + tile.zoom + "/" + tile.x + "/" + tile.y + ".png";
+	};
+
+	this.setPosition = function(lon, lat){
+		self.longitude = lon;
+		self.latitude = lat;
+	};
+
+
+
+	this.test = function() {
+		var dispHeight = $(self.domName).height();
+		var dispWidth = $(self.domName).width();
+
+		console.log(dispWidth);
+		var centerX = dispWidth / 2;
+		var centerY = dispHeight / 2;
+
+
+		var tile = getTileOfGps(self.longitude, self.latitude, self.zoom);
+		var baseTileX = tile.x;
+		var baseTileY = tile.y;
+		getTileUrl(tile);
+
+
+
+		var tileCntX = dispWidth / tileWidth;
+		var tileCntY = dispHeight / tileHeight;
+		if (dispWidth % self.tileWidth != 0) {
+			tileCntX++;
+		}
+		if (dispHeight % self.tileHeight != 0) {
+			tileCntY ++;
+		}
+
+		//clear div
+		$(self.domName).empty();
+		console.log("x: " + tileCntX);
+		console.log("y: " + tileCntY);
+		console.log($(self.domName).offset());
+		var x, y;
+		for (y=0; y<tileCntY; ++y) {
+			for (x=0; x<tileCntX; ++x) {
+				tile.x = baseTileX + x;
+				tile.y = baseTileY + y;
+				var tileImg = $("<img>", {class:"map_tile", src:getTileUrl(tile)});
+				tileImg.offset({"top": y*tileHeight, "left": x * tileWidth});
+				tileImg.appendTo($(self.domName));
+			}
+		}
+	};
+
+
+};
+
+
+
+$(document).ready(function() {
+
+	var map = new ChickenMap("#map");
+	map.test();
+	
+});
+</script>
+
+<style>
+#map
+{
+	width:	100%;
+	height:	100%;
+	background-color:	red;
+	margin:	0px;
+	padding:	0px;
+	overflow: hidden;
+	position:	relative;
+}
+
+.map_tile
+{
+	position: absolute;
+
+}
+</style>
 	</head>
 	<body>
-		<h1>It Works!</h1>
+		
+		<div id="map">&nbsp;<h1>It Works!</h1></div>
 	</body>
 </html>
