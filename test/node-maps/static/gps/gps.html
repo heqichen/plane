@@ -21,7 +21,7 @@ var ChickenMap = function(_domName, _longitude, _latitude) {
 	this.domName = _domName;
 	this.longitude = _longitude;
 	this.latitude = _latitude;
-	this.zoom = 14;
+	this.zoom = 16;
 
 	var tileWidth = 256;
 	var tileHeight = 256;
@@ -126,6 +126,15 @@ $(document).ready(function() {
 .map_tile
 {
 	position: absolute;
+}
+
+#map_tilewrap
+{
+	position:	absolute;
+	height:	100%;
+	width: 100%;
+	top:	0px;
+	left:	0px;
 }
 
 #map_opmask

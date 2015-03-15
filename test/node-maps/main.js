@@ -81,13 +81,14 @@ var sendTile = function(resp, tile) {
 				
 				var request = http.get(url, function(response) {
 					response.pipe(fileStream);
+					response.on('end', function() {
+						console.log(filename  + " on end");
+						sendFile(resp, filename);
+					})
 				});
 			}
 		});
-		console.log("mkp doen");
-		
 	}
-	resp.end();
 }
 
 
