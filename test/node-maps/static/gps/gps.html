@@ -43,7 +43,8 @@ var ChickenMap = function(_domName, _longitude, _latitude) {
 	};
 
 	var getTileUrl = function(tile) {
-		return "http://tile.openstreetmap.org/" + tile.zoom + "/" + tile.x + "/" + tile.y + ".png";
+		//return "http://tile.openstreetmap.org/" + tile.zoom + "/" + tile.x + "/" + tile.y + ".png";
+		return "/gps/tile/" + tile.zoom + "/" + tile.x + "/" + tile.y + "/256x256.png";
 	};
 
 	this.setPosition = function(lon, lat){
@@ -93,6 +94,8 @@ var ChickenMap = function(_domName, _longitude, _latitude) {
 				tileImg.appendTo($(self.domName));
 			}
 		}
+
+		var opMask = $("<div>", {id:"map_opmask"}).appendTo($(self.domName));
 	};
 
 
@@ -123,7 +126,16 @@ $(document).ready(function() {
 .map_tile
 {
 	position: absolute;
+}
 
+#map_opmask
+{
+	z-index:	100;
+	position:	absolute;
+	height:	100%;
+	width:	100%;
+	top:	0px;
+	left:	0px;
 }
 </style>
 	</head>

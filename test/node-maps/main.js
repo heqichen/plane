@@ -3,14 +3,23 @@ var fs = require("fs");
 var bl = require("bl");
 var url = require("url");
 var path = require('path');
+var mkdirp = require("mkdirp");
+
+
 var mime = require("./mime");
 
+
+
+
 var httpPort = Number(process.argv[2]);
+var mapFolder = String(process.argv[3]);
+console.log("map folder is " + mapFolder);
 
 
 var route = [];
 
-var sendStaticFile = function(resp, filename)
+
+var sendFile = function(resp, filename)
 {
 	console.log("WTF filename : " + filename);
 	if (filename == undefined || filename.length<1) {
@@ -20,17 +29,65 @@ var sendStaticFile = function(resp, filename)
 	var extension = path.extname(filename);
 	var contentType = mime[extension];
 	resp.writeHead(200, {"Content-Type": contentType});
-	var fileStream = fs.createReadStream("./static/" + filename);
+
+/*
+	var fileStream = fs.createReadStream(filename);
+
+	
 	fileStream.pipe(bl(function(err, data) {
 		if (err) {
 			resp.write("500");
 			resp.end();
 		} else {
-			resp.write(data);
+			console.log(data);
+			resp.write(data, "binary");
 			resp.end();
 		}
 		
 	}));
+	*/
+
+	var file = fs.readFileSync(filename);
+	resp.write(file);
+	resp.end();
+}
+
+var sendStaticFile = function(resp, filename)
+{
+	sendFile(resp, "./static/" + filename);
+}
+
+var getTileUrl = function(tile) {
+		return "http://tile.openstreetmap.org/" + tile.zoom + "/" + tile.x + "/" + tile.y + ".png";
+	}
+
+var sendTile = function(resp, tile) {
+	console.log("tile,zoom:" + tile.zoom + " x:" + tile.x + " y:" + tile.y);
+
+	var tempFilename = mapFolder + "/" + tile.zoom + "/" + tile.x + "/" + tile.y + ".png";
+	var dirname = path.dirname(tempFilename);
+	var filename = dirname + "/" + tile.y + ".png";
+	console.log("check file: " + filename);
+	if (fs.existsSync(filename)){
+		sendFile(resp, filename);
+	} else {
+		var url = getTileUrl(tile);
+		console.log(" file not exitst, ready to downlaod from : " + url);
+		mkdirp(dirname, function(err) {
+			if (err) {
+				console.log(err);
+			} else {
+				var fileStream = fs.createWriteStream(filename);
+				
+				var request = http.get(url, function(response) {
+					response.pipe(fileStream);
+				});
+			}
+		});
+		console.log("mkp doen");
+		
+	}
+	resp.end();
 }
 
 
@@ -40,18 +97,34 @@ var handleGpsRequest = function(uri, resp){
 	if (component == undefined) {
 		sendStaticFile(resp, "gps/gps.html");
 	} else {
-		if (component == "html")
+		switch (component)
 		{
-			filename = uri.split("/")[3];
-			if (filename == undefined || filename.length < 1) {
-				resp.end()
-			} else {
-				sendStaticFile(resp, "gps/" + filename);
+			case ("html"):
+			{
+				filename = uri.split("/")[3];
+				if (filename == undefined || filename.length < 1) {
+					resp.end()
+				} else {
+					sendStaticFile(resp, "gps/" + filename);
+				}
+				break;
 			}
-			
-		} else {
-			console.log("cannot find component: " + component);
-			resp.end();
+			case ("tile"):
+			{
+				var tile = {
+					zoom: uri.split("/")[3], 
+					x: uri.split("/")[4],
+					y: uri.split("/")[5]
+				};
+				sendTile(resp, tile);
+				break;
+			}
+			default:
+			{
+				console.log("cannot find component: " + component);
+				resp.end();
+				break;
+			}
 		}
 
 	}
