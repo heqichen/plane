@@ -84,6 +84,21 @@ var ChickenMap = function(_domName, _longitude, _latitude) {
 			$("#map_opmask").html(mouseX + " , " + mouseY + "<br />" + mouseLong + ", " + mouseLat);
 
 		});
+		$("#map_opmask").mousedown(function(e) {
+			console.log(e);
+			if (e.button == 2) {
+				var offX = $("#map_opmask").offset().left;
+				var offY = $("#map_opmask").offset().top;
+				var mouseX = e.clientX - offX;
+				var mouseY = e.clientY - offY;
+
+				var mouseLong = dispLongitudeOffset + mouseX*PIXEL2LONG[self.zoom];
+				var mouseLat = dispLatitudeOffset + mouseY*pixel2lat(lat2tile(dispLatitudeOffset, self.zoom), self.zoom);
+
+				self.setPosition(mouseLong, mouseLat);
+			}
+		});
+
 
 
 	}
@@ -138,6 +153,7 @@ var ChickenMap = function(_domName, _longitude, _latitude) {
 		dispLongitudeOffset = tile2long(baseTile.x, baseTile.zoom) - offsetX*PIXEL2LONG[baseTile.zoom];
 		dispLatitudeOffset = tile2lat(baseTile.y, baseTile.zoom) - offsetY*pixel2lat(baseTile.y, baseTile.zoom);
 
+		$(tileWrapper).empty();
 		console.log(baseTile);
 		var x, y;
 		for (y=0; y<tileCntY; ++y) {
