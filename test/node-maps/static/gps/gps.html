@@ -30,6 +30,8 @@ var ChickenMap = function(_domName, _longitude, _latitude) {
 	var tileHeight = 256;
 	var dispWidth;
 	var dispHeight;
+	var dispLongitudeOffset = 0.0;
+	var dispLatitudeOffset = 0.0;
 	var tileWrapper;
 
 	if (this.longitude == undefined) {
@@ -77,7 +79,10 @@ var ChickenMap = function(_domName, _longitude, _latitude) {
 			var mouseX = e.clientX - offX;
 			var mouseY = e.clientY - offY;
 
-			$("#map_opmask").text(mouseX + " , " + mouseY);
+			var mouseLong = dispLongitudeOffset + mouseX*PIXEL2LONG[self.zoom];
+			var mouseLat = dispLatitudeOffset + mouseY*pixel2lat(lat2tile(dispLatitudeOffset, self.zoom), self.zoom);
+			$("#map_opmask").html(mouseX + " , " + mouseY + "<br />" + mouseLong + ", " + mouseLat);
+
 		});
 
 
@@ -121,14 +126,17 @@ var ChickenMap = function(_domName, _longitude, _latitude) {
 		var offsetY = centerTileTopMargin - (topTileNum * tileHeight);
 		console.log(offsetX + ", " + offsetY);
 
-		var tileCntX = Math.floor(dispWidth / tileWidth) + 1;
-		var tileCntY = Math.floor(dispHeight / tileHeight) + 1;
+		var tileCntX = Math.floor(dispWidth / tileWidth) + 2;
+		var tileCntY = Math.floor(dispHeight / tileHeight) + 2;
 
 		var baseTile = getTileOfGps(self.longitude, self.latitude, self.zoom);
 		baseTile.x -= leftTileNum;
 		baseTile.y -= topTileNum;
 		var tile = getTileOfGps(self.longitude, self.latitude, self.zoom);
 
+		//calculate disp gps offset;
+		dispLongitudeOffset = tile2long(baseTile.x, baseTile.zoom) - offsetX*PIXEL2LONG[baseTile.zoom];
+		dispLatitudeOffset = tile2lat(baseTile.y, baseTile.zoom) - offsetY*pixel2lat(baseTile.y, baseTile.zoom);
 
 		console.log(baseTile);
 		var x, y;
@@ -197,7 +205,8 @@ $(document).ready(function() {
 	var map = new ChickenMap("#map");
 	//map.test();
 
-	map.setPosition(121.504368, 31.294153);
+	//map.setPosition(121.504368, 31.294153);
+	map.setPosition(121.464668, 31.226358);
 	
 });
 </script>
