@@ -4,27 +4,32 @@
 		<script src="/gps/html/jquery-1.11.2.min.js"></script>
 <script>
 
- function long2tile(lon,zoom) { return (Math.floor((lon+180)/360*Math.pow(2,zoom))); }
- function lat2tile(lat,zoom)  { return (Math.floor((1-Math.log(Math.tan(lat*Math.PI/180) + 1/Math.cos(lat*Math.PI/180))/Math.PI)/2 *Math.pow(2,zoom))); }
+function long2tile(lon,zoom) { return (Math.floor((lon+180)/360*Math.pow(2,zoom))); }
+function lat2tile(lat,zoom)  { return (Math.floor((1-Math.log(Math.tan(lat*Math.PI/180) + 1/Math.cos(lat*Math.PI/180))/Math.PI)/2 *Math.pow(2,zoom))); }
 
 
- function tile2long(x,z) {
-  return (x/Math.pow(2,z)*360-180);
- }
- function tile2lat(y,z) {
-  var n=Math.PI-2*Math.PI*y/Math.pow(2,z);
-  return (180/Math.PI*Math.atan(0.5*(Math.exp(n)-Math.exp(-n))));
- }
+function tile2long(x,z) {
+	return (x/Math.pow(2,z)*360-180);
+}
+
+function tile2lat(y,z) {
+	var n=Math.PI-2*Math.PI*y/Math.pow(2,z);
+	return (180/Math.PI*Math.atan(0.5*(Math.exp(n)-Math.exp(-n))));
+}
+
+
 
 var ChickenMap = function(_domName, _longitude, _latitude) {
 	var self = this;
 	this.domName = _domName;
 	this.longitude = _longitude;
 	this.latitude = _latitude;
-	this.zoom = 16;
+	this.zoom = 18;
 
 	var tileWidth = 256;
 	var tileHeight = 256;
+	var dispWidth;
+	var dispHeight;
 
 	if (this.longitude == undefined) {
 		this.longitude = 121.504368;
@@ -47,16 +52,62 @@ var ChickenMap = function(_domName, _longitude, _latitude) {
 		return "/gps/tile/" + tile.zoom + "/" + tile.x + "/" + tile.y + "/256x256.png";
 	};
 
+	var PIXEL2LONG = [];
+	var setup = function() {
+		dispHeight = $(self.domName).height();
+		dispWidth = $(self.domName).width();
+
+		var i;
+		for (i=0; i<19; ++i) {
+			PIXEL2LONG[i] = (1.0/Math.pow(2,i)*360) / tileWidth;
+		}
+
+
+	}
+
+	setup();
+
+	var pixel2lat = function(tileY, zoom) {
+		var top = tile2lat(tileY, zoom);
+		var down = tile2lat(tileY+1, zoom);
+		var gpsHeight = down - top;
+		return gpsHeight / tileHeight;
+	};
+
+
 	this.setPosition = function(lon, lat){
 		self.longitude = lon;
 		self.latitude = lat;
+
+		console.log("ready to show gps " + lon + ", " + lat);
+		var centerTile = getTileOfGps(self.longitude, self.latitude, self.zoom);
+		var gpsLeftInTile = tile2long(centerTile.x, centerTile.zoom);
+		var gpsTopInTile = tile2lat(centerTile.y, centerTile.zoom);
+
+		console.log("center tile gps: " + gpsLeftInTile + ", " + gpsTopInTile);
+
+		var pixelInTileLeft = parseInt((self.longitude - gpsLeftInTile) / PIXEL2LONG[self.zoom]);
+		var pixelInTileTop = parseInt((self.latitude - gpsTopInTile) / pixel2lat(centerTile.y, self.zoom));
+		console.log("pix in tile " + (pixelInTileLeft) + ", " + (pixelInTileTop));
+		console.log(pixel2lat(centerTile.y, self.zoom));
+
+		var centerTileTopMargin = parseInt(dispHeight / 2 - pixelInTileTop);
+		var centerTileLeftMargin = parseInt(dispWidth / 2 - pixelInTileLeft);
+		var centerTileButtomMargin = parseInt(dispHeight / 2 + pixelInTileTop);
+		var centerTileRightMargin = parseInt(dispWidth / 2 + pixelInTileLeft);
+
+		console.log(centerTileTopMargin);
+		console.log(centerTileLeftMargin);
+		console.log(centerTileButtomMargin);
+		console.log(centerTileRightMargin);
+
+
 	};
 
 
 
 	this.test = function() {
-		var dispHeight = $(self.domName).height();
-		var dispWidth = $(self.domName).width();
+
 
 		console.log(dispWidth);
 		var centerX = dispWidth / 2;
@@ -96,6 +147,17 @@ var ChickenMap = function(_domName, _longitude, _latitude) {
 		}
 
 		var opMask = $("<div>", {id:"map_opmask"}).appendTo($(self.domName));
+
+		$("#map_opmask").text("Hello World");
+		$("#map_opmask").mousemove(function (e) {
+			
+			var offX = $("#map_opmask").offset().left;
+			var offY = $("#map_opmask").offset().top;
+			var mouseX = e.clientX - offX;
+			var mouseY = e.clientY - offY;
+
+			$("#map_opmask").text(mouseX + " , " + mouseY);
+		});
 	};
 
 
@@ -107,6 +169,8 @@ $(document).ready(function() {
 
 	var map = new ChickenMap("#map");
 	map.test();
+
+	map.setPosition(121.504368, 31.294153);
 	
 });
 </script>
