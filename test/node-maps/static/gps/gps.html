@@ -30,6 +30,7 @@ var ChickenMap = function(_domName, _longitude, _latitude) {
 	var tileHeight = 256;
 	var dispWidth;
 	var dispHeight;
+	var tileWrapper;
 
 	if (this.longitude == undefined) {
 		this.longitude = 121.504368;
@@ -63,6 +64,23 @@ var ChickenMap = function(_domName, _longitude, _latitude) {
 		}
 
 
+		$(self.domName).empty();
+
+		tileWrapper = $("<div>", {id: "map_tilewrap"}).appendTo($(self.domName));
+		var opMask = $("<div>", {id:"map_opmask"}).appendTo($(self.domName));
+
+		$("#map_opmask").text("Hello World");
+		$("#map_opmask").mousemove(function (e) {
+			
+			var offX = $("#map_opmask").offset().left;
+			var offY = $("#map_opmask").offset().top;
+			var mouseX = e.clientX - offX;
+			var mouseY = e.clientY - offY;
+
+			$("#map_opmask").text(mouseX + " , " + mouseY);
+		});
+
+
 	}
 
 	setup();
@@ -93,14 +111,36 @@ var ChickenMap = function(_domName, _longitude, _latitude) {
 
 		var centerTileTopMargin = parseInt(dispHeight / 2 - pixelInTileTop);
 		var centerTileLeftMargin = parseInt(dispWidth / 2 - pixelInTileLeft);
-		var centerTileButtomMargin = parseInt(dispHeight / 2 + pixelInTileTop);
-		var centerTileRightMargin = parseInt(dispWidth / 2 + pixelInTileLeft);
 
 		console.log(centerTileTopMargin);
 		console.log(centerTileLeftMargin);
-		console.log(centerTileButtomMargin);
-		console.log(centerTileRightMargin);
 
+		var leftTileNum = Math.floor(centerTileLeftMargin / tileWidth) + 1;
+		var offsetX = centerTileLeftMargin - (leftTileNum * tileWidth);
+		var topTileNum = Math.floor(centerTileTopMargin / tileHeight) + 1;
+		var offsetY = centerTileTopMargin - (topTileNum * tileHeight);
+		console.log(offsetX + ", " + offsetY);
+
+		var tileCntX = Math.floor(dispWidth / tileWidth) + 1;
+		var tileCntY = Math.floor(dispHeight / tileHeight) + 1;
+
+		var baseTile = getTileOfGps(self.longitude, self.latitude, self.zoom);
+		baseTile.x -= leftTileNum;
+		baseTile.y -= topTileNum;
+		var tile = getTileOfGps(self.longitude, self.latitude, self.zoom);
+
+
+		console.log(baseTile);
+		var x, y;
+		for (y=0; y<tileCntY; ++y) {
+			for (x=0; x<tileCntX; ++x) {
+				tile.x = baseTile.x + x;
+				tile.y = baseTile.y + y;
+				var tileImg = $("<img>", {class:"map_tile", src:getTileUrl(tile)});
+				tileImg.offset({"top": y*tileHeight+offsetY, "left": x*tileWidth+offsetX});
+				tileImg.appendTo(tileWrapper);
+			}
+		}
 
 	};
 
@@ -131,7 +171,7 @@ var ChickenMap = function(_domName, _longitude, _latitude) {
 		}
 
 		//clear div
-		$(self.domName).empty();
+		$(tileWrapper).empty();
 		console.log("x: " + tileCntX);
 		console.log("y: " + tileCntY);
 		console.log($(self.domName).offset());
@@ -142,22 +182,9 @@ var ChickenMap = function(_domName, _longitude, _latitude) {
 				tile.y = baseTileY + y;
 				var tileImg = $("<img>", {class:"map_tile", src:getTileUrl(tile)});
 				tileImg.offset({"top": y*tileHeight, "left": x * tileWidth});
-				tileImg.appendTo($(self.domName));
+				tileImg.appendTo(tileWrapper);
 			}
 		}
-
-		var opMask = $("<div>", {id:"map_opmask"}).appendTo($(self.domName));
-
-		$("#map_opmask").text("Hello World");
-		$("#map_opmask").mousemove(function (e) {
-			
-			var offX = $("#map_opmask").offset().left;
-			var offY = $("#map_opmask").offset().top;
-			var mouseX = e.clientX - offX;
-			var mouseY = e.clientY - offY;
-
-			$("#map_opmask").text(mouseX + " , " + mouseY);
-		});
 	};
 
 
@@ -168,7 +195,7 @@ var ChickenMap = function(_domName, _longitude, _latitude) {
 $(document).ready(function() {
 
 	var map = new ChickenMap("#map");
-	map.test();
+	//map.test();
 
 	map.setPosition(121.504368, 31.294153);
 	
