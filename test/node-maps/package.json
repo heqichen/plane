@@ -4,11 +4,12 @@
   "description": "WEBUI for showing GPS maps",
   "main": "main.js",
   "scripts": {
-    "test": "node main 8080"
+    "test": "node main 8080 ~/chicken-maps/opencyclemap/"
   },
   "author": "HE Qichen",
   "license": "MIT",
   "dependencies": {
-    "bl": "~0.9.4"
+    "bl": "~0.9.4",
+    "mkdirp": "^0.5.0"
   }
 }
