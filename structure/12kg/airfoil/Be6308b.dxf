@@ -1,0 +1,5474 @@
+  0
+SECTION
+  2
+HEADER
+  9
+$ACADVER
+  1
+AC1004
+  9
+$EXTMIN
+ 10
+0.2020
+ 20
+3.6499
+  9
+$EXTMAX
+ 10
+40.2010
+ 20
+23.3149
+  9
+$LIMMIN
+ 10
+0.2020
+ 20
+3.6499
+  9
+$LIMMAX
+ 10
+40.2010
+ 20
+23.3149
+  9
+$INSBASE
+ 10
+0.0
+ 20
+0.0
+  9
+$VIEWCTR
+ 10
+7.21903
+ 20
+4.5
+  9
+$VIEWSIZE
+ 40
+9.0
+  9
+$SNAPMODE
+ 70
+     0
+  9
+$SNAPUNIT
+ 10
+1.0
+ 20
+1.0
+  9
+$SNAPBASE
+ 10
+0.0
+ 20
+0.0
+  9
+$SNAPANG
+ 50
+0.0
+  9
+$SNAPSTYLE
+ 70
+     0
+  9
+$SNAPISOPAIR
+ 70
+     0
+  9
+$GRIDMODE
+ 70
+     0
+  9
+$GRIDUNIT
+ 10
+0.0
+ 20
+0.0
+  9
+$ORTHOMODE
+ 70
+     0
+  9
+$REGENMODE
+ 70
+     1
+  9
+$FILLMODE
+ 70
+     1
+  9
+$QTEXTMODE
+ 70
+     0
+  9
+$DRAGMODE
+ 70
+     2
+  9
+$LTSCALE
+ 40
+1.0
+  9
+$OSMODE
+ 70
+     0
+  9
+$ATTMODE
+ 70
+     1
+  9
+$TEXTSIZE
+ 40
+0.2
+  9
+$TRACEWID
+ 40
+0.05
+  9
+$TEXTSTYLE
+  7
+STANDARD
+  9
+$CLAYER
+  8
+0
+  9
+$CELTYPE
+  6
+BYLAYER
+  9
+$CECOLOR
+ 62
+   256
+  9
+$DIMSCALE
+ 40
+1.0
+  9
+$DIMASZ
+ 40
+0.18
+  9
+$DIMEXO
+ 40
+0.0625
+  9
+$DIMDLI
+ 40
+0.38
+  9
+$DIMRND
+ 40
+0.0
+  9
+$DIMDLE
+ 40
+0.0
+  9
+$DIMEXE
+ 40
+0.18
+  9
+$DIMTP
+ 40
+0.0
+  9
+$DIMTM
+ 40
+0.0
+  9
+$DIMTXT
+ 40
+0.18
+  9
+$DIMCEN
+ 40
+0.09
+  9
+$DIMTSZ
+ 40
+0.0
+  9
+$DIMTOL
+ 70
+     0
+  9
+$DIMLIM
+ 70
+     0
+  9
+$DIMTIH
+ 70
+     1
+  9
+$DIMTOH
+ 70
+     1
+  9
+$DIMSE1
+ 70
+     0
+  9
+$DIMSE2
+ 70
+     0
+  9
+$DIMTAD
+ 70
+     0
+  9
+$DIMZIN
+ 70
+     0
+  9
+$DIMBLK
+  1
+
+  9
+$DIMASO
+ 70
+     1
+  9
+$DIMSHO
+ 70
+     0
+  9
+$DIMPOST
+  1
+
+  9
+$DIMAPOST
+  1
+
+  9
+$DIMALT
+ 70
+     0
+  9
+$DIMALTD
+ 70
+     2
+  9
+$DIMALTF
+ 40
+25.4
+  9
+$DIMLFAC
+ 40
+1.0
+  9
+$LUNITS
+ 70
+     2
+  9
+$LUPREC
+ 70
+     4
+  9
+$AXISMODE
+ 70
+     0
+  9
+$AXISUNIT
+ 10
+0.0
+ 20
+0.0
+  9
+$SKETCHINC
+ 40
+0.1
+  9
+$FILLETRAD
+ 40
+0.0
+  9
+$AUNITS
+ 70
+     0
+  9
+$AUPREC
+ 70
+     0
+  9
+$MENU
+  1
+acad
+  9
+$ELEVATION
+ 40
+0.0
+  9
+$THICKNESS
+ 40
+0.0
+  9
+$VIEWDIR
+ 10
+0.0
+ 20
+0.0
+ 30
+1.0
+  9
+$LIMCHECK
+ 70
+     0
+  9
+$BLIPMODE
+ 70
+     1
+  9
+$CHAMFERA
+ 40
+0.0
+  9
+$CHAMFERB
+ 40
+0.0
+  9
+$FASTZOOM
+ 70
+     1
+  9
+$SKPOLY
+ 70
+     0
+  9
+$TDCREATE
+ 40
+2447222.5666886573
+  9
+$TDUPDATE
+ 40
+2447222.5666886573
+  9
+$TDINDWG
+ 40
+0.0000000000
+  9
+$TDUSRTIMER
+ 40
+0.0000000000
+  9
+$USRTIMER
+ 70
+     1
+  9
+$ANGBASE
+ 50
+0.0
+  9
+$ANGDIR
+ 70
+     0
+  9
+$PDMODE
+ 70
+     0
+  9
+$PDSIZE
+ 40
+0.0
+  9
+$PLINEWID
+ 40
+0.0
+  9
+$COORDS
+ 70
+     0
+  9
+$SPLFRAME
+ 70
+     0
+  9
+$SPLINESEGS
+ 70
+     8
+  9
+$ATTDIA
+ 70
+     0
+  9
+$ATTREQ
+ 70
+     1
+  9
+$USERI1
+ 70
+     0
+  9
+$USERI2
+ 70
+     0
+  9
+$USERI3
+ 70
+     0
+  9
+$USERI4
+ 70
+     0
+  9
+$USERI5
+ 70
+     0
+  9
+$USERR1
+ 40
+0.0
+  9
+$USERR2
+ 40
+0.0
+  9
+$USERR3
+ 40
+0.0
+  9
+$USERR4
+ 40
+0.0
+  9
+$USERR5
+ 40
+0.0
+  0
+ENDSEC
+  0
+SECTION
+  2
+TABLES
+  0
+TABLE
+  2
+LTYPE
+ 70
+     13
+  0
+LTYPE
+  2
+CONTINUOUS
+ 70
+    64
+  3
+Solid line
+ 72
+    65
+ 73
+     0
+ 40
+0.0
+  0
+LTYPE
+  2
+DASHED
+ 70
+    64
+  3
+__ __ __ __ __ __ __ __ __ __ __ __ __ __ __
+ 72
+    65
+ 73
+     2
+ 40
+0.75
+ 49
+0.5
+ 49
+-0.25
+  0
+LTYPE
+  2
+HIDDEN
+ 70
+    64
+  3
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+ 72
+    65
+ 73
+     2
+ 40
+0.375
+ 49
+0.25
+ 49
+-0.125
+  0
+LTYPE
+  2
+CENTER
+ 70
+    64
+  3
+____ _ ____ _ ____ _ ____ _ ____ _ ____ _ ____
+ 72
+    65
+ 73
+     4
+ 40
+2.0
+ 49
+1.25
+ 49
+-0.25
+ 49
+0.25
+ 49
+-0.25
+  0
+LTYPE
+  2
+PHANTOM
+ 70
+    64
+  3
+_____ _ _ _____ _ _ _____ _ _ _____ _ _ ____
+ 72
+    65
+ 73
+     6
+ 40
+2.5
+ 49
+1.25
+ 49
+-0.25
+ 49
+0.25
+ 49
+-0.25
+ 49
+0.25
+ 49
+-0.25
+  0
+LTYPE
+  2
+DOT
+ 70
+    64
+  3
+...............................................
+ 72
+    65
+ 73
+     2
+ 40
+0.25
+ 49
+0.0
+ 49
+-0.25
+  0
+LTYPE
+  2
+DASHDOT
+ 70
+    64
+  3
+__ . __ . __ . __ . __ . __ . __ . __ . __ . __
+ 72
+    65
+ 73
+     4
+ 40
+1.0
+ 49
+0.5
+ 49
+-0.25
+ 49
+0.0
+ 49
+-0.25
+  0
+LTYPE
+  2
+BORDER
+ 70
+    64
+  3
+__ __ . __ __ . __ __ . __ __ . __ __ . __ __
+ 72
+    65
+ 73
+     6
+ 40
+1.75
+ 49
+0.5
+ 49
+-0.25
+ 49
+0.5
+ 49
+-0.25
+ 49
+0.0
+ 49
+-0.25
+  0
+LTYPE
+  2
+DIVIDE
+ 70
+    64
+  3
+__ . . __ . . __ . . __ . . __ . . __ . . __
+ 72
+    65
+ 73
+     6
+ 40
+1.25
+ 49
+0.5
+ 49
+-0.25
+ 49
+0.0
+ 49
+-0.25
+ 49
+0.0
+ 49
+-0.25
+  0
+LTYPE
+  2
+DCTYPE1
+ 70
+    64
+  3
+__ . . __ . . __ . . __ . . __ . . __ . . __
+ 72
+    65
+ 73
+     8
+ 40
+2.5
+ 49
+0.5
+ 49
+-0.25
+ 49
+0.125
+ 49
+-0.25
+ 49
+0.25
+ 49
+-0.25
+ 49
+0.125
+ 49
+-0.25
+  0
+LTYPE
+  2
+DCTYPE2
+ 70
+    64
+  3
+__ . . __ . . __ . . __ . . __ . . __ . . __
+ 72
+    65
+ 73
+     6
+ 40
+2.05
+ 49
+1.0
+ 49
+-0.3
+ 49
+0.15
+ 49
+-0.15
+ 49
+0.15
+ 49
+-0.3
+  0
+LTYPE
+  2
+DCTYPE3
+ 70
+    64
+  3
+__ . . __ . . __ . . __ . . __ . . __ . . __
+ 72
+    65
+ 73
+     6
+ 40
+2.5
+ 49
+0.8
+ 49
+-0.2
+ 49
+0.8
+ 49
+-0.2
+ 49
+0.3
+ 49
+-0.2
+  0
+LTYPE
+  2
+DCTYPE4
+ 70
+    64
+  3
+__ . . __ . . __ . . __ . . __ . . __ . . __
+ 72
+    65
+ 73
+     10
+ 40
+3.97
+ 49
+1.75
+ 49
+-0.3
+ 49
+0.3
+ 49
+-0.3
+ 49
+0.06
+ 49
+-0.3
+ 49
+0.06
+ 49
+-0.3
+ 49
+0.3
+ 49
+-0.3
+  0
+ENDTAB
+  0
+TABLE
+  2
+LAYER
+ 70
+    153
+  0
+LAYER
+  2
+0
+ 70
+ 64
+ 62
+     7
+  6
+CONTINUOUS
+  0
+ENDTAB
+  0
+ENDSEC
+  0
+SECTION
+  2
+BLOCKS
+  0
+ENDSEC
+  0
+SECTION
+  2
+ENTITIES
+  0
+TEXT
+  8
+0
+ 62
+     7
+ 10
+0.2020
+ 20
+19.6496
+ 40
+3.0545
+ 50
+0.0000
+ 51
+0.0000
+  1
+BENEDEK 6308B
+ 72
+     5
+ 11
+40.2010
+ 21
+19.6496
+  0
+POLYLINE
+  8
+0
+ 62
+     3
+ 66
+     1
+  6
+CONTINUOUS
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.2020
+ 20
+3.9299
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.2413
+ 20
+3.9892
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.2807
+ 20
+4.0484
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.3203
+ 20
+4.1075
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.3602
+ 20
+4.1663
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.4005
+ 20
+4.2247
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.4413
+ 20
+4.2828
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.4827
+ 20
+4.3404
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.5248
+ 20
+4.3974
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.5676
+ 20
+4.4537
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.6114
+ 20
+4.5093
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.6562
+ 20
+4.5641
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.7020
+ 20
+4.6179
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.7402
+ 20
+4.6611
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.7792
+ 20
+4.7037
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.8189
+ 20
+4.7456
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.8593
+ 20
+4.7869
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.9003
+ 20
+4.8276
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.9419
+ 20
+4.8678
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+0.9841
+ 20
+4.9074
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+1.0267
+ 20
+4.9465
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+1.0699
+ 20
+4.9851
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+1.1135
+ 20
+5.0232
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+1.1576
+ 20
+5.0608
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+1.2020
+ 20
+5.0979
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+1.2812
+ 20
+5.1623
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+1.3613
+ 20
+5.2255
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+1.4424
+ 20
+5.2874
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+1.5243
+ 20
+5.3481
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+1.6069
+ 20
+5.4078
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+1.6903
+ 20
+5.4664
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+1.7744
+ 20
+5.5242
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+1.8590
+ 20
+5.5811
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+1.9441
+ 20
+5.6373
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+2.0297
+ 20
+5.6927
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+2.1157
+ 20
+5.7476
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+2.2020
+ 20
+5.8019
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+2.2841
+ 20
+5.8530
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+2.3664
+ 20
+5.9037
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+2.4490
+ 20
+5.9540
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+2.5318
+ 20
+6.0039
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+2.6148
+ 20
+6.0535
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+2.6980
+ 20
+6.1026
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+2.7815
+ 20
+6.1514
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+2.8651
+ 20
+6.1998
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+2.9490
+ 20
+6.2479
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+3.0331
+ 20
+6.2956
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+3.1174
+ 20
+6.3429
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+3.2019
+ 20
+6.3899
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+3.2839
+ 20
+6.4350
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+3.3660
+ 20
+6.4797
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+3.4483
+ 20
+6.5240
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+3.5309
+ 20
+6.5679
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+3.6137
+ 20
+6.6113
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+3.6968
+ 20
+6.6542
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+3.7802
+ 20
+6.6965
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+3.8639
+ 20
+6.7381
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+3.9479
+ 20
+6.7792
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+4.0322
+ 20
+6.8195
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+4.1169
+ 20
+6.8591
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+4.2019
+ 20
+6.8979
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+4.3631
+ 20
+6.9688
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+4.5256
+ 20
+7.0368
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+4.6892
+ 20
+7.1022
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+4.8540
+ 20
+7.1649
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+5.0197
+ 20
+7.2250
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+5.1864
+ 20
+7.2826
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+5.3539
+ 20
+7.3379
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+5.5222
+ 20
+7.3909
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+5.6913
+ 20
+7.4417
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+5.8609
+ 20
+7.4904
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+6.0312
+ 20
+7.5371
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+6.2019
+ 20
+7.5818
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+6.3668
+ 20
+7.6233
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+6.5321
+ 20
+7.6630
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+6.6977
+ 20
+7.7010
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+6.8637
+ 20
+7.7374
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+7.0299
+ 20
+7.7721
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+7.1965
+ 20
+7.8052
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+7.3634
+ 20
+7.8367
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+7.5306
+ 20
+7.8665
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+7.6980
+ 20
+7.8947
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+7.8657
+ 20
+7.9213
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+8.0337
+ 20
+7.9464
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+8.2018
+ 20
+7.9698
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+8.3677
+ 20
+7.9914
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+8.5338
+ 20
+8.0115
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+8.7000
+ 20
+8.0301
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+8.8664
+ 20
+8.0474
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+9.0330
+ 20
+8.0632
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+9.1997
+ 20
+8.0777
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+9.3665
+ 20
+8.0908
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+9.5334
+ 20
+8.1027
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+9.7004
+ 20
+8.1133
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+9.8675
+ 20
+8.1226
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+10.0346
+ 20
+8.1308
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+10.2018
+ 20
+8.1378
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+10.3684
+ 20
+8.1437
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+10.5350
+ 20
+8.1485
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+10.7016
+ 20
+8.1523
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+10.8683
+ 20
+8.1552
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+11.0350
+ 20
+8.1571
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+11.2016
+ 20
+8.1582
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+11.3683
+ 20
+8.1585
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+11.5350
+ 20
+8.1580
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+11.7017
+ 20
+8.1569
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+11.8684
+ 20
+8.1551
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+12.0350
+ 20
+8.1527
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+12.2017
+ 20
+8.1498
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+12.5355
+ 20
+8.1426
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+12.8692
+ 20
+8.1334
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+13.2028
+ 20
+8.1223
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+13.5364
+ 20
+8.1094
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+13.8699
+ 20
+8.0947
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+14.2034
+ 20
+8.0781
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+14.5367
+ 20
+8.0598
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+14.8699
+ 20
+8.0396
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+15.2030
+ 20
+8.0178
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+15.5360
+ 20
+7.9942
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+15.8689
+ 20
+7.9688
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+16.2016
+ 20
+7.9418
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+16.5358
+ 20
+7.9130
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+16.8697
+ 20
+7.8826
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+17.2036
+ 20
+7.8506
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+17.5372
+ 20
+7.8172
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+17.8708
+ 20
+7.7822
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+18.2042
+ 20
+7.7459
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+18.5374
+ 20
+7.7082
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+18.8705
+ 20
+7.6693
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+19.2035
+ 20
+7.6291
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+19.5363
+ 20
+7.5878
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+19.8690
+ 20
+7.5453
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+20.2015
+ 20
+7.5019
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+20.5356
+ 20
+7.4571
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+20.8695
+ 20
+7.4115
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+21.2033
+ 20
+7.3648
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+21.5369
+ 20
+7.3172
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+21.8704
+ 20
+7.2688
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+22.2038
+ 20
+7.2194
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+22.5371
+ 20
+7.1692
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+22.8702
+ 20
+7.1181
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+23.2032
+ 20
+7.0662
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+23.5361
+ 20
+7.0135
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+23.8688
+ 20
+6.9601
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+24.2014
+ 20
+6.9059
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+24.5354
+ 20
+6.8507
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+24.8692
+ 20
+6.7948
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+25.2029
+ 20
+6.7383
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+25.5364
+ 20
+6.6810
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+25.8699
+ 20
+6.6232
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+26.2033
+ 20
+6.5647
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+26.5365
+ 20
+6.5056
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+26.8697
+ 20
+6.4459
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+27.2027
+ 20
+6.3857
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+27.5357
+ 20
+6.3249
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+27.8686
+ 20
+6.2637
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+28.2013
+ 20
+6.2019
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+28.5351
+ 20
+6.1394
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+28.8688
+ 20
+6.0765
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+29.2023
+ 20
+6.0132
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+29.5358
+ 20
+5.9494
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+29.8693
+ 20
+5.8852
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+30.2026
+ 20
+5.8207
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+30.5359
+ 20
+5.7557
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+30.8691
+ 20
+5.6904
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+31.2022
+ 20
+5.6248
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+31.5353
+ 20
+5.5588
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+31.8683
+ 20
+5.4925
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+32.2012
+ 20
+5.4259
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+32.5348
+ 20
+5.3589
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+32.8684
+ 20
+5.2916
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+33.2019
+ 20
+5.2241
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+33.5353
+ 20
+5.1563
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+33.8687
+ 20
+5.0882
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+34.2020
+ 20
+5.0200
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+34.5353
+ 20
+4.9515
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+34.8686
+ 20
+4.8827
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+35.2018
+ 20
+4.8138
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+35.5349
+ 20
+4.7447
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+35.8681
+ 20
+4.6754
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+36.2011
+ 20
+4.6059
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+36.5346
+ 20
+4.5362
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+36.8680
+ 20
+4.4663
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+37.2014
+ 20
+4.3963
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+37.5348
+ 20
+4.3261
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+37.8681
+ 20
+4.2558
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+38.2014
+ 20
+4.1855
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+38.5347
+ 20
+4.1150
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+38.8680
+ 20
+4.0445
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+39.2013
+ 20
+3.9739
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+39.5345
+ 20
+3.9033
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+39.8678
+ 20
+3.8326
+  0
+VERTEX
+  8
+0
+ 62
+     3
+  6
+CONTINUOUS
+ 10
+40.2010
+ 20
+3.7619
+  0
+SEQEND
+  8
+0
+  0
+POLYLINE
+  8
+0
+ 62
+     1
+ 66
+     1
+  6
+CONTINUOUS
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.2020
+ 20
+3.9299
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.2425
+ 20
+3.9003
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.2831
+ 20
+3.8710
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.3237
+ 20
+3.8424
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.3646
+ 20
+3.8149
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.4055
+ 20
+3.7888
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.4468
+ 20
+3.7643
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.4883
+ 20
+3.7420
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.5302
+ 20
+3.7221
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.5724
+ 20
+3.7050
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.6151
+ 20
+3.6911
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.6583
+ 20
+3.6806
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.7020
+ 20
+3.6739
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.7422
+ 20
+3.6714
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.7829
+ 20
+3.6720
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.8239
+ 20
+3.6754
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.8653
+ 20
+3.6813
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.9069
+ 20
+3.6893
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.9488
+ 20
+3.6991
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+0.9908
+ 20
+3.7104
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+1.0330
+ 20
+3.7229
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+1.0753
+ 20
+3.7362
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+1.1175
+ 20
+3.7501
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+1.1598
+ 20
+3.7641
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+1.2020
+ 20
+3.7779
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+1.2870
+ 20
+3.8047
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+1.3715
+ 20
+3.8298
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+1.4557
+ 20
+3.8534
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+1.5395
+ 20
+3.8758
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+1.6229
+ 20
+3.8972
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+1.7061
+ 20
+3.9178
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+1.7890
+ 20
+3.9378
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+1.8718
+ 20
+3.9576
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+1.9544
+ 20
+3.9772
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+2.0370
+ 20
+3.9970
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+2.1195
+ 20
+4.0172
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+2.2020
+ 20
+4.0379
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+2.2852
+ 20
+4.0597
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+2.3684
+ 20
+4.0822
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+2.4517
+ 20
+4.1053
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+2.5350
+ 20
+4.1291
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+2.6184
+ 20
+4.1533
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+2.7017
+ 20
+4.1780
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+2.7851
+ 20
+4.2030
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+2.8685
+ 20
+4.2282
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+2.9519
+ 20
+4.2537
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+3.0352
+ 20
+4.2791
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+3.1186
+ 20
+4.3046
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+3.2019
+ 20
+4.3299
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+3.2853
+ 20
+4.3551
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+3.3686
+ 20
+4.3801
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+3.4519
+ 20
+4.4049
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+3.5352
+ 20
+4.4296
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+3.6185
+ 20
+4.4541
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+3.7018
+ 20
+4.4785
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+3.7851
+ 20
+4.5027
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+3.8684
+ 20
+4.5268
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+3.9517
+ 20
+4.5507
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+4.0351
+ 20
+4.5746
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+4.1185
+ 20
+4.5983
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+4.2019
+ 20
+4.6219
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+4.3675
+ 20
+4.6685
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+4.5334
+ 20
+4.7147
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+4.6993
+ 20
+4.7604
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+4.8655
+ 20
+4.8055
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+5.0318
+ 20
+4.8501
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+5.1984
+ 20
+4.8941
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+5.3651
+ 20
+4.9374
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+5.5320
+ 20
+4.9800
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+5.6992
+ 20
+5.0218
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+5.8665
+ 20
+5.0627
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+6.0341
+ 20
+5.1028
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+6.2019
+ 20
+5.1419
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+6.3674
+ 20
+5.1795
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+6.5331
+ 20
+5.2161
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+6.6990
+ 20
+5.2517
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+6.8652
+ 20
+5.2863
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+7.0315
+ 20
+5.3197
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+7.1981
+ 20
+5.3521
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+7.3649
+ 20
+5.3834
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+7.5319
+ 20
+5.4135
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+7.6991
+ 20
+5.4424
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+7.8664
+ 20
+5.4702
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+8.0340
+ 20
+5.4967
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+8.2018
+ 20
+5.5219
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+8.3677
+ 20
+5.5456
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+8.5338
+ 20
+5.5680
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+8.7000
+ 20
+5.5891
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+8.8664
+ 20
+5.6091
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+9.0329
+ 20
+5.6278
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+9.1996
+ 20
+5.6454
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+9.3664
+ 20
+5.6617
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+9.5333
+ 20
+5.6769
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+9.7003
+ 20
+5.6909
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+9.8674
+ 20
+5.7037
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+10.0346
+ 20
+5.7154
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+10.2018
+ 20
+5.7259
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+10.3683
+ 20
+5.7353
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+10.5348
+ 20
+5.7436
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+10.7014
+ 20
+5.7510
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+10.8680
+ 20
+5.7576
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+11.0346
+ 20
+5.7634
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+11.2013
+ 20
+5.7685
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+11.3680
+ 20
+5.7730
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+11.5347
+ 20
+5.7770
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+11.7015
+ 20
+5.7806
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+11.8682
+ 20
+5.7839
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+12.0350
+ 20
+5.7870
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+12.2017
+ 20
+5.7899
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+12.5351
+ 20
+5.7955
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+12.8684
+ 20
+5.8008
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+13.2018
+ 20
+5.8057
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+13.5351
+ 20
+5.8101
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+13.8684
+ 20
+5.8140
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+14.2017
+ 20
+5.8172
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+14.5351
+ 20
+5.8196
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+14.8684
+ 20
+5.8213
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+15.2017
+ 20
+5.8220
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+15.5350
+ 20
+5.8217
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+15.8683
+ 20
+5.8204
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+16.2016
+ 20
+5.8179
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+16.5351
+ 20
+5.8141
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+16.8685
+ 20
+5.8092
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+17.2019
+ 20
+5.8030
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+17.5353
+ 20
+5.7957
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+17.8687
+ 20
+5.7872
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+18.2021
+ 20
+5.7776
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+18.5354
+ 20
+5.7669
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+18.8687
+ 20
+5.7551
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+19.2020
+ 20
+5.7423
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+19.5352
+ 20
+5.7285
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+19.8684
+ 20
+5.7137
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+20.2015
+ 20
+5.6979
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+20.5351
+ 20
+5.6812
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+20.8686
+ 20
+5.6636
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+21.2021
+ 20
+5.6451
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+21.5355
+ 20
+5.6259
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+21.8689
+ 20
+5.6059
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+22.2022
+ 20
+5.5853
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+22.5355
+ 20
+5.5640
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+22.8687
+ 20
+5.5421
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+23.2020
+ 20
+5.5197
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+23.5351
+ 20
+5.4969
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+23.8683
+ 20
+5.4736
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+24.2014
+ 20
+5.4499
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+24.5350
+ 20
+5.4259
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+24.8685
+ 20
+5.4015
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+25.2019
+ 20
+5.3766
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+25.5354
+ 20
+5.3514
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+25.8688
+ 20
+5.3257
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+26.2021
+ 20
+5.2995
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+26.5355
+ 20
+5.2728
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+26.8687
+ 20
+5.2455
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+27.2020
+ 20
+5.2176
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+27.5351
+ 20
+5.1890
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+27.8683
+ 20
+5.1598
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+28.2013
+ 20
+5.1299
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+28.5352
+ 20
+5.0992
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+28.8690
+ 20
+5.0676
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+29.2028
+ 20
+5.0352
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+29.5364
+ 20
+5.0020
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+29.8699
+ 20
+4.9678
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+30.2034
+ 20
+4.9326
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+30.5367
+ 20
+4.8963
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+30.8699
+ 20
+4.8590
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+31.2030
+ 20
+4.8206
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+31.5359
+ 20
+4.7809
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+31.8686
+ 20
+4.7401
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+32.2012
+ 20
+4.6979
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+32.5349
+ 20
+4.6543
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+32.8684
+ 20
+4.6096
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+33.2019
+ 20
+4.5639
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+33.5352
+ 20
+4.5174
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+33.8684
+ 20
+4.4704
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+34.2016
+ 20
+4.4230
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+34.5348
+ 20
+4.3755
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+34.8679
+ 20
+4.3280
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+35.2011
+ 20
+4.2806
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+35.5344
+ 20
+4.2337
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+35.8677
+ 20
+4.1874
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+36.2011
+ 20
+4.1419
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+36.5340
+ 20
+4.0975
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+36.8670
+ 20
+4.0539
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+37.2001
+ 20
+4.0112
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+37.5333
+ 20
+3.9692
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+37.8666
+ 20
+3.9278
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+38.1999
+ 20
+3.8870
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+38.5333
+ 20
+3.8468
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+38.8668
+ 20
+3.8069
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+39.2003
+ 20
+3.7674
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+39.5339
+ 20
+3.7281
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+39.8674
+ 20
+3.6890
+  0
+VERTEX
+  8
+0
+ 62
+     1
+  6
+CONTINUOUS
+ 10
+40.2010
+ 20
+3.6499
+  0
+SEQEND
+  8
+0
+  0
+ENDSEC
+  0
+EOF
