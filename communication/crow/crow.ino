@@ -7,11 +7,11 @@
 #define MAX_PAYLOAD_LENGTH 32
 #define READING_TIMEOUT	2
 
-const int myChannel = 80;
-const uint64_t myAddr = 0xF0F0F0F0E2LL;
+const int myChannel = 30;
+const uint64_t myAddr = 0xF0F0F0F0E1LL;
 
-const int anotherChannel = 30;
-const uint64_t anotherAddr = 0xF0F0F0F0E1LL;
+const int anotherChannel = 80;
+const uint64_t anotherAddr = 0xF0F0F0F0E2LL;
 
 //TODO:
 /*
@@ -22,6 +22,7 @@ const uint64_t anotherAddr = 0xF0F0F0F0E1LL;
 */
 RF24 transRadio(9, 10);
 RF24 recvRadio(8, 7);
+
 unsigned char buffer[128];
 
 void setupTransmitter()
@@ -70,6 +71,14 @@ void setup(void)
 
 	setupTransmitter();
 	setupReceiver();
+	pinMode(4, OUTPUT);
+
+	pinMode(5, OUTPUT);
+	pinMode(6, OUTPUT);
+
+	digitalWrite(4, LOW);
+	digitalWrite(5, LOW);
+	digitalWrite(6, LOW);
 }
 
 void loop(void)
@@ -77,33 +86,20 @@ void loop(void)
 	int i;
 	for (i='a'; i<='z'; ++i)
 	{
+		digitalWrite(5, HIGH);
+		digitalWrite(4, HIGH);
 		buffer[0] = i;
 		transRadio.write(buffer, 1);
-		transRadio.flushRx();
-
-		while (recvRadio.available())
-		{
-			bool isLastPacket = false;
-			while (!isLastPacket)
-			{
-				uint8_t payloadSize = recvRadio.getDynamicPayloadSize();
-				//Serial.print("got a payload, size is: ");
-				//Serial.print(payloadSize);
-				isLastPacket = recvRadio.read(buffer, payloadSize);
-
-				//Serial.print("\tdata: ");
-				//printBuffer(payloadSize);
-				//Serial.println();
-
-				int i;
-				for (i=0; i<payloadSize; ++i)
-				{
-					Serial.write(buffer[i]);
-				}
-			}
-		}
-		delay(1000);
+		delay(50);
+		digitalWrite(5, LOW);
+		digitalWrite(4, LOW);
+		delay(150);
+		//transRadio.flushRx();
 	}
+	//transRadio.flushRx();
+	//delay(20);
+
+	
 
 }
 
