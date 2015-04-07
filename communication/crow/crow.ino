@@ -7,11 +7,28 @@
 #define MAX_PAYLOAD_LENGTH 32
 #define READING_TIMEOUT	2
 
-const int myChannel = 30;
-const uint64_t myAddr = 0xF0F0F0F0E1LL;
+#define DEVICE_ID	0
 
-const int anotherChannel = 80;
-const uint64_t anotherAddr = 0xF0F0F0F0E2LL;
+#if DEVICE_ID == 0
+	const uint64_t myAddr = 0xF0F0F0F0E1LL;
+	const int myChannel = 80;
+	const uint64_t anotherAddr = 0xF0F0F0F0E2LL;
+	const int anotherChannel = 30;
+#elif DEVICE_ID == 1
+	const uint64_t myAddr = 0xF0F0F0F0E2LL;
+	const int myChannel = 30;
+	const uint64_t anotherAddr = 0xF0F0F0F0E1LL;
+	const int anotherChannel = 80;
+#else
+	const uint64_t myAddr = 0xF0F0F0F0E1LL;
+	const int myChannel = 80;
+	const uint64_t anotherAddr = 0xF0F0F0F0E2LL;
+	const int anotherChannel = 30;
+#endif
+
+
+
+
 
 //TODO:
 /*
@@ -64,6 +81,16 @@ void setupReceiver()
 	recvRadio.printDetails();
 }
 
+void txEn(bool status)
+{
+	digitalWrite(5, status);
+}
+void changeLed(bool status)
+{
+	digitalWrite(4, status);
+}
+
+
 void setup(void)
 {
 	Serial.begin(9600);
@@ -72,7 +99,6 @@ void setup(void)
 	setupTransmitter();
 	setupReceiver();
 	pinMode(4, OUTPUT);
-
 	pinMode(5, OUTPUT);
 	pinMode(6, OUTPUT);
 
@@ -83,23 +109,54 @@ void setup(void)
 
 void loop(void)
 {
+#if DEVICE_ID == 1
+	justRead();
+#else
+	justSend();
+#endif
+}
+
+
+
+
+void justRead()
+{
+	while (recvRadio.available())
+	{
+		bool isLastPacket = false;
+		while (!isLastPacket)
+		{
+			uint8_t payloadSize = recvRadio.getDynamicPayloadSize();
+			isLastPacket = recvRadio.read(buffer, payloadSize);
+
+			int i;
+			for (i=0; i<payloadSize; ++i)
+			{
+				Serial.write(buffer[i]);
+			}
+			delay(10);
+		}
+	}
+}
+
+void justSend()
+{
 	int i;
 	for (i='a'; i<='z'; ++i)
 	{
-		digitalWrite(5, HIGH);
-		digitalWrite(4, HIGH);
+		txEn(true);
 		buffer[0] = i;
 		transRadio.write(buffer, 1);
 		delay(50);
-		digitalWrite(5, LOW);
-		digitalWrite(4, LOW);
-		delay(150);
-		//transRadio.flushRx();
+		txEn(false);
+		delay(200);
 	}
-	//transRadio.flushRx();
-	//delay(20);
-
-	
-
+	txEn(true);
+	buffer[0] = '\n';
+	transRadio.write(buffer, 1);
+	delay(50);
+	txEn(false);
+	delay(200);
 }
 
+//how to write
