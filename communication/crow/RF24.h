@@ -50,6 +50,10 @@ class RF24
 		uint8_t flushRx(void);
 		uint8_t flushTx(void);
 
+		uint64_t getRxAddrP0(uint8_t *addrBuffer);
+		uint64_t getTxAddr(uint8_t *addrBuffer);
+
+		
 	 private:
 		uint8_t mCePin; /**< "Chip Enable" pin, activates the RX or TX role */
 		uint8_t mCsnPin; /**< SPI Chip select */

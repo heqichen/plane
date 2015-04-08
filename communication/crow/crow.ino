@@ -3,11 +3,13 @@
 #include "RF24.h"
 #include "printf.h"
 
+#define DEVICE_ID	1
 
 #define MAX_PAYLOAD_LENGTH 32
-#define READING_TIMEOUT	2
+#define READING_TIMEOUT	2UL
+#define HEALTH_TIMEOUT 5000UL
+#define FORCE_RESET_INTERVAL	600000UL
 
-#define DEVICE_ID	0
 
 #if DEVICE_ID == 0
 	const uint64_t myAddr = 0xF0F0F0F0E1LL;
@@ -41,6 +43,8 @@ RF24 transRadio(9, 10);
 RF24 recvRadio(8, 7);
 
 unsigned char buffer[128];
+unsigned long lastHealthTime;
+unsigned long lastResetTime;
 
 void setupTransmitter()
 {
@@ -93,9 +97,12 @@ void changeLed(bool status)
 
 void setup(void)
 {
-	Serial.begin(9600);
+	lastHealthTime = 0UL;
+	lastResetTime = 0UL;
+	Serial.begin(38400);
 	printf_begin();
 
+	delay(500);
 	setupTransmitter();
 	setupReceiver();
 	pinMode(4, OUTPUT);
@@ -109,15 +116,140 @@ void setup(void)
 
 void loop(void)
 {
+	//testDevice();
+	work();
+	if (millis() - lastHealthTime > HEALTH_TIMEOUT)
+	{
+		checkRadioHealth();
+	}
+	if (millis() - lastResetTime > FORCE_RESET_INTERVAL)
+	{
+		transRadio.powerDown();
+		setupTransmitter();
+		recvRadio.powerDown();
+		setupReceiver();
+
+		lastResetTime = millis();
+	}
+}
+
+void checkRadioHealth()
+{
+	while (!checkTransmitter())
+	{
+		changeLed(true);
+		transRadio.powerDown();
+		//transRadio.powerUp();
+		setupTransmitter();
+	}
+
+	while (!checkReceiver())
+	{
+		changeLed(true);
+		recvRadio.powerDown();
+		//transRadio.powerUp();
+		setupReceiver();
+	}
+	changeLed(false);
+	
+	lastHealthTime = millis();
+	
+}
+
+bool checkTransmitter()
+{
+	uint8_t addrBuffer[5];
+	uint64_t addr;
+	int i;
+	transRadio.getTxAddr(addrBuffer);
+	addr = 0;
+	for (i=0; i<5; ++i)
+	{
+		addr <<= 8;
+		addr |= (addrBuffer[4-i]);
+	}
+	return addr == anotherAddr;
+}
+
+bool checkReceiver()
+{
+	uint8_t addrBuffer[5];
+	uint64_t addr;
+	int i;
+	recvRadio.getRxAddrP0(addrBuffer);
+	addr = 0;
+	for (i=0; i<5; ++i)
+	{
+		addr <<= 8;
+		addr |= (addrBuffer[4-i]);
+	}
+	return addr == myAddr;
+}
+
+void work()
+{
+	int bufferLength = 0;
+	//STEP 1. receive
+	while (recvRadio.available())
+	{
+		bool isLastPacket = false;
+		while (!isLastPacket)
+		{
+			bufferLength = recvRadio.getDynamicPayloadSize();
+			isLastPacket = recvRadio.read(buffer, bufferLength);
+
+			int i;
+			for (i=0; i<bufferLength; ++i)
+			{
+				Serial.write(buffer[i]);
+			}
+			delay(2);
+		}
+	}
+	//STEP 2. sen.
+	
+	while (Serial.available())
+	{
+		bufferLength = 0;
+		unsigned long startSerialTime = millis();
+		while (true)
+		{
+			if (Serial.available())
+			{
+				buffer[bufferLength] = Serial.read();
+				++bufferLength;
+			}
+			else
+			{
+				delayMicroseconds(100UL);
+			}
+
+			if (
+				(bufferLength==MAX_PAYLOAD_LENGTH)
+				|| (millis() - startSerialTime > READING_TIMEOUT))
+			{
+				break;
+			}
+		}
+		changeLed(true);
+		txEn(true);
+		transRadio.write(buffer, bufferLength);
+		delay(2);
+		txEn(false);
+		delay(2);
+		changeLed(false);
+	}
+}
+
+
+void testDevice()
+{
 #if DEVICE_ID == 1
 	justRead();
 #else
 	justSend();
 #endif
 }
-
-
-
 
 void justRead()
 {
