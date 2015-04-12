@@ -53,3 +53,8 @@ Icon?
 ehthumbs.db
 Thumbs.db
 /app/styles/slide/slides.psd
+
+#Eagle temp files
+*.b#*
+*.s#*
+*.l#*

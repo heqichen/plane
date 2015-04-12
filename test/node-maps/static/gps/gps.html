@@ -1,0 +1,271 @@
+<html>
+	<head>
+		<title>Chicken GPS</title>
+		<script src="/gps/html/jquery-1.11.2.min.js"></script>
+<script>
+
+function long2tile(lon,zoom) { return (Math.floor((lon+180)/360*Math.pow(2,zoom))); }
+function lat2tile(lat,zoom)  { return (Math.floor((1-Math.log(Math.tan(lat*Math.PI/180) + 1/Math.cos(lat*Math.PI/180))/Math.PI)/2 *Math.pow(2,zoom))); }
+
+
+function tile2long(x,z) {
+	return (x/Math.pow(2,z)*360-180);
+}
+
+function tile2lat(y,z) {
+	var n=Math.PI-2*Math.PI*y/Math.pow(2,z);
+	return (180/Math.PI*Math.atan(0.5*(Math.exp(n)-Math.exp(-n))));
+}
+
+
+
+var ChickenMap = function(_domName, _longitude, _latitude) {
+	var self = this;
+	this.domName = _domName;
+	this.longitude = _longitude;
+	this.latitude = _latitude;
+	this.zoom = 18;
+
+	var tileWidth = 256;
+	var tileHeight = 256;
+	var dispWidth;
+	var dispHeight;
+	var dispLongitudeOffset = 0.0;
+	var dispLatitudeOffset = 0.0;
+	var tileWrapper;
+
+	if (this.longitude == undefined) {
+		this.longitude = 121.504368;
+	}
+
+	if (this.latitude == undefined) {
+		this.latitude = 31.294153;
+	}
+
+	var getTileOfGps = function(lon, lat, zo) {
+		return {
+			"x":long2tile(lon, zo),
+			"y": lat2tile(lat, zo),
+			"zoom": zo
+		};
+	};
+
+	var getTileUrl = function(tile) {
+		//return "http://tile.openstreetmap.org/" + tile.zoom + "/" + tile.x + "/" + tile.y + ".png";
+		return "/gps/tile/" + tile.zoom + "/" + tile.x + "/" + tile.y + "/256x256.png";
+	};
+
+	var PIXEL2LONG = [];
+	var setup = function() {
+		dispHeight = $(self.domName).height();
+		dispWidth = $(self.domName).width();
+
+		var i;
+		for (i=0; i<19; ++i) {
+			PIXEL2LONG[i] = (1.0/Math.pow(2,i)*360) / tileWidth;
+		}
+
+
+		$(self.domName).empty();
+
+		tileWrapper = $("<div>", {id: "map_tilewrap"}).appendTo($(self.domName));
+		var opMask = $("<div>", {id:"map_opmask"}).appendTo($(self.domName));
+
+		$("#map_opmask").text("Hello World");
+		$("#map_opmask").mousemove(function (e) {
+			
+			var offX = $("#map_opmask").offset().left;
+			var offY = $("#map_opmask").offset().top;
+			var mouseX = e.clientX - offX;
+			var mouseY = e.clientY - offY;
+
+			var mouseLong = dispLongitudeOffset + mouseX*PIXEL2LONG[self.zoom];
+			var mouseLat = dispLatitudeOffset + mouseY*pixel2lat(lat2tile(dispLatitudeOffset, self.zoom), self.zoom);
+			$("#map_opmask").html(mouseX + " , " + mouseY + "<br />" + mouseLong + ", " + mouseLat);
+
+		});
+		$("#map_opmask").mousedown(function(e) {
+			console.log(e);
+			if (e.button == 2) {
+				var offX = $("#map_opmask").offset().left;
+				var offY = $("#map_opmask").offset().top;
+				var mouseX = e.clientX - offX;
+				var mouseY = e.clientY - offY;
+
+				var mouseLong = dispLongitudeOffset + mouseX*PIXEL2LONG[self.zoom];
+				var mouseLat = dispLatitudeOffset + mouseY*pixel2lat(lat2tile(dispLatitudeOffset, self.zoom), self.zoom);
+
+				self.setPosition(mouseLong, mouseLat);
+			}
+		});
+
+
+
+	}
+
+	setup();
+
+	var pixel2lat = function(tileY, zoom) {
+		var top = tile2lat(tileY, zoom);
+		var down = tile2lat(tileY+1, zoom);
+		var gpsHeight = down - top;
+		return gpsHeight / tileHeight;
+	};
+
+
+	this.setPosition = function(lon, lat){
+		self.longitude = lon;
+		self.latitude = lat;
+
+		console.log("ready to show gps " + lon + ", " + lat);
+		var centerTile = getTileOfGps(self.longitude, self.latitude, self.zoom);
+		var gpsLeftInTile = tile2long(centerTile.x, centerTile.zoom);
+		var gpsTopInTile = tile2lat(centerTile.y, centerTile.zoom);
+
+		console.log("center tile gps: " + gpsLeftInTile + ", " + gpsTopInTile);
+
+		var pixelInTileLeft = parseInt((self.longitude - gpsLeftInTile) / PIXEL2LONG[self.zoom]);
+		var pixelInTileTop = parseInt((self.latitude - gpsTopInTile) / pixel2lat(centerTile.y, self.zoom));
+		console.log("pix in tile " + (pixelInTileLeft) + ", " + (pixelInTileTop));
+		console.log(pixel2lat(centerTile.y, self.zoom));
+
+		var centerTileTopMargin = parseInt(dispHeight / 2 - pixelInTileTop);
+		var centerTileLeftMargin = parseInt(dispWidth / 2 - pixelInTileLeft);
+
+		console.log(centerTileTopMargin);
+		console.log(centerTileLeftMargin);
+
+		var leftTileNum = Math.floor(centerTileLeftMargin / tileWidth) + 1;
+		var offsetX = centerTileLeftMargin - (leftTileNum * tileWidth);
+		var topTileNum = Math.floor(centerTileTopMargin / tileHeight) + 1;
+		var offsetY = centerTileTopMargin - (topTileNum * tileHeight);
+		console.log(offsetX + ", " + offsetY);
+
+		var tileCntX = Math.floor(dispWidth / tileWidth) + 2;
+		var tileCntY = Math.floor(dispHeight / tileHeight) + 2;
+
+		var baseTile = getTileOfGps(self.longitude, self.latitude, self.zoom);
+		baseTile.x -= leftTileNum;
+		baseTile.y -= topTileNum;
+		var tile = getTileOfGps(self.longitude, self.latitude, self.zoom);
+
+		//calculate disp gps offset;
+		dispLongitudeOffset = tile2long(baseTile.x, baseTile.zoom) - offsetX*PIXEL2LONG[baseTile.zoom];
+		dispLatitudeOffset = tile2lat(baseTile.y, baseTile.zoom) - offsetY*pixel2lat(baseTile.y, baseTile.zoom);
+
+		$(tileWrapper).empty();
+		console.log(baseTile);
+		var x, y;
+		for (y=0; y<tileCntY; ++y) {
+			for (x=0; x<tileCntX; ++x) {
+				tile.x = baseTile.x + x;
+				tile.y = baseTile.y + y;
+				var tileImg = $("<img>", {class:"map_tile", src:getTileUrl(tile)});
+				tileImg.offset({"top": y*tileHeight+offsetY, "left": x*tileWidth+offsetX});
+				tileImg.appendTo(tileWrapper);
+			}
+		}
+
+	};
+
+
+
+	this.test = function() {
+
+
+		console.log(dispWidth);
+		var centerX = dispWidth / 2;
+		var centerY = dispHeight / 2;
+
+
+		var tile = getTileOfGps(self.longitude, self.latitude, self.zoom);
+		var baseTileX = tile.x;
+		var baseTileY = tile.y;
+		getTileUrl(tile);
+
+
+
+		var tileCntX = dispWidth / tileWidth;
+		var tileCntY = dispHeight / tileHeight;
+		if (dispWidth % self.tileWidth != 0) {
+			tileCntX++;
+		}
+		if (dispHeight % self.tileHeight != 0) {
+			tileCntY ++;
+		}
+
+		//clear div
+		$(tileWrapper).empty();
+		console.log("x: " + tileCntX);
+		console.log("y: " + tileCntY);
+		console.log($(self.domName).offset());
+		var x, y;
+		for (y=0; y<tileCntY; ++y) {
+			for (x=0; x<tileCntX; ++x) {
+				tile.x = baseTileX + x;
+				tile.y = baseTileY + y;
+				var tileImg = $("<img>", {class:"map_tile", src:getTileUrl(tile)});
+				tileImg.offset({"top": y*tileHeight, "left": x * tileWidth});
+				tileImg.appendTo(tileWrapper);
+			}
+		}
+	};
+
+
+};
+
+
+
+$(document).ready(function() {
+
+	var map = new ChickenMap("#map");
+	//map.test();
+
+	//map.setPosition(121.504368, 31.294153);
+	map.setPosition(121.464668, 31.226358);
+	
+});
+</script>
+
+<style>
+#map
+{
+	width:	100%;
+	height:	100%;
+	background-color:	red;
+	margin:	0px;
+	padding:	0px;
+	overflow: hidden;
+	position:	relative;
+}
+
+.map_tile
+{
+	position: absolute;
+}
+
+#map_tilewrap
+{
+	position:	absolute;
+	height:	100%;
+	width: 100%;
+	top:	0px;
+	left:	0px;
+}
+
+#map_opmask
+{
+	z-index:	100;
+	position:	absolute;
+	height:	100%;
+	width:	100%;
+	top:	0px;
+	left:	0px;
+}
+</style>
+	</head>
+	<body>
+		
+		<div id="map">&nbsp;<h1>It Works!</h1></div>
+	</body>
+</html>

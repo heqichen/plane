@@ -906,9 +906,20 @@ void RF24::resetForSending(void)
 	flushTx();
 	flushRx();
 	*/
-	Serial.println(readRegister(CONFIG), BIN);
+	//Serial.println(readRegister(CONFIG), BIN);
 	writeRegister(CONFIG, readRegister(CONFIG) | _BV(PWR_UP));
-	Serial.println(readRegister(CONFIG), BIN);
+	//Serial.println(readRegister(CONFIG), BIN);
 	//writeRegister(STATUS, _BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT) );
 
+}
+
+
+uint64_t RF24::getRxAddrP0(uint8_t *addrBuffer)
+{
+	readRegister(RX_ADDR_P0, addrBuffer, 5);
+}
+
+uint64_t RF24::getTxAddr(uint8_t *addrBuffer)
+{
+	readRegister(TX_ADDR, addrBuffer, 5);
 }
