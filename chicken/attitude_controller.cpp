@@ -1,4 +1,5 @@
 #include "attitude_controller.h"
+#include <debug.h>
 #include <utils/util.h>
 
 #include <iostream>
@@ -23,6 +24,10 @@ pitch:	1000, 10, 0
 roll:	500, 10, 0
 
 */
+
+
+
+
 
 AttitudeController::AttitudeController(ADI *adi, ServoController *servoController)
 	:	mAdi				(adi),
@@ -88,7 +93,7 @@ void AttitudeController::work()
 	mServoController->writeServoSignal(mServo);
 
 
-
+#if DEBUG_ATT_CONTROLLER==1
 	//for debug
 	++count;
 	if (count >= 10)
@@ -104,6 +109,8 @@ void AttitudeController::work()
 
 		cout<<endl;
 	}
+#endif
+
 }
 
 
