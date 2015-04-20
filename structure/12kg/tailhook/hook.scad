@@ -1,16 +1,5 @@
-*rotate_extrude($fn=100)
-translate([(16.1/2)+(1.5/2),0,0])
 
-union(){
-
-circle(r=1.5);
-
-translate([0,1.4,0])circle(r=1.5);
-
-}
-
-
-$fn = 80;
+$fn = 150;
 
 height = 10.0;
 width = 50.0;
